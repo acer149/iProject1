@@ -94,9 +94,7 @@ function shellInit() {
     sc.description = " - Displays the users current location.";
     sc.function = shellWhereAmI;
     this.commandList[this.commandList.length] = sc;
-    
-    
-    //******************
+  
     //riddle 
     sc = new ShellCommand();
     sc.command = "riddles";
@@ -104,7 +102,12 @@ function shellInit() {
     sc.function = shellStartRiddles;
     this.commandList[this.commandList.length] = sc;
         
-    //******************
+	//status
+	sc = new ShellCommand();
+	sc.command = "status";
+	sc.description = "<string> - Changes the status in the bar above.";
+	sc.function = shellStatus;
+	this.commandList[this.commandList.length] = sc;
     
         
     // processes - list the running processes and their IDs
@@ -500,6 +503,8 @@ function shellStartRiddles(args) {
 	_StdIn.putText("Up, up it goes,");
 	_StdIn.advanceLine();
 	_StdIn.putText("And yet never grows?");
+	_StdIn.advanceLine();
+	_StdIn.advanceLine();
 }
 
 function shellSecondRiddle(args) {
@@ -515,6 +520,8 @@ function shellSecondRiddle(args) {
 	_StdIn.putText("Then they stamp,");
 	_StdIn.advanceLine();
 	_StdIn.putText("Then they stand still.");
+	_StdIn.advanceLine();
+	_StdIn.advanceLine();
 	
 }
 
@@ -535,6 +542,8 @@ function shellThirdRiddle(args) {
 	_StdIn.putText("Slays king, ruins town,");
 	_StdIn.advanceLine();
 	_StdIn.putText("And beats high mountain down.");
+	_StdIn.advanceLine();
+	_StdIn.advanceLine();
 }
 
 function shellFinish(args) {
@@ -566,3 +575,77 @@ function quitRiddles(args) {
 	_riddlesCorrect = 0;
 	_RiddlesMode = false;
 }
+
+function shellStatus(args) {
+	if (args.length > 0)
+    {
+        var status = args[0];
+        document.getElementById("statBar").innerHTML=status;
+    }
+    else
+    {
+        _StdIn.putText("Usage: status <string>  Please supply a string.");
+    }	
+}
+
+
+
+
+
+function taskBarDate(args) {
+	
+	var currentDate = new Date();
+	var amOrpm = "";
+
+	var hours = currentDate.getHours();
+	if (hours >= 12) {
+		hours = hours - 12;
+		amOrpm = "pm";
+	}
+	else {
+		amOrpm = "am";
+	}
+	
+	var minutes = currentDate.getMinutes();
+	if (minutes.length == 1) {
+		minutes = "0" + minutes;
+	}
+	else {
+	}
+	
+	var theDate = (currentDate.getMonth() + 1)  + "/" + currentDate.getDate()  + "/" + currentDate.getFullYear();
+	var theTime = (" " + hours + ":" + minutes + amOrpm);
+	var theDateAndTime = theDate + theTime;
+	document.getElementById("divStatusBar").innerHTML=theDateAndTime;
+	
+}
+
+setInterval(function taskBarDate(args){ 
+	var currentDate = new Date();
+	var amOrpm = "";
+
+	var hours = currentDate.getHours();
+	if (hours >= 12) {
+		hours = hours - 12;
+		amOrpm = "pm";
+	}
+	else {
+		amOrpm = "am";
+	}
+	
+	var minutes = currentDate.getMinutes();
+	if (minutes.length == 1) {
+		minutes = "0" + minutes;
+		alert(minutes);
+	}
+	else {
+	}
+	
+	var theDate = (currentDate.getMonth() + 1)  + "/" + currentDate.getDate()  + "/" + currentDate.getFullYear();
+	var theTime = (" " + hours + ":" + minutes + amOrpm);
+	var theDateAndTime = theDate + theTime;
+	document.getElementById("divStatusBar").innerHTML=theDateAndTime;
+	    
+}, 5000);
+
+

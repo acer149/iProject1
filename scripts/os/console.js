@@ -45,6 +45,17 @@ function CLIconsole() {
                this.buffer = "";
            }
            // TODO: Write a case for Ctrl-C.
+           //***
+           //Handle Backspace
+           else if (chr == String.fromCharCode(8)){
+           		
+           		//this.buffer.slice(-1) returns the last character from the buffer string
+           		this.backspace(this.buffer.slice(-1));
+           		
+           		//Removes the last character from the this.buffer string
+           		this.buffer = this.buffer.substring(0, this.buffer.length - 1);
+           }         
+           //***
            else
            {
                // This is a "normal" character, so ...
@@ -71,6 +82,21 @@ function CLIconsole() {
            this.CurrentXPosition = this.CurrentXPosition + offset;
        }
     };
+    
+    //***
+    this.backspace = function(text) {
+    	
+         // Move the current X position back one character (the parameter 'text' is sliced from the buffer)
+           var offset = _DrawingContext.measureText(this.CurrentFont, this.CurrentFontSize, text);
+           this.CurrentXPosition = this.CurrentXPosition - offset;
+           
+           //Draws a clear box over the backspaced character
+           _DrawingContext.clearRect(this.CurrentXPosition, (this.CurrentYPosition - (offset + 7)) , 20, 22);
+           console.log("Here");
+           
+    };
+   //***
+    
 
     this.advanceLine = function() {
        this.CurrentXPosition = 0;

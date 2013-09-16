@@ -41,6 +41,9 @@ function hostInit()
       _GLaDOS = new Glados();
       _GLaDOS.init();
    };
+   
+   //Calls date and time
+   taskBarDate();
 
 }
 
