@@ -116,6 +116,13 @@ function shellInit() {
 	sc.function = shellBSODTest;
 	this.commandList[this.commandList.length] = sc;
 	
+	//load
+	sc = new ShellCommand();
+	sc.command = "load";
+	sc.description = " - Checks user's code in the text area for errors.";
+	sc.function = shellLoad;
+	this.commandList[this.commandList.length] = sc;
+	
     
         
     // processes - list the running processes and their IDs
@@ -600,9 +607,17 @@ function shellBSODTest() {
 	krnTrapError();
 }
 
-
-
-
+function shellLoad() {
+	var checkString = document.getElementById("taProgramInput").value;
+	
+	if (checkString.match("^[0-9A-F \n]+$")) {
+		console.log("Nice!");	
+	}
+	else {
+		console.log("Nope");
+	}
+	
+}
 
 function taskBarDate(args) {
 	
@@ -620,7 +635,8 @@ function taskBarDate(args) {
 	
 	var minutes = currentDate.getMinutes();
 	if (minutes.length == 1) {
-		minutes = "0" + minutes;
+		minutes.toString();
+		sMinutes = "0" + minutes;
 	}
 	else {
 	}

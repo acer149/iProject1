@@ -27,6 +27,9 @@ function krnKbdDriverEntry()
 
 function krnKbdDispatchKeyPress(params)
 {
+	//used to display command prompt if an invalid key is pressed
+	this.promptStr   = ">";
+
     // Parse the params.    TODO: Check that they are valid and osTrapError if not.
     var keyCode = params[0];
     var isShifted = params[1];
@@ -51,10 +54,11 @@ function krnKbdDispatchKeyPress(params)
     }    
     else if ( ((keyCode >= 48) && (keyCode <= 57)) ||   // digits 
                (keyCode == 32)                     ||   // space
-               (keyCode == 13)                     ||   // enter  
-               (keyCode == 8)  					   ||   //backspace
-               (keyCode == 38) 					   ||   //up arrow
-               (keyCode == 40) )						//down arrow    
+               (keyCode == 13)                     ||   // enter 
+               (keyCode == 16) 					   ||   // shift 
+               (keyCode == 8)  					   ||   // backspace
+               (keyCode == 38) 					   ||   // up arrow
+               (keyCode == 40) )						// down arrow    
     {    	    	
 		//Punctuation when shift key is pressed
 		if (isShifted) {
@@ -194,6 +198,13 @@ function krnKbdDispatchKeyPress(params)
 				}
 			}
 		_KernelInputQueue.enqueue(chr);
+	}
+	//Handles error checking
+	else{
+		_StdIn.putText("Invalid Key Press");
+		_StdIn.advanceLine();
+		_StdIn.putText(this.promptStr);
+		
 	}
 }
 
