@@ -186,5 +186,16 @@ function krnTrapError(msg)
 {
     hostLog("OS ERROR - TRAP: " + msg);
     // TODO: Display error on console, perhaps in some sort of colored screen. (Perhaps blue?)
+    
+    //use a css class to change the color of the CLI
+    document.getElementById("display").className="bsod";
+	
+	//change status bar, clear CLI and display an error message
+    document.getElementById("statBar").innerHTML="Ouch";
+    _StdIn.clearScreen();
+    _StdIn.resetXY();
+    //TODO:Change message to white text
+    _DrawingContext.drawText(_DefaultFontFamily, 20, 90, 100, ":( Blue Screen of Death");
+    
     krnShutdown();
 }

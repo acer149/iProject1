@@ -108,6 +108,14 @@ function shellInit() {
 	sc.description = "<string> - Changes the status in the bar above.";
 	sc.function = shellStatus;
 	this.commandList[this.commandList.length] = sc;
+	
+	//bsodTest
+	sc = new ShellCommand();
+	sc.command = "bsod";
+	sc.description = " - Blue Screen of Death.";
+	sc.function = shellBSODTest;
+	this.commandList[this.commandList.length] = sc;
+	
     
         
     // processes - list the running processes and their IDs
@@ -586,6 +594,10 @@ function shellStatus(args) {
     {
         _StdIn.putText("Usage: status <string>  Please supply a string.");
     }	
+}
+
+function shellBSODTest() {
+	krnTrapError();
 }
 
 
