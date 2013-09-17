@@ -189,8 +189,7 @@ function shellHandleInput(buffer)
         	if (riddleNumber === 1) {
         		if(cmd === "mountain" || cmd === "mountains") {
         			_StdIn.advanceLine();
-        			_StdIn.advanceLine();
-        			_StdIn.putText("Correct!");
+        			_StdIn.putText("***Correct!***");
         			_StdIn.advanceLine();
         			_riddlesCorrect = _riddlesCorrect + 1;
         			this.execute(shellSecondRiddle);
@@ -199,7 +198,6 @@ function shellHandleInput(buffer)
         			this.execute(quitRiddles);
         		}
         		else {
-        			_StdIn.advanceLine();
         			_StdIn.advanceLine();
         			_StdIn.putText("Incorrect! The answer was 'mountain'.");
         			_StdIn.advanceLine();
@@ -209,8 +207,7 @@ function shellHandleInput(buffer)
         	else if (riddleNumber === 2) {
         		if (cmd === "teeth") {
         			_StdIn.advanceLine();
-        			_StdIn.advanceLine();
-        			_StdIn.putText("Correct!");
+        			_StdIn.putText("***Correct!***");
         			_StdIn.advanceLine();
         			_riddlesCorrect = _riddlesCorrect + 1;
         			this.execute(shellThirdRiddle);
@@ -219,7 +216,6 @@ function shellHandleInput(buffer)
         			this.execute(quitRiddles);
         		}
         		else {
-        			_StdIn.advanceLine();
         			_StdIn.advanceLine();
         			_StdIn.putText("Incorrect! The answer was 'teeth'.");
         			_StdIn.advanceLine();
@@ -230,7 +226,8 @@ function shellHandleInput(buffer)
         		if (cmd === "time") {
         			_StdIn.advanceLine();
         			_StdIn.advanceLine();
-        			_StdIn.putText("Correct!");
+        			_StdIn.advanceLine();
+        			_StdIn.putText("***Correct!***");
         			_StdIn.advanceLine();
         			_riddlesCorrect = _riddlesCorrect + 1;
         			this.execute(shellFinish);
@@ -239,6 +236,7 @@ function shellHandleInput(buffer)
         			this.execute(quitRiddles);
         		}
         		else {
+        			_StdIn.advanceLine();
         			_StdIn.advanceLine();
         			_StdIn.advanceLine();
         			_StdIn.putText("Incorrect! The answer was 'time'.");
@@ -486,8 +484,45 @@ function shellDate(args) {
 		amOrpm = "am";
 	}
 	
+	var minutes = currentDate.getMinutes();
+	switch (minutes) {
+		case 0:
+			minutes = "0" + minutes;
+			break;		
+		case 1:
+			minutes = "0" + minutes;
+			break;
+		case 2:
+			minutes = "0" + minutes;
+			break;
+		case 3:
+			minutes = "0" + minutes;
+			break;
+		case 4:
+			minutes = "0" + minutes;
+			break;
+		case 5:
+			minutes = "0" + minutes;
+			break;
+		case 6:
+			minutes = "0" + minutes;
+			break;
+		case 7:
+			minutes = "0" + minutes;
+			break;
+		case 8:
+			minutes = "0" + minutes;
+			break;
+		case 9:
+			minutes = "0" + minutes;
+			break;
+		default:
+			minutes = minutes;
+			break;	
+	};
+	
 	var theDate = (currentDate.getMonth() + 1)  + "/" + currentDate.getDate()  + "/" + currentDate.getFullYear();
-	var theTime = (hours + ":" + currentDate.getMinutes() + amOrpm);
+	var theTime = (hours + ":" + minutes + amOrpm);
 
 	_StdIn.putText("It is " + theTime + " on " + theDate); 	
 }
@@ -498,6 +533,9 @@ function shellWhereAmI(args) {
 
 
 function shellStartRiddles(args) {
+	_StdIn.clearScreen();
+    _StdIn.resetXY();
+	
 	//Turns on Riddle Mode
 	_RiddleMode = true;	
 	_StdIn.putText("All riddles are the property of J.R.R Tolkien.");
@@ -508,8 +546,7 @@ function shellStartRiddles(args) {
 	
 	//Keeps track of what riddle user is on
 	riddleNumber = 1;
-	_StdIn.putText("Riddle 1:");
-	_StdIn.advanceLine();
+	_StdIn.putText("Riddle 1:");	
 	_StdIn.advanceLine();
 	_StdIn.putText("What has roots as nobody sees,");
 	_StdIn.advanceLine();
@@ -519,14 +556,12 @@ function shellStartRiddles(args) {
 	_StdIn.advanceLine();
 	_StdIn.putText("And yet never grows?");
 	_StdIn.advanceLine();
-	_StdIn.advanceLine();
 }
 
 function shellSecondRiddle(args) {
 	//Keeps track of what riddle user is on
 	riddleNumber = 2;
 	_StdIn.putText("Riddle 2:");
-	_StdIn.advanceLine();
 	_StdIn.advanceLine();
 	_StdIn.putText("Thirty white horses on a red hill,");
 	_StdIn.advanceLine();
@@ -536,7 +571,6 @@ function shellSecondRiddle(args) {
 	_StdIn.advanceLine();
 	_StdIn.putText("Then they stand still.");
 	_StdIn.advanceLine();
-	_StdIn.advanceLine();
 	
 }
 
@@ -544,7 +578,6 @@ function shellThirdRiddle(args) {
 	//Keeps track of what riddle user is on
 	riddleNumber = 3;
 	_StdIn.putText("Riddle 3:");
-	_StdIn.advanceLine();
 	_StdIn.advanceLine();
 	_StdIn.putText("This thing all things devours:");
 	_StdIn.advanceLine();
@@ -557,7 +590,6 @@ function shellThirdRiddle(args) {
 	_StdIn.putText("Slays king, ruins town,");
 	_StdIn.advanceLine();
 	_StdIn.putText("And beats high mountain down.");
-	_StdIn.advanceLine();
 	_StdIn.advanceLine();
 }
 
@@ -611,40 +643,11 @@ function shellLoad() {
 	var checkString = document.getElementById("taProgramInput").value;
 	
 	if (checkString.match("^[0-9A-F \n]+$")) {
-		console.log("Nice!");	
+		_StdIn.putText("Your user code is valid");	
 	}
 	else {
-		console.log("Nope");
+		_StdIn.putText("Your user code is invalid");
 	}
-	
-}
-
-function taskBarDate(args) {
-	
-	var currentDate = new Date();
-	var amOrpm = "";
-
-	var hours = currentDate.getHours();
-	if (hours >= 12) {
-		hours = hours - 12;
-		amOrpm = "pm";
-	}
-	else {
-		amOrpm = "am";
-	}
-	
-	var minutes = currentDate.getMinutes();
-	if (minutes.length == 1) {
-		minutes.toString();
-		sMinutes = "0" + minutes;
-	}
-	else {
-	}
-	
-	var theDate = (currentDate.getMonth() + 1)  + "/" + currentDate.getDate()  + "/" + currentDate.getFullYear();
-	var theTime = (" " + hours + ":" + minutes + amOrpm);
-	var theDateAndTime = theDate + theTime;
-	document.getElementById("divStatusBar").innerHTML=theDateAndTime;
 	
 }
 
@@ -662,17 +665,46 @@ setInterval(function taskBarDate(args){
 	}
 	
 	var minutes = currentDate.getMinutes();
-	if (minutes.length == 1) {
-		minutes = "0" + minutes;
-		alert(minutes);
-	}
-	else {
-	}
+	switch (minutes) {
+		case 0:
+			minutes = "0" + minutes;
+			break;		
+		case 1:
+			minutes = "0" + minutes;
+			break;
+		case 2:
+			minutes = "0" + minutes;
+			break;
+		case 3:
+			minutes = "0" + minutes;
+			break;
+		case 4:
+			minutes = "0" + minutes;
+			break;
+		case 5:
+			minutes = "0" + minutes;
+			break;
+		case 6:
+			minutes = "0" + minutes;
+			break;
+		case 7:
+			minutes = "0" + minutes;
+			break;
+		case 8:
+			minutes = "0" + minutes;
+			break;
+		case 9:
+			minutes = "0" + minutes;
+			break;
+		default:
+			minutes = minutes;
+			break;	
+	};
 	
 	var theDate = (currentDate.getMonth() + 1)  + "/" + currentDate.getDate()  + "/" + currentDate.getFullYear();
-	var theTime = (" " + hours + ":" + minutes + amOrpm);
+	var theTime = (" <> " + hours + ":" + minutes + amOrpm);
 	var theDateAndTime = theDate + theTime;
 	document.getElementById("divStatusBar").innerHTML=theDateAndTime;
 	    
-}, 5000);
+}, 500);
 

@@ -43,7 +43,7 @@ function hostInit()
    };
    
    //Calls date and time
-   taskBarDate();
+   //taskBarDate();
 
 }
 

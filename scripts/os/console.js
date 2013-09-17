@@ -154,7 +154,12 @@ function CLIconsole() {
     this.advanceLine = function() {
        this.CurrentXPosition = 0;
        this.CurrentYPosition += _DefaultFontSize + _FontHeightMargin;
-       // TODO: Handle scrolling.
+       
+       //Handles scrolling
+       if (this.CurrentYPosition > 500) {
+       	    _StdIn.clearScreen();
+    		_StdIn.resetXY();
+       }
     };
 }
 
