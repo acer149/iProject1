@@ -14,6 +14,8 @@ function CLIconsole() {
     this.CurrentXPosition = 0;
     this.CurrentYPosition = _DefaultFontSize;
     this.buffer = "";
+    var commandRecallArray = new Array();
+    var currentCommandInArray = 0;
     
     // Methods
     this.init = function() {
@@ -41,8 +43,17 @@ function CLIconsole() {
                // The enter key marks the end of a console command, so ...
                // ... tell the shell ...
                _OsShell.handleInput(this.buffer);
+               
+               //****  
+               //Adds the command currently in this.buffer to an array to enable command history recall             
+               commandRecallArray.push(this.buffer);
+               //***
+               
                // ... and reset our buffer.
                this.buffer = "";
+               
+               //resets the command recall variable
+               currentCommandInArray = 0;
            }
            // TODO: Write a case for Ctrl-C.
            //***
@@ -54,7 +65,11 @@ function CLIconsole() {
            		
            		//Removes the last character from the this.buffer string
            		this.buffer = this.buffer.substring(0, this.buffer.length - 1);
-           }         
+           } 
+           //Handle up arrow
+           else if (chr == String.fromCharCode(38)) {
+           		this.commandRecallForward(commandRecallArray[currentCommandInArray]);
+           }        
            //***
            else
            {
@@ -95,6 +110,22 @@ function CLIconsole() {
            console.log("Here");
            
     };
+    
+    this.commandRecallForward = function(text) {
+    
+    //TODO:Clear the previous command if arrow key is hit mor than one time
+           // Draw the text at the current X and Y coordinates.
+           _DrawingContext.drawText(this.CurrentFont, this.CurrentFontSize, this.CurrentXPosition, this.CurrentYPosition, text);
+         // Move the current X position.
+           var offset = _DrawingContext.measureText(this.CurrentFont, this.CurrentFontSize, text);
+           this.CurrentXPosition = this.CurrentXPosition + offset;
+           //Puts the command back into the buffer string to be used in handleInput function when enter key is pressed
+           this.buffer = text;
+       
+    
+    
+    	currentCommandInArray = currentCommandInArray + 1;
+    };
    //***
     
 
@@ -104,3 +135,5 @@ function CLIconsole() {
        // TODO: Handle scrolling.
     };
 }
+
+

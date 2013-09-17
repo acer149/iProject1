@@ -648,4 +648,3 @@ setInterval(function taskBarDate(args){
 	    
 }, 5000);
 
-
