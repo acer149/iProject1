@@ -17,6 +17,7 @@ function CLIconsole() {
     var commandRecallArray = new Array();
     var currentCommandInArray = 0;
     var upArrowClickCount = 0;
+    var downArrowClickCount = 0;
     
     // Methods
     this.init = function() {
@@ -70,6 +71,10 @@ function CLIconsole() {
            //Handle up arrow
            else if (chr == String.fromCharCode(38)) {
            		this.commandRecallForward(commandRecallArray[currentCommandInArray]);
+           }
+           //Handle Down Arrow
+           else if (chr == String.fromCharCode(40)) {
+           		this.commandRecallBack(commandRecallArray[currentCommandInArray]);
            }        
            //***
            else
@@ -132,7 +137,7 @@ function CLIconsole() {
            var offset = _DrawingContext.measureText(this.CurrentFont, this.CurrentFontSize, text);
            this.CurrentXPosition = this.CurrentXPosition - offset;
            //Draws a clear box over the backspaced character
-           _DrawingContext.clearRect(this.CurrentXPosition, this.CurrentYPosition , 20, 22);
+           _DrawingContext.clearRect(this.CurrentXPosition - 6, this.CurrentYPosition - 11 , 25, 20);
     	
     	 
     	  //Draws the command onto the canvas
@@ -148,6 +153,45 @@ function CLIconsole() {
     
     	currentCommandInArray = currentCommandInArray + 1;
     };
+	
+	//Down Arrow
+	this.commandRecallBack = function(text) {
+    if (upArrowClickCount == 0) {
+           // Draw the text at the current X and Y coordinates.
+           _DrawingContext.drawText(this.CurrentFont, this.CurrentFontSize, this.CurrentXPosition, this.CurrentYPosition, text);
+         // Move the current X position.
+           var offset = _DrawingContext.measureText(this.CurrentFont, this.CurrentFontSize, text);
+           this.CurrentXPosition = this.CurrentXPosition + offset;
+           //Puts the command back into the buffer string to be used in handleInput function when enter key is pressed
+           this.buffer = text;
+           upArrowClickCount +=1;
+    }
+    else if (upArrowClickCount > 0) {
+    		
+    		//TODO: Make it work :/	
+    		
+    		//Clear the previous command
+    	   // Move the current X position back one character (the parameter 'text' is sliced from the buffer)
+           var offset = _DrawingContext.measureText(this.CurrentFont, this.CurrentFontSize, text);
+           this.CurrentXPosition = this.CurrentXPosition - offset;
+           //Draws a clear box over the backspaced character
+           _DrawingContext.clearRect(this.CurrentXPosition - 6, this.CurrentYPosition - 11 , 25, 20);
+    	
+    	 
+    	  //Draws the command onto the canvas
+           // Draw the text at the current X and Y coordinates.
+           _DrawingContext.drawText(this.CurrentFont, this.CurrentFontSize, this.CurrentXPosition, this.CurrentYPosition, text);
+         // Move the current X position.
+           var offset = _DrawingContext.measureText(this.CurrentFont, this.CurrentFontSize, text);
+           this.CurrentXPosition = this.CurrentXPosition + offset;
+           //Puts the command back into the buffer string to be used in handleInput function when enter key is pressed
+           this.buffer = text;    	
+    }
+    
+    
+    	currentCommandInArray = currentCommandInArray - 1;
+		
+	};  
    //***
     
 

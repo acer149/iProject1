@@ -538,7 +538,7 @@ function shellStartRiddles(args) {
 	
 	//Turns on Riddle Mode
 	_RiddleMode = true;	
-	_StdIn.putText("All riddles are the property of J.R.R Tolkien.");
+	_StdIn.putText("All riddles are the property of J.R.R. Tolkien.");
 	_StdIn.advanceLine();
 	_StdIn.putText("Type 'quit' at any time to, well, quit.");
 	_StdIn.advanceLine();
