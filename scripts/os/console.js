@@ -112,7 +112,7 @@ function CLIconsole() {
            this.CurrentXPosition = this.CurrentXPosition - offset;
            
            //Draws a clear box over the backspaced character
-           _DrawingContext.clearRect(this.CurrentXPosition, (this.CurrentYPosition - (offset + 7)) , 20, 22);
+           _DrawingContext.clearRect(this.CurrentXPosition, (this.CurrentYPosition - (offset + 7)) , 20, 22); //(x, y, width, height)
            
     };
     
@@ -137,12 +137,12 @@ function CLIconsole() {
            var offset = _DrawingContext.measureText(this.CurrentFont, this.CurrentFontSize, text);
            this.CurrentXPosition = this.CurrentXPosition - offset;
            //Draws a clear box over the backspaced character
-           _DrawingContext.clearRect(this.CurrentXPosition - 6, this.CurrentYPosition - 11 , 25, 20);
+           _DrawingContext.clearRect(this.CurrentXPosition - 8, this.CurrentYPosition - 9 , 31, 20); //(x, y, width, height)
     	
     	 
     	  //Draws the command onto the canvas
            // Draw the text at the current X and Y coordinates.
-           _DrawingContext.drawText(this.CurrentFont, this.CurrentFontSize, this.CurrentXPosition, this.CurrentYPosition, text);
+           _DrawingContext.drawText(this.CurrentFont, this.CurrentFontSize, this.CurrentXPosition + 34, this.CurrentYPosition, text);
          // Move the current X position.
            var offset = _DrawingContext.measureText(this.CurrentFont, this.CurrentFontSize, text);
            this.CurrentXPosition = this.CurrentXPosition + offset;
@@ -180,7 +180,7 @@ function CLIconsole() {
            //var offset = _DrawingContext.measureText(this.CurrentFont, this.CurrentFontSize, text);
            //this.CurrentXPosition = this.CurrentXPosition - offset;
            			//Draws a clear box over the backspaced character
-           //_DrawingContext.clearRect(this.CurrentXPosition - 6, this.CurrentYPosition - 11 , 25, 20);
+           //_DrawingContext.clearRect(this.CurrentXPosition - 6, this.CurrentYPosition - 11 , 25, 20); //(x, y, width, height)
     	
     	 
     	  //Draws the command onto the canvas

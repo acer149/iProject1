@@ -195,7 +195,7 @@ function shellHandleInput(buffer)
         			this.execute(shellSecondRiddle);
         		}
         		else if (cmd === "quit") {
-        			this.execute(quitRiddles);
+        			this.execute(shellQuitRiddles);
         		}
         		else {
         			_StdIn.advanceLine();
@@ -213,7 +213,7 @@ function shellHandleInput(buffer)
         			this.execute(shellThirdRiddle);
         		}
         		else if (cmd === "quit") {
-        			this.execute(quitRiddles);
+        			this.execute(shellQuitRiddles);
         		}
         		else {
         			_StdIn.advanceLine();
@@ -233,7 +233,7 @@ function shellHandleInput(buffer)
         			this.execute(shellFinish);
         		}
         		else if (cmd === "quit") {
-        			this.execute(quitRiddles);
+        			this.execute(shellQuitRiddles);
         		}
         		else {
         			_StdIn.advanceLine();
@@ -371,6 +371,10 @@ function shellVer(args)
 
 function shellHelp(args)
 {
+	_StdIn.clearScreen();
+    _StdIn.resetXY();
+    _StdIn.putText(">help");
+    _StdIn.advanceLine();
     _StdIn.putText("Commands:");
     for (var i in _OsShell.commandList)
     {
@@ -528,7 +532,8 @@ function shellDate(args) {
 }
 
 function shellWhereAmI(args) {
-	_StdIn.putText("Haha use a GPS, fool!!");
+	_StdIn.putText("http://www.amazon.com  <-- Search for GPS");
+
 }
 
 
@@ -616,7 +621,7 @@ function shellFinish(args) {
 	}
 }
 
-function quitRiddles(args) {
+function shellQuitRiddles(args) {
 	_StdIn.putText("Thanks for playing!");
 	this.riddleNumber = null;
 	_riddlesCorrect = 0;
@@ -646,11 +651,12 @@ function shellLoad() {
 		_StdIn.putText("Your user code is valid");	
 	}
 	else {
-		_StdIn.putText("Your user code is invalid");
+		_StdIn.putText("Your user code is NOT valid");
 	}
 	
 }
 
+//Allows for continuous update of statusbar clock
 setInterval(function taskBarDate(args){ 
 	var currentDate = new Date();
 	var amOrpm = "";
@@ -664,6 +670,7 @@ setInterval(function taskBarDate(args){
 		amOrpm = "am";
 	}
 	
+	//Switch statement for minutes 00-09
 	var minutes = currentDate.getMinutes();
 	switch (minutes) {
 		case 0:
@@ -701,8 +708,46 @@ setInterval(function taskBarDate(args){
 			break;	
 	};
 	
+	//Switch statement for seconds 00-09
+	var seconds = currentDate.getSeconds();
+	switch (seconds) {
+		case 0:
+			seconds = "0" + seconds;
+			break;		
+		case 1:
+			seconds = "0" + seconds;
+			break;
+		case 2:
+			seconds = "0" + seconds;
+			break;
+		case 3:
+			seconds = "0" + seconds;
+			break;
+		case 4:
+			seconds = "0" + seconds;
+			break;
+		case 5:
+			seconds = "0" + seconds;
+			break;
+		case 6:
+			seconds = "0" + seconds;
+			break;
+		case 7:
+			seconds = "0" + seconds;
+			break;
+		case 8:
+			seconds = "0" + seconds;
+			break;
+		case 9:
+			seconds = "0" + seconds;
+			break;
+		default:
+			seconds = seconds;
+			break;	
+	};
+
 	var theDate = (currentDate.getMonth() + 1)  + "/" + currentDate.getDate()  + "/" + currentDate.getFullYear();
-	var theTime = (" <> " + hours + ":" + minutes + amOrpm);
+	var theTime = (" <> " + hours + ":" + minutes + ":" + seconds + amOrpm);
 	var theDateAndTime = theDate + theTime;
 	document.getElementById("divStatusBar").innerHTML=theDateAndTime;
 	    
