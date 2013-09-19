@@ -150,13 +150,18 @@ function CLIconsole() {
            this.buffer = text;    	
     }
     
-    
-    	currentCommandInArray = currentCommandInArray + 1;
+    	if (currentCommandInArray == currentCommandInArray.length) {	
+    		currentCommandInArray = currentCommandInArray;
+    	}
+    	else {
+    		currentCommandInArray = currentCommandInArray + 1;
+    	}
+
     };
 	
 	//Down Arrow
 	this.commandRecallBack = function(text) {
-    if (upArrowClickCount == 0) {
+    if (downArrowClickCount == 0) {
            // Draw the text at the current X and Y coordinates.
            _DrawingContext.drawText(this.CurrentFont, this.CurrentFontSize, this.CurrentXPosition, this.CurrentYPosition, text);
          // Move the current X position.
@@ -166,16 +171,16 @@ function CLIconsole() {
            this.buffer = text;
            upArrowClickCount +=1;
     }
-    else if (upArrowClickCount > 0) {
+    else if (downArrowClickCount > 0) {
     		
     		//TODO: Make it work :/	
     		
-    		//Clear the previous command
-    	   // Move the current X position back one character (the parameter 'text' is sliced from the buffer)
-           var offset = _DrawingContext.measureText(this.CurrentFont, this.CurrentFontSize, text);
-           this.CurrentXPosition = this.CurrentXPosition - offset;
-           //Draws a clear box over the backspaced character
-           _DrawingContext.clearRect(this.CurrentXPosition - 6, this.CurrentYPosition - 11 , 25, 20);
+    				//Clear the previous command
+    	   			// Move the current X position back one character (the parameter 'text' is sliced from the buffer)
+           //var offset = _DrawingContext.measureText(this.CurrentFont, this.CurrentFontSize, text);
+           //this.CurrentXPosition = this.CurrentXPosition - offset;
+           			//Draws a clear box over the backspaced character
+           //_DrawingContext.clearRect(this.CurrentXPosition - 6, this.CurrentYPosition - 11 , 25, 20);
     	
     	 
     	  //Draws the command onto the canvas
@@ -188,8 +193,13 @@ function CLIconsole() {
            this.buffer = text;    	
     }
     
-    
-    	currentCommandInArray = currentCommandInArray - 1;
+    	if (currentCommandInArray > 0) {
+    		currentCommandInArray = currentCommandInArray - 1;
+    	}
+    	else {
+    		currentCommandInArray = 0;
+    	}
+    	
 		
 	};  
    //***
