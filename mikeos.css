@@ -36,6 +36,7 @@ h3 {
 	cursor: default;
 }
 
+/*set console to this class when 'bsod' in invoked*/
 #display.bsod {
 	background-color:blue;
 }
@@ -51,6 +52,3 @@ h3 {
    text-align: center;
 }
 
-#divStatusBar {
-	
-}
