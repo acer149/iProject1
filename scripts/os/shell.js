@@ -662,8 +662,11 @@ setInterval(function taskBarDate(args){
 	var amOrpm = "";
 
 	var hours = currentDate.getHours();
-	if (hours >= 12) {
+	if (hours > 12) {
 		hours = hours - 12;
+		amOrpm = "pm";
+	}
+	else if (hours === 12) {
 		amOrpm = "pm";
 	}
 	else {

@@ -196,6 +196,9 @@ function krnTrapError(msg)
     _StdIn.resetXY();
     //TODO:Change message to white text
     _DrawingContext.drawText(_DefaultFontFamily, 20, 90, 100, ":( Blue Screen of Death!!"); //font,size,x,y,text
-    
+   	// _DrawingContext.font = "25px Arial";
+   	// _DrawingContext.textAlign = "left";
+   	// _DrawingContext.textBaseline = "middle";
+    // _DrawingContext.fillText(":( Blue Screen of Death!!", 15,2);
     krnShutdown();
 }
