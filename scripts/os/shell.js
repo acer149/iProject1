@@ -645,10 +645,18 @@ function shellBSODTest() {
 }
 
 function shellLoad() {
-	var checkString = document.getElementById("taProgramInput").value;
+	var userProgram = document.getElementById("taProgramInput").value;
 	
-	if (checkString.match("^[0-9A-F \n]+$")) {
-		_StdIn.putText("Your user code is valid");	
+	if (userProgram.match("^[0-9A-F \n]+$")) {
+		_StdIn.putText("Your user code is valid");
+		
+		//Create a PCB for the process
+		var pid = _LastPid + 1;
+		var pcb = new ProcessControlBlock(pid);
+		_Memory[0] = (pid, userProgram);
+		
+		_StdIn.putText("Process ID " + pid);
+			
 	}
 	else {
 		_StdIn.putText("Your user code is NOT valid");
