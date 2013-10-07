@@ -200,7 +200,6 @@ function CLIconsole() {
     		currentCommandInArray = 0;
     	}
     	
-		
 	};  
    //***
     
@@ -210,11 +209,12 @@ function CLIconsole() {
        this.CurrentYPosition += _DefaultFontSize + _FontHeightMargin;
        
        //Handles scrolling
-       if (this.CurrentYPosition > 500) {
+      if (this.CurrentYPosition > 500) {
        	    _StdIn.clearScreen();
     		_StdIn.resetXY();
        }
     };
+   
 }
 
 

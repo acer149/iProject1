@@ -36,6 +36,11 @@ var _DefaultFontFamily = "sans";  // Ignored, I think. The was just a place-hold
 var _DefaultFontSize = 13;
 var _FontHeightMargin = 4;        // Additional space added to font size when advancing a line.
 
+//Memory
+var _AllMemory = 768;
+var _MemoryBlock = 255;
+
+
 // Default the OS trace to be on.
 var _Trace = true;
 
