@@ -378,10 +378,6 @@ function shellVer(args)
 
 function shellHelp(args)
 {
-	_StdIn.clearScreen();
-    _StdIn.resetXY();
-    _StdIn.putText(">help");
-    _StdIn.advanceLine();
     _StdIn.putText("Commands:");
     for (var i in _OsShell.commandList)
     {

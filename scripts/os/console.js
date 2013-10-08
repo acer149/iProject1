@@ -210,8 +210,11 @@ function CLIconsole() {
        
        //Handles scrolling
       if (this.CurrentYPosition > 500) {
+      	
+      		var consoleSnapShot = _DrawingContext.getImageData(this.CurrentXPosition, this.CurrentYPosition, 500, 500); //(x,y,width,height)
        	    _StdIn.clearScreen();
-    		_StdIn.resetXY();
+    		
+    		_DrawingContext.putImageData(consoleSnapShot, 0, 0);
        }
     };
    
