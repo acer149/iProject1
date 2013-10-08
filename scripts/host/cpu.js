@@ -88,3 +88,79 @@ function Cpu() {
     	}
     }
 }
+
+
+function loadAccumulatorWithAConstant() {
+
+} 
+
+function loadAccumulatorFromMemory() {
+
+}
+
+function storeAccumulatorInMemory() {
+
+}
+
+function addWithCarry() {
+
+}
+
+function loadXRegisterWithAConstant() {
+
+}
+
+function loadXRegisterFromMmeory() {
+
+}
+
+function loadYRegisterWithAConstant() {
+
+}
+
+function loadYRegisterFromMemory() {
+
+}
+
+function noOperation() {
+
+}
+
+function osBreak() {
+
+}
+
+function compareXRegisterToMemoryByteAndSetZToZeroIfEqual() {
+
+}
+
+function branchXBytesIfZEqualsZero() {
+
+}
+
+function incrementByteValue() {
+
+}
+
+function systemCall() {
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
