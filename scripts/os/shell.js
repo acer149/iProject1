@@ -669,6 +669,10 @@ function shellLoad() {
 		_Memory[0] = {pid:pid, process:_OpcodeArray};
 		console.log(_Memory[0]);
 		
+		for (var i = 0; i < _OpcodeArray.length; i++) {
+			document.getElementById("bit" + i).innerText=_OpcodeArray[i];
+		}
+		
 		_StdIn.advanceLine();
 		_StdIn.putText("Process loaded with Process ID " + pid);
 			
