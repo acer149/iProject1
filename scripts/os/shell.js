@@ -659,6 +659,8 @@ function shellLoad() {
 		
 		//Create a PCB for the process
 		var pid = _LastPid + 1; //Increments for multiple processes
+		_LastPid = pid;
+		
 		var pcb = new ProcessControlBlock(pid);
 		
 		//Splits the user program on spaces and adds it to the _OpcodeArray
