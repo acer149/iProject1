@@ -118,3 +118,8 @@ function hostBtnReset_click(btn)
     // be reloaded from the server. If it is false or not specified, the browser may reload the 
     // page from its cache, which is not what we want.
 }
+
+function hostQuickInsertProgram(btn) {
+	var userProgram = document.getElementById("taProgramInput");
+	userProgram.value = "A9 03 8D 41 00 A9 01 8D 40 00 AC 40 00 A2 01 FF EE 40 00 AE 40 00 EC 41 00 D0 EF A9 44 8D 42 00 A9 4F 8D 43 00 A9 4E 8D 44 00 A9 45 8D 45 00 A9 00 8D 46 00 A2 02 A0 42 FF 00";
+}

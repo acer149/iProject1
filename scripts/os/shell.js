@@ -123,6 +123,13 @@ function shellInit() {
 	sc.function = shellLoad;
 	this.commandList[this.commandList.length] = sc;
 	
+	//run
+	sc = new ShellCommand();
+	sc.command = "run";
+	sc.description = "<pid> - Runs a process in memory.";
+	sc.function = shellRun;
+	this.commandList[this.commandList.length] = sc;
+	
     
         
     // processes - list the running processes and their IDs
@@ -662,6 +669,10 @@ function shellLoad() {
 	else {
 		_StdIn.putText("Your user code is NOT valid");
 	}
+	
+}
+
+function shellRun() {
 	
 }
 
