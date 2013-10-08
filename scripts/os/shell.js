@@ -669,7 +669,7 @@ function shellLoad() {
 		
 		//Stores the pid and user process in memory $0000
 		_Memory[0] = {pid:pid, process:_OpcodeArray};
-		console.log(_Memory[0]);
+		//console.log(_Memory[0]);
 		
 		for (var i = 0; i < _OpcodeArray.length; i++) {
 			document.getElementById("bit" + i).innerText=_OpcodeArray[i];

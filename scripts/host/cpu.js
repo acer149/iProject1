@@ -37,7 +37,54 @@ function Cpu() {
     };
     
     //op codes
+    //Will identify the user process's opcodes and call the associated function of that opcide
     this.run = function(opcode) {
-    	
+    	//TODO: Add more to case statements??
+    	switch(opcode) {
+    		case "A9":
+    			loadAccumulatorWithAConstant();
+    			break;
+    		case "AD":
+    			loadAccumulatorFromMemory();
+    			break;
+    		case "8D":
+    			storeAccumulatorInMemory();
+    			break;
+    		case "6D":
+    			addWithCarry();
+    			break;
+    		case "A2":
+    			loadXRegisterWithAConstant();
+    			break;
+    		case "AE":
+    			loadXRegisterFromMmeory();
+    			break;
+    		case "A0":
+    			loadYRegisterWithAConstant();
+    			break;
+    		case "AC":
+    			loadYRegisterFromMemory();
+    			break;
+    		case "EA":
+    			noOperation();
+    			break;
+    		case "00":
+    			osBreak();
+    			break;
+    		case "EC":
+    			compareXRegisterToMemoryByteAndSetZToZeroIfEqual();
+    			break;
+    		case "D0":
+    			branchXBytesIfZEqualsZero();
+    			break;
+    		case "EE":
+    			incrementByteValue();
+    			break;
+    		case "FF":
+    			systemCall();
+    			break;
+    		default:
+    			break;
+    	}
     }
 }
