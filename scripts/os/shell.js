@@ -661,12 +661,13 @@ function shellLoad() {
 		var pid = _LastPid + 1; //Increments for multiple processes
 		var pcb = new ProcessControlBlock(pid);
 		
+		//Splits the user program on spaces and adds it to the _OpcodeArray
 		_OpcodeArray = userProgram.split(" ");
-		console.log(_OpcodeArray);
+		//console.log(_OpcodeArray);
 		
 		//Stores the pid and user process in memory $0000
-		_Memory[0] = (pid, userProgram);
-		//console.log(_Memory[0]);
+		_Memory[0] = {pid:pid, process:_OpcodeArray};
+		console.log(_Memory[0]);
 		
 		_StdIn.advanceLine();
 		_StdIn.putText("Process loaded with Process ID " + pid);
