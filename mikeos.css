@@ -51,6 +51,15 @@ h3 {
 	width: 100px;
 }
 
+.memTDHead {
+	border: 2px solid red;
+}
+
+.memTD {
+	width: 25px;
+	border: 2px solid black;
+}
+
 .footerText {
    color: black;
    font-family: Arial, Helvetica, sans-serif;
