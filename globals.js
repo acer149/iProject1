@@ -45,6 +45,9 @@ var _Test = null;
 //PCB
 var _LastPid = -1;
 
+//UserProcess
+var _OpcodeArray;
+
 
 // Default the OS trace to be on.
 var _Trace = true;

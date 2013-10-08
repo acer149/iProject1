@@ -81,9 +81,8 @@ function krnKbdDispatchKeyPress(params)
 				case 53:
 					chr = String.fromCharCode(keyCode - 16); // %
 					break;
-				//TODO: Displays up arrow instead of caret. Why??
 				case 54:
-					chr = String.fromCharCode(keyCode + 40); // ^ //40
+					chr = String.fromCharCode(keyCode + 40); // ^
 					break;
 				case 55:
 					chr = String.fromCharCode(keyCode - 17); // &

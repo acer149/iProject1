@@ -658,9 +658,15 @@ function shellLoad() {
 		_StdIn.putText("Your user code is valid");
 		
 		//Create a PCB for the process
-		var pid = _LastPid + 1;
+		var pid = _LastPid + 1; //Increments for multiple processes
 		var pcb = new ProcessControlBlock(pid);
+		
+		_OpcodeArray = userProgram.split(" ");
+		console.log(_OpcodeArray);
+		
+		//Stores the pid and user process in memory $0000
 		_Memory[0] = (pid, userProgram);
+		//console.log(_Memory[0]);
 		
 		_StdIn.advanceLine();
 		_StdIn.putText("Process loaded with Process ID " + pid);
