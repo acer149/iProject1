@@ -655,7 +655,8 @@ function shellLoad() {
 		var pcb = new ProcessControlBlock(pid);
 		_Memory[0] = (pid, userProgram);
 		
-		_StdIn.putText("Process ID " + pid);
+		_StdIn.advanceLine();
+		_StdIn.putText("Process loaded with Process ID " + pid);
 			
 	}
 	else {
