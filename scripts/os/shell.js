@@ -102,7 +102,7 @@ function shellInit() {
     sc.function = shellStartRiddles;
     this.commandList[this.commandList.length] = sc;
         
-	//status
+	//status <string>
 	sc = new ShellCommand();
 	sc.command = "status";
 	sc.description = "<string> - Changes the status in the bar above.";
@@ -123,7 +123,7 @@ function shellInit() {
 	sc.function = shellLoad;
 	this.commandList[this.commandList.length] = sc;
 	
-	//run
+	//run <pid>
 	sc = new ShellCommand();
 	sc.command = "run";
 	sc.description = "<pid> - Runs a process in memory.";
@@ -679,8 +679,25 @@ function shellLoad() {
 	
 }
 
-function shellRun() {
-	//TODO:Run program in memory
+function shellRun(args) {
+	if (args.length > 0) {
+		var pidToBeRun = args[0];
+		
+		//Checks if the pid exists
+		if (pidToBeRun == _Memory[0].pid) {
+			//While the i is less than the length of the opcode array, shellRun will pass each opcode to cpu.js's switch statement
+			for (var i =0; i < _OpcodeArray.length; i++) {
+				console.log("Executed opcode: " + _OpcodeArray[i]);
+				this.run(_OpcodeArray[i]);
+			}
+		}
+		else {
+			_StdIn.putText("No process exists with the entered pid.");
+		}
+	}
+	else {
+		_StdIn.putText("Usage: run <pid>  Please supply a pid.");
+	}
 }
 
 //Allows for continuous update of statusbar clock

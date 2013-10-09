@@ -36,8 +36,10 @@ function Cpu() {
         // Do the real work here. Be sure to set this.isExecuting appropriately.
     };
     
+}
+
     //op codes
-    //Will identify the user process's opcodes and call the associated function of that opcide
+    //Will identify the user process's opcodes and call the associated function of that opcode
     this.run = function(opcode) {
     	//TODO: Add more to case statements??
     	switch(opcode) {
@@ -86,8 +88,7 @@ function Cpu() {
     		default:
     			break;
     	}
-    }
-}
+    };
 
 
 function loadAccumulatorWithAConstant() {
