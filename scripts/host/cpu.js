@@ -35,12 +35,17 @@ function Cpu() {
         // TODO: Accumulate CPU usage and profiling statistics here.
         // Do the real work here. Be sure to set this.isExecuting appropriately.
         
-        this.isExecuting = true;
-        var opcodeToRun = this.getOpcode(_Memory[0].pcb.programCounter);
-        this.run(_OpcodeArray[opcodeToRun]);
+        var opcodeToRun = getOpcode();
+        //console.log(opcodeToRun);
+        run(_OpcodeArray[opcodeToRun]);
     };
     
 }
+
+	this.getOpcode = function() {
+	return _Memory[0].pcb.programCounter;
+	
+	};
 
     //op codes
     //Will identify the user process's opcodes and call the associated function of that opcode
@@ -96,7 +101,8 @@ function Cpu() {
 
 
 function loadAccumulatorWithAConstant() {
-	_Memory[0].pcb.accumulator = parseInt(_Memory[0].pcb.programCounter + 1);
+	//
+	_Memory[0].pcb.accumulator = parseInt(_Memory[0].opCodeArray(_Memory[0].pcb.programCounter + 1));
 	_Memory[0].pcb.programCounter += 2;
 	document.getElementById("accumulator").innerHTML=_Memory[0].pcb.accumulator;
 	document.getElementById("programCounter").innerHTML=_Memory[0].pcb.programCounter;

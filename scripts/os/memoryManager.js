@@ -5,3 +5,8 @@ function MemoryManger() {
 	
 	
 }
+
+this.getOpcode = function() {
+	return _Memory[0].pcb.programCounter;
+	
+};
