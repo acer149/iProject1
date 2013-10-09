@@ -61,6 +61,19 @@ h3 {
 	text-align: center;
 }
 
+.statusHeadTD {
+	width: 100px;
+	border: 2px solid red;
+	text-align: center;
+}
+
+.statusTD {
+	width: 100px;
+	height: 17px;
+	border: 2px solid black;
+	text-align: center;
+}
+
 .footerText {
    color: black;
    font-family: Arial, Helvetica, sans-serif;
