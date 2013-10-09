@@ -539,10 +539,7 @@ function shellWhereAmI(args) {
 
 }
 
-
 function shellStartRiddles(args) {
-	_StdIn.clearScreen();
-    _StdIn.resetXY();
 	
 	//Turns on Riddle Mode
 	_RiddleMode = true;	

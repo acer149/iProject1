@@ -214,7 +214,7 @@ function CLIconsole() {
        	    _StdIn.clearScreen();
     		
     		_DrawingContext.putImageData(consoleSnapShot, 0, 0);
-    		this.CurrentYPosition = (_DefaultFontSize + _FontHeightMargin);
+    		this.CurrentYPosition = this.CurrentYPosition - (_DefaultFontSize + _FontHeightMargin);
        }
     };
    
