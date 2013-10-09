@@ -40,7 +40,9 @@ var _FontHeightMargin = 4;        // Additional space added to font size when ad
 var _AllMemory = 768;
 var _MemoryBlock = 255;
 var _Memory = null;
-var _Test = null;
+
+//start at 5 to allow loading of additional programs
+var _LastMemoryLocation = 5;
 
 //PCB
 var _LastPid = -1;

@@ -52,10 +52,12 @@ h3 {
 }
 
 .memTDHead {
+	font-size: 12px;
 	border: 2px solid red;
 }
 
 .memTD {
+	font-size: 12px;
 	width: 25px;
 	border: 2px solid black;
 	text-align: center;

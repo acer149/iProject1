@@ -34,6 +34,10 @@ function Cpu() {
         krnTrace("CPU cycle");
         // TODO: Accumulate CPU usage and profiling statistics here.
         // Do the real work here. Be sure to set this.isExecuting appropriately.
+        
+        this.isExecuting = true;
+        var opcodeToRun = this.getOpcode(_Memory[0].pcb.programCounter);
+        this.run(_OpcodeArray[opcodeToRun]);
     };
     
 }
@@ -92,6 +96,10 @@ function Cpu() {
 
 
 function loadAccumulatorWithAConstant() {
+	_Memory[0].pcb.accumulator = parseInt(_Memory[0].pcb.programCounter + 1);
+	_Memory[0].pcb.programCounter += 2;
+	document.getElementById("accumulator").innerHTML=_Memory[0].pcb.accumulator;
+	document.getElementById("programCounter").innerHTML=_Memory[0].pcb.programCounter;
 
 } 
 

@@ -687,8 +687,9 @@ function shellRun(args) {
 		if (pidToBeRun == _Memory[0].pid) {
 			//While the i is less than the length of the opcode array, shellRun will pass each opcode to cpu.js's switch statement
 			for (var i =0; i < _OpcodeArray.length; i++) {
-				console.log("Executed opcode: " + _OpcodeArray[i]);
-				this.run(_OpcodeArray[i]);
+				//console.log("Executed opcode: " + _OpcodeArray[i]);
+				this.isExecuting = true;
+				_CPU.cycle();
 			}
 		}
 		else {
