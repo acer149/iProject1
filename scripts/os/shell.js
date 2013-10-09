@@ -654,15 +654,16 @@ function shellLoad() {
 		var pid = _LastPid + 1; //Increments for multiple processes
 		_LastPid = pid;
 		
+		//Creates a pcb for the process
 		var pcb = new ProcessControlBlock(pid);
 		
 		//Splits the user program on spaces and adds it to the _OpcodeArray
 		_OpcodeArray = userProgram.split(" ");
 		//console.log(_OpcodeArray);
 		
-		//Stores the pid and user process in memory $0000
-		_Memory[0] = {pid:pid, process:_OpcodeArray};
-		//console.log(_Memory[0]);
+		//Stores the pcb, the pid, and the user process in memory $0000
+		_Memory[0] = {pcb:pcb, pid:pid, process:_OpcodeArray};
+		console.log(_Memory[0]);
 		
 		for (var i = 0; i < _OpcodeArray.length; i++) {
 			document.getElementById("bit" + i).innerText=_OpcodeArray[i];
@@ -679,7 +680,7 @@ function shellLoad() {
 }
 
 function shellRun() {
-	
+	//TODO:Run program in memory
 }
 
 //Allows for continuous update of statusbar clock
