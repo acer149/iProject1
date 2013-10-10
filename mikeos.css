@@ -64,14 +64,16 @@ h3 {
 }
 
 .statusHeadTD {
+	font-size: 12px;
 	width: 100px;
 	border: 2px solid red;
 	text-align: center;
 }
 
 .statusTD {
+	font-size: 12px;
 	width: 100px;
-	height: 17px;
+	height: 14px;
 	border: 2px solid black;
 	text-align: center;
 }

@@ -1,12 +1,12 @@
 function ProcessControlBlock(pid) {
 	
 	//Process ID
-	this.pid = null;	
+	this.pid = 0;	
 	this.processState = null;
 	this.programCounter = 0;
 	this.accumulator = 0;
-	this.xRegister = null;
-	this.yRegister = null;
-	this.zRegister = null;
+	this.xRegister = 0;
+	this.yRegister = 0;
+	this.zFlag = 0;
 
 }

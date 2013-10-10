@@ -101,11 +101,14 @@ function Cpu() {
 
 
 function loadAccumulatorWithAConstant() {
-	//
-	_Memory[0].pcb.accumulator = parseInt(_Memory[0].opCodeArray(_Memory[0].pcb.programCounter + 1));
-	_Memory[0].pcb.programCounter += 2;
+	
+	_Memory[0].pcb.accumulator = _Memory[0].process[_Memory[0].pcb.programCounter + 2];
+	_Memory[0].pcb.programCounter += 3;
 	document.getElementById("accumulator").innerHTML=_Memory[0].pcb.accumulator;
 	document.getElementById("programCounter").innerHTML=_Memory[0].pcb.programCounter;
+	document.getElementById("xRegister").innerHTML=_Memory[0].pcb.xRegister;
+	document.getElementById("yRegister").innerHTML=_Memory[0].pcb.yRegister;
+	document.getElementById("zFlag").innerHTML=_Memory[0].pcb.zFlag;
 
 } 
 

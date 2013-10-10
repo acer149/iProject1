@@ -688,9 +688,10 @@ function shellRun(args) {
 			//While the i is less than the length of the opcode array, shellRun will pass each opcode to cpu.js's switch statement
 			for (var i =0; i < _OpcodeArray.length; i++) {
 				//console.log("Executed opcode: " + _OpcodeArray[i]);
-				this.isExecuting = true;
-				_CPU.cycle();
+				_CPU.isExecuting = true;
+				//_CPU.cycle();
 			}
+			//_CPU.isExecuting = false;	
 		}
 		else {
 			_StdIn.putText("No process exists with the entered pid.");
