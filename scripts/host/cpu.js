@@ -51,6 +51,7 @@ function Cpu() {
     //Will identify the user process's opcodes and call the associated function of that opcode
     this.run = function(opcode) {
     	//TODO: Add more to case statements??
+    	
     	switch(opcode) {
     		case "A9":
     			loadAccumulatorWithAConstant();
@@ -95,15 +96,18 @@ function Cpu() {
     			systemCall();
     			break;
     		default:
+    			osBreak();
     			break;
     	}
+    	
     };
 
 
 function loadAccumulatorWithAConstant() {
+	console.log("Reached loadAccumulatorWithAConstant");
 	
 	_Memory[0].pcb.accumulator = _Memory[0].process[_Memory[0].pcb.programCounter + 2];
-	_Memory[0].pcb.programCounter += 3;
+	_Memory[0].pcb.programCounter += 1;
 	document.getElementById("accumulator").innerHTML=_Memory[0].pcb.accumulator;
 	document.getElementById("programCounter").innerHTML=_Memory[0].pcb.programCounter;
 	document.getElementById("xRegister").innerHTML=_Memory[0].pcb.xRegister;
@@ -113,54 +117,80 @@ function loadAccumulatorWithAConstant() {
 } 
 
 function loadAccumulatorFromMemory() {
+	console.log("Reached loadAccumulatorFromMemory");
+	_Memory[0].pcb.programCounter += 1;
 
 }
 
 function storeAccumulatorInMemory() {
+	console.log("Reached storeAccumulatorInMemory");
+	_Memory[0].pcb.programCounter += 1;
 
 }
 
 function addWithCarry() {
+	console.log("Reached addWithCarry");
+	_Memory[0].pcb.programCounter += 1;
 
 }
 
 function loadXRegisterWithAConstant() {
+	console.log("Reached loadXRegisterWithAConstant");
+	_Memory[0].pcb.programCounter += 1;
 
 }
 
 function loadXRegisterFromMmeory() {
+	console.log("Reached loadXRegisterFromMmeory");
+	_Memory[0].pcb.programCounter += 1;
 
 }
 
 function loadYRegisterWithAConstant() {
+	console.log("Reached loadYRegisterWithAConstant");
+	_Memory[0].pcb.programCounter += 1;
 
 }
 
 function loadYRegisterFromMemory() {
+	console.log("Reached loadYRegisterFromMemory");
+	_Memory[0].pcb.programCounter += 1;
 
 }
 
 function noOperation() {
+	console.log("Reached noOperation");
+	_Memory[0].pcb.programCounter += 1;
 
 }
 
 function osBreak() {
-
+	console.log("Reached osBreak");
+	_Memory[0].pcb.programCounter += 1;
+	
 }
 
 function compareXRegisterToMemoryByteAndSetZToZeroIfEqual() {
+	console.log("Reached compareXRegisterToMemoryByteAndSetZToZeroIfEqual");
+	_Memory[0].pcb.programCounter += 1;
 
 }
 
 function branchXBytesIfZEqualsZero() {
+	console.log("Reached branchXBytesIfZEqualsZero");
+	_Memory[0].pcb.programCounter += 1;
 
 }
 
 function incrementByteValue() {
+	console.log("Reached incrementByteValue");
+	_Memory[0].pcb.programCounter += 1;
 
 }
 
 function systemCall() {
+	console.log("Reached systemCall");
+	_Memory[0].pcb.programCounter += 1;
 
 }
 
