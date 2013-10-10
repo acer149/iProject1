@@ -103,6 +103,8 @@ function Cpu() {
     };
 
 
+//TODO:Increment Program Counter based on the parameters of each opcode
+
 function loadAccumulatorWithAConstant() {
 	console.log("Reached loadAccumulatorWithAConstant");
 	
@@ -124,7 +126,7 @@ function loadAccumulatorFromMemory() {
 
 function storeAccumulatorInMemory() {
 	console.log("Reached storeAccumulatorInMemory");
-	_Memory[0].pcb.programCounter += 1;
+	_Memory[0].pcb.programCounter += 2;
 
 }
 
@@ -167,6 +169,7 @@ function noOperation() {
 function osBreak() {
 	console.log("Reached osBreak");
 	_Memory[0].pcb.programCounter += 1;
+	//TODO:isExecuting = flase;  <-- Set this one program counter is incremented correctly in the other functions to break out this.run 
 	
 }
 
