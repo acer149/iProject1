@@ -36,8 +36,9 @@ function Cpu() {
         // Do the real work here. Be sure to set this.isExecuting appropriately.
         
         var opcodeToRun = getOpcode();
-        //console.log(opcodeToRun);
+        
         run(_OpcodeArray[opcodeToRun]);
+        console.log("OpCode to run" + _OpcodeArray[opcodeToRun]);
     };
     
 }
@@ -105,96 +106,194 @@ function Cpu() {
 
 //TODO:Increment Program Counter based on the parameters of each opcode
 
-function loadAccumulatorWithAConstant() {
+function loadAccumulatorWithAConstant() { //A9
+
 	console.log("Reached loadAccumulatorWithAConstant");
 	
-	_Memory[0].pcb.accumulator = _Memory[0].process[_Memory[0].pcb.programCounter + 2];
+	var constantLoaded = _Memory[0].process[_Memory[0].pcb.programCounter +1];	
+	_Memory[0].pcb.accumulator = constantLoaded;
+	_Memory[0].pcb.programCounter += 2;
+	
+	document.getElementById("accumulator").innerHTML=constantLoaded;
+	document.getElementById("programCounter").innerHTML=_Memory[0].pcb.programCounter;
+	document.getElementById("xRegister").innerHTML=_Memory[0].pcb.xRegister;
+	document.getElementById("yRegister").innerHTML=_Memory[0].pcb.yRegister;
+	document.getElementById("zFlag").innerHTML=_Memory[0].pcb.zFlag;
+	
+	console.log("PROGRAMCOUNTER = " + _Memory[0].pcb.programCounter);
+
+} 
+
+function loadAccumulatorFromMemory() { //AD
+
+	console.log("Reached loadAccumulatorFromMemory");
+	
 	_Memory[0].pcb.programCounter += 1;
+
+
+	document.getElementById("accumulator").innerHTML=_Memory[0].pcb.accumulator;
+	document.getElementById("programCounter").innerHTML=_Memory[0].pcb.programCounter;
+	document.getElementById("xRegister").innerHTML=_Memory[0].pcb.xRegister;
+	document.getElementById("yRegister").innerHTML=_Memory[0].pcb.yRegister;
+	document.getElementById("zFlag").innerHTML=_Memory[0].pcb.zFlag;
+	
+	console.log("PROGRAMCOUNTER = " + _Memory[0].pcb.programCounter);
+}
+
+function storeAccumulatorInMemory() { //8D
+
+	console.log("Reached storeAccumulatorInMemory");
+	
+	
+	_Memory[0].process[0] = _Memory[0].pcb.programCounter + 1 //Stores accumulator in memory location 0
+	
+	_Memory[0].pcb.programCounter += 3;
+	
+	
+	document.getElementById("accumulator").innerHTML=_Memory[0].pcb.accumulator;
+	document.getElementById("programCounter").innerHTML=_Memory[0].pcb.programCounter;
+	document.getElementById("xRegister").innerHTML=_Memory[0].pcb.xRegister;
+	document.getElementById("yRegister").innerHTML=_Memory[0].pcb.yRegister;
+	document.getElementById("zFlag").innerHTML=_Memory[0].pcb.zFlag;
+	
+	console.log("PROGRAMCOUNTER = " + _Memory[0].pcb.programCounter);
+
+}
+
+function addWithCarry() { //6D
+
+	console.log("Reached addWithCarry");
+	_Memory[0].pcb.programCounter += 1;
+	
 	document.getElementById("accumulator").innerHTML=_Memory[0].pcb.accumulator;
 	document.getElementById("programCounter").innerHTML=_Memory[0].pcb.programCounter;
 	document.getElementById("xRegister").innerHTML=_Memory[0].pcb.xRegister;
 	document.getElementById("yRegister").innerHTML=_Memory[0].pcb.yRegister;
 	document.getElementById("zFlag").innerHTML=_Memory[0].pcb.zFlag;
 
-} 
-
-function loadAccumulatorFromMemory() {
-	console.log("Reached loadAccumulatorFromMemory");
-	_Memory[0].pcb.programCounter += 1;
-
 }
 
-function storeAccumulatorInMemory() {
-	console.log("Reached storeAccumulatorInMemory");
-	_Memory[0].pcb.programCounter += 2;
+function loadXRegisterWithAConstant() { //A2
 
-}
-
-function addWithCarry() {
-	console.log("Reached addWithCarry");
-	_Memory[0].pcb.programCounter += 1;
-
-}
-
-function loadXRegisterWithAConstant() {
 	console.log("Reached loadXRegisterWithAConstant");
 	_Memory[0].pcb.programCounter += 1;
 
+	document.getElementById("accumulator").innerHTML=_Memory[0].pcb.accumulator;
+	document.getElementById("programCounter").innerHTML=_Memory[0].pcb.programCounter;
+	document.getElementById("xRegister").innerHTML=_Memory[0].pcb.xRegister;
+	document.getElementById("yRegister").innerHTML=_Memory[0].pcb.yRegister;
+	document.getElementById("zFlag").innerHTML=_Memory[0].pcb.zFlag;
 }
 
-function loadXRegisterFromMmeory() {
+function loadXRegisterFromMmeory() { //AE
+
 	console.log("Reached loadXRegisterFromMmeory");
 	_Memory[0].pcb.programCounter += 1;
+	
+	document.getElementById("accumulator").innerHTML=_Memory[0].pcb.accumulator;
+	document.getElementById("programCounter").innerHTML=_Memory[0].pcb.programCounter;
+	document.getElementById("xRegister").innerHTML=_Memory[0].pcb.xRegister;
+	document.getElementById("yRegister").innerHTML=_Memory[0].pcb.yRegister;
+	document.getElementById("zFlag").innerHTML=_Memory[0].pcb.zFlag;
 
 }
 
-function loadYRegisterWithAConstant() {
+function loadYRegisterWithAConstant() { //A0
+
 	console.log("Reached loadYRegisterWithAConstant");
 	_Memory[0].pcb.programCounter += 1;
 
+	document.getElementById("accumulator").innerHTML=_Memory[0].pcb.accumulator;
+	document.getElementById("programCounter").innerHTML=_Memory[0].pcb.programCounter;
+	document.getElementById("xRegister").innerHTML=_Memory[0].pcb.xRegister;
+	document.getElementById("yRegister").innerHTML=_Memory[0].pcb.yRegister;
+	document.getElementById("zFlag").innerHTML=_Memory[0].pcb.zFlag;
 }
 
-function loadYRegisterFromMemory() {
+function loadYRegisterFromMemory() { //AC
+
 	console.log("Reached loadYRegisterFromMemory");
 	_Memory[0].pcb.programCounter += 1;
+	
+	document.getElementById("accumulator").innerHTML=_Memory[0].pcb.accumulator;
+	document.getElementById("programCounter").innerHTML=_Memory[0].pcb.programCounter;
+	document.getElementById("xRegister").innerHTML=_Memory[0].pcb.xRegister;
+	document.getElementById("yRegister").innerHTML=_Memory[0].pcb.yRegister;
+	document.getElementById("zFlag").innerHTML=_Memory[0].pcb.zFlag;
 
 }
 
-function noOperation() {
+function noOperation() { //EA
+
 	console.log("Reached noOperation");
 	_Memory[0].pcb.programCounter += 1;
+	
+	document.getElementById("accumulator").innerHTML=_Memory[0].pcb.accumulator;
+	document.getElementById("programCounter").innerHTML=_Memory[0].pcb.programCounter;
+	document.getElementById("xRegister").innerHTML=_Memory[0].pcb.xRegister;
+	document.getElementById("yRegister").innerHTML=_Memory[0].pcb.yRegister;
+	document.getElementById("zFlag").innerHTML=_Memory[0].pcb.zFlag;
 
 }
 
-function osBreak() {
+function osBreak() { //00
+
 	console.log("Reached osBreak");
 	_Memory[0].pcb.programCounter += 1;
-	//TODO:isExecuting = flase;  <-- Set this one program counter is incremented correctly in the other functions to break out this.run 
-	
+	//TODO:_CPU.isExecuting = false;  <-- Set this one program counter is incremented correctly in the other functions to break out this.run 
+	_CPU.isExecuting = false;
 }
 
-function compareXRegisterToMemoryByteAndSetZToZeroIfEqual() {
+function compareXRegisterToMemoryByteAndSetZToZeroIfEqual() { //EC
+
 	console.log("Reached compareXRegisterToMemoryByteAndSetZToZeroIfEqual");
 	_Memory[0].pcb.programCounter += 1;
+	
+	document.getElementById("accumulator").innerHTML=_Memory[0].pcb.accumulator;
+	document.getElementById("programCounter").innerHTML=_Memory[0].pcb.programCounter;
+	document.getElementById("xRegister").innerHTML=_Memory[0].pcb.xRegister;
+	document.getElementById("yRegister").innerHTML=_Memory[0].pcb.yRegister;
+	document.getElementById("zFlag").innerHTML=_Memory[0].pcb.zFlag;
 
 }
 
-function branchXBytesIfZEqualsZero() {
+function branchXBytesIfZEqualsZero() { //D0
+
 	console.log("Reached branchXBytesIfZEqualsZero");
 	_Memory[0].pcb.programCounter += 1;
+	
+	document.getElementById("accumulator").innerHTML=_Memory[0].pcb.accumulator;
+	document.getElementById("programCounter").innerHTML=_Memory[0].pcb.programCounter;
+	document.getElementById("xRegister").innerHTML=_Memory[0].pcb.xRegister;
+	document.getElementById("yRegister").innerHTML=_Memory[0].pcb.yRegister;
+	document.getElementById("zFlag").innerHTML=_Memory[0].pcb.zFlag;
 
 }
 
-function incrementByteValue() {
+function incrementByteValue() { //EE
+
 	console.log("Reached incrementByteValue");
 	_Memory[0].pcb.programCounter += 1;
+	
+	document.getElementById("accumulator").innerHTML=_Memory[0].pcb.accumulator;
+	document.getElementById("programCounter").innerHTML=_Memory[0].pcb.programCounter;
+	document.getElementById("xRegister").innerHTML=_Memory[0].pcb.xRegister;
+	document.getElementById("yRegister").innerHTML=_Memory[0].pcb.yRegister;
+	document.getElementById("zFlag").innerHTML=_Memory[0].pcb.zFlag;
 
 }
 
-function systemCall() {
+function systemCall() { //FF
+
 	console.log("Reached systemCall");
 	_Memory[0].pcb.programCounter += 1;
 
+
+	document.getElementById("accumulator").innerHTML=_Memory[0].pcb.accumulator;
+	document.getElementById("programCounter").innerHTML=_Memory[0].pcb.programCounter;
+	document.getElementById("xRegister").innerHTML=_Memory[0].pcb.xRegister;
+	document.getElementById("yRegister").innerHTML=_Memory[0].pcb.yRegister;
+	document.getElementById("zFlag").innerHTML=_Memory[0].pcb.zFlag;
 }
 
 

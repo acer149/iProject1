@@ -665,6 +665,7 @@ function shellLoad() {
 		_Memory[0] = {pcb:pcb, pid:pid, process:_OpcodeArray};
 		console.log(_Memory[0]);
 		
+		//Loads the user program into the memory display in index.html
 		for (var i = 0; i < _OpcodeArray.length; i++) {
 			document.getElementById("bit" + i).innerText=_OpcodeArray[i];
 		}
@@ -686,11 +687,13 @@ function shellRun(args) {
 		//Checks if the pid exists
 		if (pidToBeRun == _Memory[0].pid) {
 			//While the i is less than the length of the opcode array, shellRun will pass each opcode to cpu.js's switch statement
-			for (var i =0; i < _OpcodeArray.length; i++) {
+			
+			
+			//for (var i =0; i < 10; i++){//< _OpcodeArray.length; i++) {
 				//console.log("Executed opcode: " + _OpcodeArray[i]);
 				_CPU.isExecuting = true;
 				//_CPU.cycle();
-			}
+			//}
 			//_CPU.isExecuting = false;	
 		}
 		else {
