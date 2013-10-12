@@ -145,10 +145,9 @@ function storeAccumulatorInMemory() { //8D
 	console.log("Reached storeAccumulatorInMemory");
 	
 	
-	//_Memory[0].process[_Memory[0].pcb.programCounter + 2] = _Memory[0].process[_Memory[0].pcb.programCounter + 1]; //Stores accumulator in memory location 0
-	
-	console.log(_Memory[0].process[_Memory[0].pcb.programCounter + 1]);
-	console.log(_Memory[0].process[_Memory[0].pcb.programCounter + 2]);
+	_Memory[_Memory[0].process[_Memory[0].pcb.programCounter + 1]] = _Memory[0].pcb.accumulator; //_Memory[0].process[_Memory[0].pcb.programCounter + 1]; //Stores accumulator in memory location 0
+	console.log("Storing Location " + _Memory[0].process[_Memory[0].pcb.programCounter + 1]);
+	console.log("Acc to be stored " + _Memory[0].pcb.accumulator);
 	_Memory[0].pcb.programCounter += 3;
 	
 	
@@ -195,8 +194,8 @@ function loadXRegisterFromMmeory() { //AE
 
 	console.log("Reached loadXRegisterFromMmeory");
 	
-	_Memory[0].pcb.xRegister = _Memory[0].process[_Memory[0].pcb.programCounter +2];
-	_CPU.Xreg += 1;
+	_Memory[0].pcb.xRegister = _Memory[_Memory[0].pcb.programCounter + 1];
+	//_CPU.Xreg += 1;
 	_Memory[0].pcb.programCounter += 3;
 	
 	document.getElementById("accumulator").innerHTML=_Memory[0].pcb.accumulator;
@@ -224,7 +223,7 @@ function loadYRegisterFromMemory() { //AC
 	console.log("Reached loadYRegisterFromMemory");
 	
 	
-	_Memory[0].pcb.yRegister = _Memory[0].process[0];
+	_Memory[0].pcb.yRegister = _Memory[_Memory[0].pcb.programCounter + 1];
 	_CPU.Yreg += 1;
 	_Memory[0].pcb.programCounter += 3;
 	
@@ -259,10 +258,9 @@ function osBreak() { //00
 
 function compareXRegisterToMemoryByteAndSetZToZeroIfEqual() { //EC
 
-		console.log("Xregggg " + _CPU.Xreg );
-		console.log("MEmmmm " + parseInt(_Memory[0].process[40]));//[_Memory[0].pcb.programCounter +2]) );
+
 	console.log("Reached compareXRegisterToMemoryByteAndSetZToZeroIfEqual");
-	if (_CPU.Xreg === parseInt(_Memory[0].process[_Memory[0].pcb.programCounter +2])) {
+	if (_CPU.Xreg === parseInt(_Memory[_Memory[0].process[_Memory[0].pcb.programCounter +1]])) {
 
 		_CPU.Zflag = 1;
 	}
