@@ -110,7 +110,8 @@ function loadAccumulatorWithAConstant() { //A9
 
 	console.log("Reached loadAccumulatorWithAConstant");
 	
-	var constantLoaded = _Memory[0].process[_Memory[0].pcb.programCounter +1];	
+	var parameterOfA9 = _Memory[0].process[_Memory[0].pcb.programCounter +1]; 
+	var constantLoaded = parameterOfA9;	
 	_Memory[0].pcb.accumulator = constantLoaded;
 	_Memory[0].pcb.programCounter += 2;
 	
@@ -119,9 +120,6 @@ function loadAccumulatorWithAConstant() { //A9
 	document.getElementById("xRegister").innerHTML=_CPU.Xreg;
 	document.getElementById("yRegister").innerHTML=_CPU.Yreg;
 	document.getElementById("zFlag").innerHTML=_CPU.Zflag;
-	
-	console.log("PROGRAMCOUNTER = " + _Memory[0].pcb.programCounter);
-
 } 
 
 function loadAccumulatorFromMemory() { //AD
@@ -130,14 +128,11 @@ function loadAccumulatorFromMemory() { //AD
 	
 	_Memory[0].pcb.programCounter += 1;
 
-
 	document.getElementById("accumulator").innerHTML=_Memory[0].pcb.accumulator;
 	document.getElementById("programCounter").innerHTML=_Memory[0].pcb.programCounter;
 	document.getElementById("xRegister").innerHTML=_CPU.Xreg;
 	document.getElementById("yRegister").innerHTML=_CPU.Yreg;
 	document.getElementById("zFlag").innerHTML=_CPU.Zflag;
-	
-	console.log("PROGRAMCOUNTER = " + _Memory[0].pcb.programCounter);
 }
 
 function storeAccumulatorInMemory() { //8D
@@ -145,9 +140,14 @@ function storeAccumulatorInMemory() { //8D
 	console.log("Reached storeAccumulatorInMemory");
 	
 	
-	_Memory[_Memory[0].process[_Memory[0].pcb.programCounter + 1]] = _Memory[0].pcb.accumulator; //_Memory[0].process[_Memory[0].pcb.programCounter + 1]; //Stores accumulator in memory location 0
-	console.log("Storing Location " + _Memory[0].process[_Memory[0].pcb.programCounter + 1]);
-	console.log("Acc to be stored " + _Memory[0].pcb.accumulator);
+	var memLocationForAccToBeStored = _Memory[0].process[_Memory[0].pcb.programCounter + 1];
+	console.log(memLocationForAccToBeStored);
+	
+	memLocationForAccToBeStored = _Memory[0].pcb.accumulator; //_Memory[0].process[_Memory[0].pcb.programCounter + 1]; //Stores accumulator in memory location 0
+	document.getElementById("bit" + memLocationForAccToBeStored).innerHTML=_Memory[0].pcb.accumulator;
+	
+	//console.log("Storing Location " + _Memory[0].process[_Memory[0].process[_Memory[0].pcb.programCounter + 1]]);
+	//console.log("Acc to be stored " + _Memory[0].pcb.accumulator);
 	_Memory[0].pcb.programCounter += 3;
 	
 	
@@ -156,9 +156,6 @@ function storeAccumulatorInMemory() { //8D
 	document.getElementById("xRegister").innerHTML=_CPU.Xreg;
 	document.getElementById("yRegister").innerHTML=_CPU.Yreg;
 	document.getElementById("zFlag").innerHTML=_CPU.Zflag;
-	
-	console.log("PROGRAMCOUNTER = " + _Memory[0].pcb.programCounter);
-
 }
 
 function addWithCarry() { //6D
@@ -171,7 +168,6 @@ function addWithCarry() { //6D
 	document.getElementById("xRegister").innerHTML=_CPU.Xreg;
 	document.getElementById("yRegister").innerHTML=_CPU.Yreg;
 	document.getElementById("zFlag").innerHTML=_CPU.Zflag;
-
 }
 
 function loadXRegisterWithAConstant() { //A2
