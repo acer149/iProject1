@@ -258,9 +258,8 @@ function compareXRegisterToMemoryByteAndSetZToZeroIfEqual() { //EC
 }
 
 function branchXBytesIfZEqualsZero() { //D0
-	
 	if (_CPU.Zflag === 0) {
-		_Memory[0].pcb.programCounter -= 9;
+		_Memory[0].pcb.programCounter += 246; //255 - 9 = 246
 		console.log("zflag was 0");
 	}
 	else {
