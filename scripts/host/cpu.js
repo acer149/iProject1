@@ -240,9 +240,6 @@ function compareXRegisterToMemoryByteAndSetZToZeroIfEqual() { //EC
 	console.log("XREG " + _CPU.Xreg);
 	
 	
-	
-	
-	
 	if (_CPU.Xreg === parseInt(_Memory[0].process[memLocationToLoadAccFrom]) - 1) {
 
 		_CPU.Zflag = 1;
@@ -261,11 +258,11 @@ function compareXRegisterToMemoryByteAndSetZToZeroIfEqual() { //EC
 
 function branchXBytesIfZEqualsZero() { //D0
 	if (_CPU.Zflag === 0) {
-		_Memory[0].pcb.programCounter -=15; //245; //255 - 9 = 246
+		_Memory[0].pcb.programCounter +=240; //255 - 15 = 240
 		console.log("zflag was 0");
 		
 		if (_Memory[0].pcb.programCounter > 255) {
-			_Memory[0].pcb.programCounter -= 256;
+			_Memory[0].pcb.programCounter -= 255;
 		}
 	}
 	else {
