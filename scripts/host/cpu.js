@@ -193,6 +193,10 @@ function loadXRegisterFromMmeory() { //AE
 }
 
 function loadYRegisterWithAConstant() { //A0
+	
+	//This will be the starting memory location of the string (in decimal)
+	_Memory[0].pcb.yRegister = parseInt(_Memory[0].process[_Memory[0].pcb.programCounter + 1], 16);
+	
 	_Memory[0].pcb.programCounter += 2;
 
 	document.getElementById("accumulator").innerHTML=_Memory[0].pcb.accumulator;
@@ -301,15 +305,34 @@ function incrementByteValue() { //EE
 
 function systemCall() { //FF
 
+	if (_CPU.Xreg <= 2) {
+		var printToConsole = parseInt(_CPU.Yreg).toString();
 
-	var printToConsole = parseInt(_CPU.Yreg).toString();
+		for (var i = 0; i < printToConsole.length; i++) {
+			_StdIn.putText(printToConsole.charAt(i));		
+		}
 
-	for (var i = 0; i < printToConsole.length; i++) {
-		_StdIn.putText(printToConsole.charAt(i));		
+		_StdIn.advanceLine();
+		_StdIn.putText(_OsShell.promptStr);
+	}
+	
+	else if (_CPU.Xreg == 3) {
+	
+		var startingMemoryLocationOfProgramString = _Memory[0].pcb.yRegister;
+		
+		while(_Memory[0].process(startingMemoryLocationOfProgramString) != "00") {
+			caonsole.log("Done");
+			var letterCode = _Memory[0].process(startingMemoryLocationOfProgramString);
+			var letter = String.fromCharCode(letterCode);
+			
+			_StdIn.putText(letter); 
+			startingMemoryLocationOfProgramString++;
+		}
+		
+		_StdIn.advanceLine();
+		_StdIn.putText(_OsShell.promptStr);
 	}
 
-	_StdIn.advanceLine();
-	_StdIn.putText(_OsShell.promptStr);
 	
 	_Memory[0].pcb.programCounter += 1;
 
