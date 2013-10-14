@@ -38,7 +38,7 @@ function Cpu() {
         var opcodeToRun = getOpcode();
         
         run(_OpcodeArray[opcodeToRun]);
-        console.log("OpCode to run" + _OpcodeArray[opcodeToRun]);
+        //console.log("OpCode to run" + _OpcodeArray[opcodeToRun]);
     };
     
 }
@@ -136,7 +136,7 @@ function storeAccumulatorInMemory() { //8D
 	var memLocationForAccToBeStored = _Memory[0].process[_Memory[0].pcb.programCounter + 1];
 	
 	_Memory[0].process[memLocationForAccToBeStored] = _Memory[0].pcb.accumulator;//Stores accumulator in memory location 0
-	document.getElementById("bit" + memLocationForAccToBeStored).innerHTML=_Memory[0].pcb.accumulator;
+	//document.getElementById("bit" + memLocationForAccToBeStored).innerHTML=_Memory[0].pcb.accumulator;
 	
 	console.log("Storing Location " + _Memory[0].process[memLocationForAccToBeStored]);
 	//console.log("Acc to be stored " + _Memory[0].pcb.accumulator);
@@ -178,7 +178,7 @@ function loadXRegisterWithAConstant() { //A2
 function loadXRegisterFromMmeory() { //AE
 	
 	_Memory[0].pcb.xRegister = _Memory[_Memory[0].pcb.programCounter + 1];
-	_CPU.Xreg += 1;
+	//_CPU.Xreg += 1;
 	_Memory[0].pcb.programCounter += 3;
 	
 	document.getElementById("accumulator").innerHTML=_Memory[0].pcb.accumulator;
@@ -203,6 +203,7 @@ function loadYRegisterFromMemory() { //AC
 	
 	_Memory[0].pcb.yRegister = _Memory[_Memory[0].pcb.programCounter + 1];
 	_CPU.Yreg += 1;
+	console.log("YReg " + _CPU.Yreg);
 	_Memory[0].pcb.programCounter += 3;
 	
 	document.getElementById("accumulator").innerHTML=_Memory[0].pcb.accumulator;
@@ -242,10 +243,11 @@ function compareXRegisterToMemoryByteAndSetZToZeroIfEqual() { //EC
 	
 	
 	
-	if (_CPU.Xreg === parseInt(_Memory[0].process[memLocationToLoadAccFrom])) {
+	if (_CPU.Xreg === parseInt(_Memory[0].process[memLocationToLoadAccFrom]) - 1) {
 
 		_CPU.Zflag = 1;
 	}
+	
 	
 	_Memory[0].pcb.programCounter += 3;
 	
@@ -259,8 +261,12 @@ function compareXRegisterToMemoryByteAndSetZToZeroIfEqual() { //EC
 
 function branchXBytesIfZEqualsZero() { //D0
 	if (_CPU.Zflag === 0) {
-		_Memory[0].pcb.programCounter += 246; //255 - 9 = 246
+		_Memory[0].pcb.programCounter -=15; //245; //255 - 9 = 246
 		console.log("zflag was 0");
+		
+		if (_Memory[0].pcb.programCounter > 255) {
+			_Memory[0].pcb.programCounter -= 256;
+		}
 	}
 	else {
 		_Memory[0].pcb.programCounter += 2;
