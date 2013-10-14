@@ -318,12 +318,14 @@ function systemCall() { //FF
 	
 	else if (_CPU.Xreg == 3) {
 	
-		var startingMemoryLocationOfProgramString = _Memory[0].pcb.yRegister;
+		var startingMemoryLocationOfProgramString = _Memory[0].pcb.yRegister; //Decimal
 		
-		while(_Memory[0].process(startingMemoryLocationOfProgramString) != "00") {
-			caonsole.log("Done");
-			var letterCode = _Memory[0].process(startingMemoryLocationOfProgramString);
-			var letter = String.fromCharCode(letterCode);
+		//console.log(_Memory[0].process[startingMemoryLocationOfProgramString]);
+		
+		while(_Memory[0].process[startingMemoryLocationOfProgramString] != "00") {
+			
+			var letterCode = _Memory[0].process[startingMemoryLocationOfProgramString];
+			var letter = String.fromCharCode(parseInt(letterCode, 16)); //Translate to decimal
 			
 			_StdIn.putText(letter); 
 			startingMemoryLocationOfProgramString++;
