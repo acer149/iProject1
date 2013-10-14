@@ -112,6 +112,7 @@ function loadAccumulatorWithAConstant() { //A9
 	var constantLoaded = parameterOfA9;	
 	_Memory[0].pcb.accumulator = constantLoaded;
 	_Memory[0].pcb.programCounter += 2;
+	//console.log(_Memory[0].pcb.programCounter);
 	
 	document.getElementById("accumulator").innerHTML=constantLoaded;
 	document.getElementById("programCounter").innerHTML=_Memory[0].pcb.programCounter;
@@ -132,13 +133,15 @@ function loadAccumulatorFromMemory() { //AD
 }
 
 function storeAccumulatorInMemory() { //8D	
+	var hexMemLocationForAccToBeStored = _Memory[0].process[_Memory[0].pcb.programCounter + 1]; //Value in hex
 	
-	var memLocationForAccToBeStored = _Memory[0].process[_Memory[0].pcb.programCounter + 1];
+	var decimalMemLocationForAccToBeStored = parseInt(hexMemLocationForAccToBeStored, 16);
+
+	_Memory[0].process[decimalMemLocationForAccToBeStored] = _Memory[0].pcb.accumulator;//Stores accumulator in memory location 0
+	//console.log("***Storing Location dec" + decimalMemLocationForAccToBeStored);
+	document.getElementById("bit" + decimalMemLocationForAccToBeStored).innerHTML=_Memory[0].pcb.accumulator;
 	
-	_Memory[0].process[memLocationForAccToBeStored] = _Memory[0].pcb.accumulator;//Stores accumulator in memory location 0
-	//document.getElementById("bit" + memLocationForAccToBeStored).innerHTML=_Memory[0].pcb.accumulator;
-	
-	console.log("Storing Location " + _Memory[0].process[memLocationForAccToBeStored]);
+	//console.log("Storing Location " + _Memory[0].process[decimalMemLocationForAccToBeStored]);
 	//console.log("Acc to be stored " + _Memory[0].pcb.accumulator);
 	_Memory[0].pcb.programCounter += 3;
 	
@@ -203,7 +206,7 @@ function loadYRegisterFromMemory() { //AC
 	
 	_Memory[0].pcb.yRegister = _Memory[_Memory[0].pcb.programCounter + 1];
 	_CPU.Yreg += 1;
-	console.log("YReg " + _CPU.Yreg);
+	//console.log("YReg " + _CPU.Yreg);
 	_Memory[0].pcb.programCounter += 3;
 	
 	document.getElementById("accumulator").innerHTML=_Memory[0].pcb.accumulator;
@@ -235,12 +238,15 @@ function osBreak() { //00
 function compareXRegisterToMemoryByteAndSetZToZeroIfEqual() { //EC
 	
 	
-	var memLocationToLoadAccFrom = _Memory[0].process[_Memory[0].pcb.programCounter + 1];
-	console.log("Look Here " + parseInt(_Memory[0].process[memLocationToLoadAccFrom]));
+	var hexMemLocationToLoadAccFrom = _Memory[0].process[_Memory[0].pcb.programCounter + 1];
+	
+	var decimalMemLocationToLoadAccFrom = parseInt(hexMemLocationToLoadAccFrom, 16);
+	
+	console.log("Compare value from mem " + parseInt(_Memory[0].process[decimalMemLocationToLoadAccFrom] -1));
 	console.log("XREG " + _CPU.Xreg);
 	
 	
-	if (_CPU.Xreg === parseInt(_Memory[0].process[memLocationToLoadAccFrom]) - 1) {
+	if (_CPU.Xreg === parseInt(_Memory[0].process[decimalMemLocationToLoadAccFrom] -1)) {
 
 		_CPU.Zflag = 1;
 	}
@@ -258,16 +264,17 @@ function compareXRegisterToMemoryByteAndSetZToZeroIfEqual() { //EC
 
 function branchXBytesIfZEqualsZero() { //D0
 	if (_CPU.Zflag === 0) {
-		_Memory[0].pcb.programCounter +=240; //255 - 15 = 240
+		_Memory[0].pcb.programCounter +=240; //255 - 15 = 240; PC should be 265 because 240 is added to current PC of 25
 		console.log("zflag was 0");
 		
 		if (_Memory[0].pcb.programCounter > 255) {
-			_Memory[0].pcb.programCounter -= 255;
-			console.log("pc " + _Memory[0].pcb.programCounter);
+			_Memory[0].pcb.programCounter -= 255; //PC is now 10, where we want it to be for the loop
+			//console.log("pc " + _Memory[0].pcb.programCounter); //PC that is branched back to
 		}
 	}
 	else {
 		_Memory[0].pcb.programCounter += 2;
+		console.log("PC After loop is finished =" + _Memory[0].pcb.programCounter);
 	}
 	
 	document.getElementById("accumulator").innerHTML=_Memory[0].pcb.accumulator;
