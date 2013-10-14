@@ -246,7 +246,7 @@ function compareXRegisterToMemoryByteAndSetZToZeroIfEqual() { //EC
 	console.log("XREG " + _CPU.Xreg);
 	
 	
-	if (_CPU.Xreg === parseInt(_Memory[0].process[decimalMemLocationToLoadAccFrom] -1)) {
+	if (_CPU.Xreg === (parseInt(_Memory[0].process[decimalMemLocationToLoadAccFrom])-1)) {
 
 		_CPU.Zflag = 1;
 	}
