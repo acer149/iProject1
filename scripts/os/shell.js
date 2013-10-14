@@ -718,6 +718,10 @@ setInterval(function taskBarDate(args){
 	else if (hours === 12) {
 		amOrpm = "pm";
 	}
+	else if (hours === 0) {
+		hours = 12;
+		amOrpm = "am";
+	}
 	else {
 		amOrpm = "am";
 	}

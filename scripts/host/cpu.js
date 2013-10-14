@@ -263,6 +263,7 @@ function branchXBytesIfZEqualsZero() { //D0
 		
 		if (_Memory[0].pcb.programCounter > 255) {
 			_Memory[0].pcb.programCounter -= 255;
+			console.log("pc " + _Memory[0].pcb.programCounter);
 		}
 	}
 	else {
@@ -293,13 +294,13 @@ function incrementByteValue() { //EE
 
 function systemCall() { //FF
 
-	
-	var printToConsole = parseInt(_CPU.Yreg).toString();	
-	
+
+	var printToConsole = parseInt(_CPU.Yreg).toString();
+
 	for (var i = 0; i < printToConsole.length; i++) {
-		_StdIn.putText(printToConsole.charAt(i));
+		_StdIn.putText(printToConsole.charAt(i));		
 	}
-	
+
 	_StdIn.advanceLine();
 	_StdIn.putText(_OsShell.promptStr);
 	
