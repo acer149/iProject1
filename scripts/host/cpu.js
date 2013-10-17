@@ -245,14 +245,14 @@ function osBreak() { //00
 function compareXRegisterToMemoryByteAndSetZToZeroIfEqual() { //EC
 	
 	
-	var hexMemLocationToLoadAccFrom = _Memory[0].process[_Memory[0].pcb.programCounter + 1];
+	var operand = _Memory[0].process[_Memory[0].pcb.programCounter + 1];
 	
-	var decimalMemLocationToLoadAccFrom = parseInt(hexMemLocationToLoadAccFrom, 16);
-	console.log("Compare value from mem " + parseInt(_Memory[0].process[decimalMemLocationToLoadAccFrom] -1));
+	var decimalMemLocation = parseInt(operand, 16);
+	console.log("Compare value from mem @ " + decimalMemLocation + " which is " + parseInt(_Memory[0].process[decimalMemLocation]));
 	console.log("XREG " + _CPU.Xreg); //parseInt(_Memory[0].pcb.xRegister, 16)
 	
 	
-	if (_CPU.Xreg === parseInt(_Memory[0].process[decimalMemLocationToLoadAccFrom], 16) -1) {
+	if (_CPU.Xreg === parseInt(_Memory[0].process[decimalMemLocation], 16)) {
 
 		_CPU.Zflag = 1;
 	}
@@ -343,7 +343,7 @@ function systemCall() { //FF
 		_StdIn.putText(_OsShell.promptStr);
 	}
 	else {
-		_CPU.isExecuting = flase;
+		_CPU.isExecuting = false;
 		console.log("_CPU.Xreg = " + _CPU.Xreg);
 	}
 
