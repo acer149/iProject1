@@ -241,7 +241,6 @@ function noOperation() { //EA
 function osBreak() { //00
 
 	_Memory[0].pcb.programCounter += 1;
-	//TODO:_CPU.isExecuting = false;  <-- Set this one program counter is incremented correctly in the other functions to break out this.run 
 	_CPU.isExecuting = false;
 }
 
@@ -256,12 +255,11 @@ function compareXRegisterToMemoryByteAndSetZToZeroIfEqual() { //EC
 	console.log("XREG " + _Memory[0].pcb.xRegister); //_CPU.Xreg
 	
 	
-	if (_Memory[0].pcb.xRegister === parseInt(_Memory[0].process[decimalMemLocationToLoadAccFrom])-1) {
+	if (parseInt(_Memory[0].pcb.xRegister) === parseInt(_Memory[0].process[decimalMemLocationToLoadAccFrom])) {
 
 		_CPU.Zflag = 1;
 	}
-	
-	
+
 	_Memory[0].pcb.programCounter += 3;
 	
 	document.getElementById("accumulator").innerHTML=_Memory[0].pcb.accumulator;
