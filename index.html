@@ -27,14 +27,11 @@
    <script type="text/javascript" src="scripts/os/shell.js"></script>
    <script type="text/javascript" src="scripts/os/memoryManager.js"></script>
    <script type="text/javascript" src="scripts/os/processControlBlock.js"></script>
+   <script type="text/javascript" src="scripts/os/populateUserProgramInput.js"></script>
    <script type="text/javascript" src="scripts/os/kernel.js"></script>
 
 
-   <!-- Other Routines -->
-   <script type="text/javascript" src="scripts/os/populateUserProgramInput"></script>
-   
-   
-   
+   <!-- Other Routines --> 
    <script type="text/javascript" src="scripts/utils.js"></script>
    <!--<script type="text/javascript" src="http://www.labouseur.com/courses/os/projects/glados.js"></script> -->
    
@@ -119,20 +116,26 @@
              	id = "btnProgram"
              	name="brnProgram"
              	class="normal_button"
-             	value="Program"
-             	onclick="hostQuickInsertProgram(this);">
+             	value="12DONE"
+             	onclick="insertProgram1(this);">
             <input type="button"
              	id = "btnProgram"
              	name="brnProgram"
              class="normal_button"
-             	value="Program2"
-             	onclick="hostQuickInsertProgram2(this);">
+             	value="2AND5"
+             	onclick="insertProgram2(this);">
+            <input type="button"
+             	id = "btnProgram"
+             	name="brnProgram"
+             class="normal_button"
+             	value="Counting"
+             	onclick="insertProgram3(this);">
             <input type="button"
              	id = "btnProgram"
              	name="brnProgram"
              	class="normal_button"
              	value="Step"
-             	onclick="hostStepThroughProgram(this);">
+             	onclick="stepThroughProgram(this);">
 
    </div>
    
