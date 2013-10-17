@@ -91,6 +91,9 @@ function hostBtnStartOS_click(btn)
     
     //Creates Memory
     _Memory = new Memory();
+    
+    //Creates a PCB process list
+    _ResidentList = new Array();
 
 
     // ... then set the host clock pulse ...

@@ -657,17 +657,22 @@ function shellLoad() {
 		//Creates a pcb for the process
 		var pcb = new ProcessControlBlock(pid);
 		
+		//Stores the pcb in the _ResidentList. The location in the _ResidentList will the the pid of the program
+		_ResidentList[pid] = pcb;
+		
 		//Splits the user program on spaces and adds it to the _OpcodeArray
 		_OpcodeArray = userProgram.split(" ");
 		//console.log(_OpcodeArray);
 		
 		//Stores the pcb, the pid, and the user process in memory $0000
-		_Memory[0] = {pcb:pcb, pid:pid, process:_OpcodeArray};
-		console.log(_Memory[0]);
+		//_Memory[0] = {pcb:pcb, pid:pid, process:_OpcodeArray};
+		//console.log(_Memory[0]);
 		
 		//Loads the user program into the memory display in index.html
 		for (var i = 0; i < _OpcodeArray.length; i++) {
+			_Memory[i] = _OpcodeArray[i];
 			document.getElementById("bit" + i).innerText=_OpcodeArray[i];
+			console.log(_Memory[i]);
 		}
 		
 		_StdIn.advanceLine();
@@ -685,7 +690,7 @@ function shellRun(args) {
 		var pidToBeRun = args[0];
 		
 		//Checks if the pid exists
-		if (pidToBeRun == _Memory[0].pid) {
+		if (pidToBeRun == _ResidentList[pidToBeRun].pid) {
 			//While the i is less than the length of the opcode array, shellRun will pass each opcode to cpu.js's switch statement
 			
 			

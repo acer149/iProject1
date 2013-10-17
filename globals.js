@@ -49,6 +49,7 @@ var _LastPid = -1;
 
 //UserProcess
 var _OpcodeArray;
+var _ResidentList;
 
 
 // Default the OS trace to be on.

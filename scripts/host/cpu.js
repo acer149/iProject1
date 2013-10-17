@@ -44,15 +44,13 @@ function Cpu() {
 }
 
 	this.getOpcode = function() {
-	return _Memory[0].pcb.programCounter;
+	return _CPU.PC;
 	
 	};
 
     //op codes
     //Will identify the user process's opcodes and call the associated function of that opcode
     this.run = function(opcode) {
-    	//TODO: Add more to case statements??
-    	
     	switch(opcode) {
     		case "A9":
     			loadAccumulatorWithAConstant();
@@ -106,14 +104,14 @@ function Cpu() {
 
 function loadAccumulatorWithAConstant() { //A9
 	
-	var parameterOfA9 = _Memory[0].process[_Memory[0].pcb.programCounter + 1]; 
+	var parameterOfA9 = _Memory[0].process[_CPU.PC + 1]; 
 	var constantLoaded = parameterOfA9;	
 	_Memory[0].pcb.accumulator = constantLoaded;
-	_Memory[0].pcb.programCounter += 2;
-	//console.log(_Memory[0].pcb.programCounter);
+	_CPU.PC += 2;
+	//console.log(_CPU.PC);
 	
 	document.getElementById("accumulator").innerHTML=constantLoaded;
-	document.getElementById("programCounter").innerHTML=_Memory[0].pcb.programCounter;
+	document.getElementById("programCounter").innerHTML=_CPU.PC;
 	document.getElementById("xRegister").innerHTML=_Memory[0].pcb.xRegister;
 	document.getElementById("yRegister").innerHTML=_CPU.Yreg;
 	document.getElementById("zFlag").innerHTML=_CPU.Zflag;
@@ -121,21 +119,21 @@ function loadAccumulatorWithAConstant() { //A9
 
 function loadAccumulatorFromMemory() { //AD
 	
-	var decimalLocationInMemoryToLoadAccumulatorFrom = parseInt(_Memory[0].process[_Memory[0].pcb.programCounter + 1] , 16);
+	var decimalLocationInMemoryToLoadAccumulatorFrom = parseInt(_Memory[0].process[_CPU.PC + 1] , 16);
 	
 	_Memory[0].pcb.accumulator = _Memory[0].process[decimalLocationInMemoryToLoadAccumulatorFrom];
 	
-	_Memory[0].pcb.programCounter += 3;
+	_CPU.PC += 3;
 
 	document.getElementById("accumulator").innerHTML=_Memory[0].pcb.accumulator;
-	document.getElementById("programCounter").innerHTML=_Memory[0].pcb.programCounter;
+	document.getElementById("programCounter").innerHTML=_CPU.PC;
 	document.getElementById("xRegister").innerHTML=_Memory[0].pcb.xRegister;
 	document.getElementById("yRegister").innerHTML=_CPU.Yreg;
 	document.getElementById("zFlag").innerHTML=_CPU.Zflag;
 }
 
 function storeAccumulatorInMemory() { //8D	
-	var hexMemLocationForAccToBeStored = _Memory[0].process[_Memory[0].pcb.programCounter + 1]; //Value in hex
+	var hexMemLocationForAccToBeStored = _Memory[0].process[_CPU.PC + 1]; //Value in hex
 	
 	var decimalMemLocationForAccToBeStored = parseInt(hexMemLocationForAccToBeStored, 16);
 
