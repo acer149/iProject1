@@ -273,7 +273,7 @@ function branchXBytesIfZEqualsZero() { //D0
 		
 		//******
 		console.log("Branch Value = " + parseInt(_Memory[0].process[_Memory[0].pcb.programCounter + 1], 16));
-		_Memory[0].pcb.programCounter += _Memory[0].process[_Memory[0].pcb.programCounter + 1];//parseInt(_Memory[0].process[_Memory[0].pcb.programCounter + 1], 16);
+		_Memory[0].pcb.programCounter += parseInt(_Memory[0].process[_Memory[0].pcb.programCounter + 1], 16);
 		
 		//******
 		
