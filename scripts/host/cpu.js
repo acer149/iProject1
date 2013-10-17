@@ -108,7 +108,7 @@ function Cpu() {
 
 function loadAccumulatorWithAConstant() { //A9
 	
-	var parameterOfA9 = _Memory[0].process[_Memory[0].pcb.programCounter +1]; 
+	var parameterOfA9 = _Memory[0].process[_Memory[0].pcb.programCounter + 1]; 
 	var constantLoaded = parameterOfA9;	
 	_Memory[0].pcb.accumulator = constantLoaded;
 	_Memory[0].pcb.programCounter += 2;
@@ -123,7 +123,11 @@ function loadAccumulatorWithAConstant() { //A9
 
 function loadAccumulatorFromMemory() { //AD
 	
-	_Memory[0].pcb.programCounter += 1;
+	var decimalLocationInMemoryToLoadAccumulatorFrom = parseInt(_Memory[0].process[_Memory[0].pcb.programCounter + 1] , 16);
+	
+	_Memory[0].pcb.accumulator = _Memory[0].process[decimalLocationInMemoryToLoadAccumulatorFrom];
+	
+	_Memory[0].pcb.programCounter += 3;
 
 	document.getElementById("accumulator").innerHTML=_Memory[0].pcb.accumulator;
 	document.getElementById("programCounter").innerHTML=_Memory[0].pcb.programCounter;
@@ -155,7 +159,9 @@ function storeAccumulatorInMemory() { //8D
 
 function addWithCarry() { //6D
 
-	_Memory[0].pcb.programCounter += 1;
+	//console.log(" " + _Memory[0].process[_Memory[0].pcb.programCounter + 1]);
+	_Memory[0].pcb.accumulator = _Memory[0].pcb.accumulator + _Memory[0].process[_Memory[0].pcb.programCounter + 1];	
+	_Memory[0].pcb.programCounter += 3;
 	
 	document.getElementById("accumulator").innerHTML=_Memory[0].pcb.accumulator;
 	document.getElementById("programCounter").innerHTML=_Memory[0].pcb.programCounter;
@@ -166,7 +172,7 @@ function addWithCarry() { //6D
 
 function loadXRegisterWithAConstant() { //A2
 	
-	var constantLoaded = _Memory[0].process[_Memory[0].pcb.programCounter +1];	
+	var constantLoaded = _Memory[0].process[_Memory[0].pcb.programCounter + 1];	
 	_Memory[0].pcb.xRegister = constantLoaded;
 	_CPU.Xreg += 1;
 	_Memory[0].pcb.programCounter += 2;
@@ -247,10 +253,10 @@ function compareXRegisterToMemoryByteAndSetZToZeroIfEqual() { //EC
 	var decimalMemLocationToLoadAccFrom = parseInt(hexMemLocationToLoadAccFrom, 16);
 	
 	console.log("Compare value from mem " + parseInt(_Memory[0].process[decimalMemLocationToLoadAccFrom] -1));
-	console.log("XREG " + _CPU.Xreg);
+	console.log("XREG " + _Memory[0].pcb.xRegister); //_CPU.Xreg
 	
 	
-	if (_CPU.Xreg === (parseInt(_Memory[0].process[decimalMemLocationToLoadAccFrom])-1)) {
+	if (_Memory[0].pcb.xRegister === parseInt(_Memory[0].process[decimalMemLocationToLoadAccFrom])-1) {
 
 		_CPU.Zflag = 1;
 	}
@@ -268,11 +274,18 @@ function compareXRegisterToMemoryByteAndSetZToZeroIfEqual() { //EC
 
 function branchXBytesIfZEqualsZero() { //D0
 	if (_CPU.Zflag === 0) {
-		_Memory[0].pcb.programCounter +=240; //255 - 15 = 240; PC should be 265 because 240 is added to current PC of 25
+		//_Memory[0].pcb.programCounter +=240; //255 - 15 = 240; PC should be 265 because 240 is added to current PC of 25
+		
+		//******
+		console.log("Branch Value = " + parseInt(_Memory[0].process[_Memory[0].pcb.programCounter + 1], 16));
+		_Memory[0].pcb.programCounter += parseInt(_Memory[0].process[_Memory[0].pcb.programCounter + 1], 16);
+		
+		//******
+		
 		console.log("zflag was 0");
 		
 		if (_Memory[0].pcb.programCounter > 255) {
-			_Memory[0].pcb.programCounter -= 255; //PC is now 10, where we want it to be for the loop
+			_Memory[0].pcb.programCounter -= 254; //PC is now 10, where we want it to be for the loop
 			//console.log("pc " + _Memory[0].pcb.programCounter); //PC that is branched back to
 		}
 	}
