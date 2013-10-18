@@ -672,7 +672,7 @@ function shellLoad() {
 		for (var i = 0; i < _OpcodeArray.length; i++) {
 			_Memory[i] = _OpcodeArray[i];
 			document.getElementById("bit" + i).innerText=_OpcodeArray[i];
-			console.log(_Memory[i]);
+			//console.log(_Memory[i]);
 		}
 		
 		_StdIn.advanceLine();
