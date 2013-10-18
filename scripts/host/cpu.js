@@ -121,7 +121,7 @@ function loadAccumulatorFromMemory() { //AD
 	
 	var decimalLocationInMemoryFromWhichToLoadAccumulator = parseInt(_Memory[_CPU.PC + 1] , 16);
 	
-	_CPU.Acc = _Memory[decimalLocationInMemoryFromWhichToLoadAccumulator]; //**************Parse to decimal or is it already decimal?
+	_CPU.Acc = parseInt(_Memory[decimalLocationInMemoryFromWhichToLoadAccumulator], 16); //**************Parse to decimal or is it already decimal?
 	
 	_CPU.PC += 3;
 
@@ -183,7 +183,7 @@ function loadXRegisterWithAConstant() { //A2
 
 function loadXRegisterFromMmeory() { //AE
 	
-	_CPU.Xreg = _Memory[_CPU.PC + 1]; //**************Parse to decimal or is it already decimal?
+	_CPU.Xreg = _Memory[parseInt((_CPU.PC + 1), 16)]; //**************Parse to decimal or is it already decimal?
 	//_CPU.Xreg += 1;
 	_CPU.PC += 3;
 	
@@ -211,7 +211,7 @@ function loadYRegisterWithAConstant() { //A0
 
 function loadYRegisterFromMemory() { //AC	
 	
-	_CPU.Yreg = _Memory[_CPU.PC + 1]; //**************Parse to decimal or is it already decimal?
+	_CPU.Yreg = _Memory[parseInt((_CPU.PC + 1), 16)]; //**************Parse to decimal or is it already decimal?
 	//_CPU.Yreg += 1;
 	//console.log("YReg " + _CPU.Yreg);
 	_CPU.PC += 3;
@@ -243,15 +243,14 @@ function osBreak() { //00
 
 function compareXRegisterToMemoryByteAndSetZToZeroIfEqual() { //EC
 	
-	
-	var operand = _Memory[0].process[_CPU.PC + 1];
+	var operand = _Memory[_CPU.PC + 1];
 	
 	var decimalMemLocation = parseInt(operand, 16);
-	console.log("Compare value from mem @ " + decimalMemLocation + " which is " + parseInt(_Memory[0].process[decimalMemLocation]));
-	console.log("XREG " + _CPU.Xreg); //parseInt(_Memory[0].pcb.xRegister, 16)
+	console.log("Compare value from mem @ " + decimalMemLocation + " which is " + parseInt(_Memory[decimalMemLocation]));
+	console.log("XREG " + _CPU.Xreg);
 	
 	
-	if (_CPU.Xreg === parseInt(_Memory[0].process[decimalMemLocation], 16)) {
+	if (_CPU.Xreg === parseInt(_Memory[decimalMemLocation], 16)) {
 
 		_CPU.Zflag = 1;
 	}
