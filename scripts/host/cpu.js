@@ -105,7 +105,7 @@ function Cpu() {
 function loadAccumulatorWithAConstant() { //A9
 	
 	var parameterOfA9 = _Memory[_CPU.PC + 1]; 
-	var constantLoaded = parameterOfA9;	
+	var constantLoaded = parseInt(parameterOfA9, 16); //Decimal	
 	_CPU.Acc = constantLoaded;
 	_CPU.PC += 2;
 	//console.log(_CPU.PC);
@@ -119,9 +119,9 @@ function loadAccumulatorWithAConstant() { //A9
 
 function loadAccumulatorFromMemory() { //AD
 	
-	var decimalLocationInMemoryToLoadAccumulatorFrom = parseInt(_Memory[0].process[_CPU.PC + 1] , 16);
+	var decimalLocationInMemoryFromWhichToLoadAccumulator = parseInt(_Memory[_CPU.PC + 1] , 16);
 	
-	_CPU.Acc = _Memory[0].process[decimalLocationInMemoryToLoadAccumulatorFrom];
+	_CPU.Acc = _Memory[decimalLocationInMemoryFromWhichToLoadAccumulator]; //**************Parse to decimal or is it already decimal?
 	
 	_CPU.PC += 3;
 
@@ -133,11 +133,12 @@ function loadAccumulatorFromMemory() { //AD
 }
 
 function storeAccumulatorInMemory() { //8D	
-	var hexMemLocationForAccToBeStored = _Memory[0].process[_CPU.PC + 1]; //Value in hex
+	var hexMemLocationForAccToBeStored = _Memory[_CPU.PC + 1]; //Value in hex
 	
 	var decimalMemLocationForAccToBeStored = parseInt(hexMemLocationForAccToBeStored, 16);
 
-	_Memory[0].process[decimalMemLocationForAccToBeStored] = _CPU.Acc;//Stores accumulator in memory location 0
+	_Memory[decimalMemLocationForAccToBeStored] = _CPU.Acc;
+	
 	//console.log("***Storing Location dec" + decimalMemLocationForAccToBeStored);
 	document.getElementById("bit" + decimalMemLocationForAccToBeStored).innerHTML=_CPU.Acc;
 	
@@ -155,8 +156,8 @@ function storeAccumulatorInMemory() { //8D
 
 function addWithCarry() { //6D
 
-	//console.log(" " + _Memory[0].process[_Memory[0].pcb.programCounter + 1]);
-	_CPU.Acc = _CPU.Acc + _Memory[0].process[_CPU.PC + 1];	
+	//console.log(" " + _Memory[_CPU.PC + 1]);
+	_CPU.Acc = _CPU.Acc + parseInt(_Memory[_CPU.PC + 1], 16); //Decimal	
 	_CPU.PC += 3;
 	
 	document.getElementById("accumulator").innerHTML=_CPU.Acc;
@@ -168,8 +169,8 @@ function addWithCarry() { //6D
 
 function loadXRegisterWithAConstant() { //A2
 	
-	var constantLoaded = _Memory[0].process[_CPU.PC + 1];	
-	_CPU.Xreg = constantLoaded;
+	var constantLoaded = _Memory[_CPU.PC + 1];	
+	_CPU.Xreg = parseInt(constantLoaded, 16); //Decimal
 	//_CPU.Xreg += 1;
 	_CPU.PC += 2;
 
@@ -182,7 +183,7 @@ function loadXRegisterWithAConstant() { //A2
 
 function loadXRegisterFromMmeory() { //AE
 	
-	_CPU.Xreg = _Memory[_CPU.PC + 1];
+	_CPU.Xreg = _Memory[_CPU.PC + 1]; //**************Parse to decimal or is it already decimal?
 	//_CPU.Xreg += 1;
 	_CPU.PC += 3;
 	
@@ -197,7 +198,7 @@ function loadXRegisterFromMmeory() { //AE
 function loadYRegisterWithAConstant() { //A0
 	
 	//This will be the starting memory location of the string (in decimal)
-	_CPU.Yreg = parseInt(_Memory[0].process[_CPU.PC + 1], 16);
+	_CPU.Yreg = parseInt(_Memory[_CPU.PC + 1], 16);
 	
 	_CPU.PC += 2;
 
@@ -210,7 +211,7 @@ function loadYRegisterWithAConstant() { //A0
 
 function loadYRegisterFromMemory() { //AC	
 	
-	_CPU.Yreg = _Memory[_CPU.PC + 1];
+	_CPU.Yreg = _Memory[_CPU.PC + 1]; //**************Parse to decimal or is it already decimal?
 	//_CPU.Yreg += 1;
 	//console.log("YReg " + _CPU.Yreg);
 	_CPU.PC += 3;
@@ -270,16 +271,16 @@ function branchXBytesIfZEqualsZero() { //D0
 		//_Memory[0].pcb.programCounter +=240; //255 - 15 = 240; PC should be 265 because 240 is added to current PC of 25
 		
 		//******
-		console.log("Branch Value = " + parseInt(_Memory[0].process[_CPU.PC + 1], 16));
-		_CPU.PC += parseInt(_Memory[0].process[_CPU.PC + 1], 16);
+		console.log("Branch Value = " + parseInt(_Memory[_CPU.PC + 1], 16));
+		_CPU.PC += parseInt(_Memory[_CPU.PC + 1], 16); //Decimal
 		
 		//******
 		
 		console.log("zflag was 0");
 		
 		if (_CPU.PC > 255) {
-			_CPU.PC -= 254; //PC is now 10, where we want it to be for the loop
-			console.log("pc " + _CPU.PC); //PC that is branched back to
+			_CPU.PC -= 254;
+			//console.log("pc " + _CPU.PC); //PC that is branched back to
 		}
 	}
 	else {
@@ -328,9 +329,9 @@ function systemCall() { //FF
 		
 		//console.log(_Memory[0].process[startingMemoryLocationOfProgramString]);
 		
-		while(_Memory[0].process[startingMemoryLocationOfProgramString] != "00") {
+		while(_Memory[startingMemoryLocationOfProgramString] != "00") {
 			
-			var letterCode = _Memory[0].process[startingMemoryLocationOfProgramString];
+			var letterCode = _Memory[startingMemoryLocationOfProgramString];
 			var letter = String.fromCharCode(parseInt(letterCode, 16)); //Translate to decimal
 			
 			_StdIn.putText(letter); 
