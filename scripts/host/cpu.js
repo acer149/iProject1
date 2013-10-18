@@ -48,7 +48,7 @@ function Cpu() {
 	
 	};
 
-    //op codes
+    //opcodes
     //Will identify the user process's opcodes and call the associated function of that opcode
     this.run = function(opcode) {
     	switch(opcode) {
@@ -104,9 +104,9 @@ function Cpu() {
 
 function loadAccumulatorWithAConstant() { //A9
 	
-	var parameterOfA9 = _Memory[0].process[_CPU.PC + 1]; 
+	var parameterOfA9 = _Memory[_CPU.PC + 1]; 
 	var constantLoaded = parameterOfA9;	
-	_Memory[0].pcb.accumulator = constantLoaded;
+	_CPU.Acc = constantLoaded;
 	_CPU.PC += 2;
 	//console.log(_CPU.PC);
 	
@@ -121,11 +121,11 @@ function loadAccumulatorFromMemory() { //AD
 	
 	var decimalLocationInMemoryToLoadAccumulatorFrom = parseInt(_Memory[0].process[_CPU.PC + 1] , 16);
 	
-	_Memory[0].pcb.accumulator = _Memory[0].process[decimalLocationInMemoryToLoadAccumulatorFrom];
+	_CPU.Acc = _Memory[0].process[decimalLocationInMemoryToLoadAccumulatorFrom];
 	
 	_CPU.PC += 3;
 
-	document.getElementById("accumulator").innerHTML=_Memory[0].pcb.accumulator;
+	document.getElementById("accumulator").innerHTML=_CPU.Acc;
 	document.getElementById("programCounter").innerHTML=_CPU.PC;
 	document.getElementById("xRegister").innerHTML=_Memory[0].pcb.xRegister;
 	document.getElementById("yRegister").innerHTML=_CPU.Yreg;
@@ -137,16 +137,16 @@ function storeAccumulatorInMemory() { //8D
 	
 	var decimalMemLocationForAccToBeStored = parseInt(hexMemLocationForAccToBeStored, 16);
 
-	_Memory[0].process[decimalMemLocationForAccToBeStored] = _Memory[0].pcb.accumulator;//Stores accumulator in memory location 0
+	_Memory[0].process[decimalMemLocationForAccToBeStored] = _CPU.Acc;//Stores accumulator in memory location 0
 	//console.log("***Storing Location dec" + decimalMemLocationForAccToBeStored);
-	document.getElementById("bit" + decimalMemLocationForAccToBeStored).innerHTML=_Memory[0].pcb.accumulator;
+	document.getElementById("bit" + decimalMemLocationForAccToBeStored).innerHTML=_CPU.Acc;
 	
 	//console.log("Storing Location " + _Memory[0].process[decimalMemLocationForAccToBeStored]);
-	//console.log("Acc to be stored " + _Memory[0].pcb.accumulator);
+	//console.log("Acc to be stored " + _CPU.Acc);
 	_CPU.PC += 3;
 	
 	
-	document.getElementById("accumulator").innerHTML=_Memory[0].pcb.accumulator;
+	document.getElementById("accumulator").innerHTML=_CPU.Acc;
 	document.getElementById("programCounter").innerHTML=_CPU.PC;
 	document.getElementById("xRegister").innerHTML=_Memory[0].pcb.xRegister;
 	document.getElementById("yRegister").innerHTML=_CPU.Yreg;
@@ -156,10 +156,10 @@ function storeAccumulatorInMemory() { //8D
 function addWithCarry() { //6D
 
 	//console.log(" " + _Memory[0].process[_Memory[0].pcb.programCounter + 1]);
-	_Memory[0].pcb.accumulator = _Memory[0].pcb.accumulator + _Memory[0].process[_CPU.PC + 1];	
+	_CPU.Acc = _CPU.Acc + _Memory[0].process[_CPU.PC + 1];	
 	_CPU.PC += 3;
 	
-	document.getElementById("accumulator").innerHTML=_Memory[0].pcb.accumulator;
+	document.getElementById("accumulator").innerHTML=_CPU.Acc;
 	document.getElementById("programCounter").innerHTML=_CPU.PC;
 	document.getElementById("xRegister").innerHTML=_Memory[0].pcb.xRegister;
 	document.getElementById("yRegister").innerHTML=_CPU.Yreg;
@@ -173,7 +173,7 @@ function loadXRegisterWithAConstant() { //A2
 	_CPU.Xreg += 1;
 	_Memory[0].pcb.programCounter += 2;
 
-	document.getElementById("accumulator").innerHTML=_Memory[0].pcb.accumulator;
+	document.getElementById("accumulator").innerHTML=_CPU.Acc;
 	document.getElementById("programCounter").innerHTML=_CPU.PC;
 	document.getElementById("xRegister").innerHTML=_Memory[0].pcb.xRegister;
 	document.getElementById("yRegister").innerHTML=_CPU.Yreg;
@@ -186,7 +186,7 @@ function loadXRegisterFromMmeory() { //AE
 	//_CPU.Xreg += 1;
 	_CPU.PC += 3;
 	
-	document.getElementById("accumulator").innerHTML=_Memory[0].pcb.accumulator;
+	document.getElementById("accumulator").innerHTML=_CPU.Acc;
 	document.getElementById("programCounter").innerHTML=_CPU.PC;
 	document.getElementById("xRegister").innerHTML=_Memory[0].pcb.xRegister;
 	document.getElementById("yRegister").innerHTML=_CPU.Yreg;
@@ -201,7 +201,7 @@ function loadYRegisterWithAConstant() { //A0
 	
 	_CPU.PC += 2;
 
-	document.getElementById("accumulator").innerHTML=_Memory[0].pcb.accumulator;
+	document.getElementById("accumulator").innerHTML=_CPU.Acc;
 	document.getElementById("programCounter").innerHTML=_CPU.PC;
 	document.getElementById("xRegister").innerHTML=_Memory[0].pcb.xRegister;
 	document.getElementById("yRegister").innerHTML=_CPU.Yreg;
@@ -215,7 +215,7 @@ function loadYRegisterFromMemory() { //AC
 	//console.log("YReg " + _CPU.Yreg);
 	_CPU.PC += 3;
 	
-	document.getElementById("accumulator").innerHTML=_Memory[0].pcb.accumulator;
+	document.getElementById("accumulator").innerHTML=_CPU.Acc;
 	document.getElementById("programCounter").innerHTML=_CPU.PC;
 	document.getElementById("xRegister").innerHTML=_Memory[0].pcb.xRegister;
 	document.getElementById("yRegister").innerHTML=_CPU.Yreg;
@@ -226,7 +226,7 @@ function loadYRegisterFromMemory() { //AC
 function noOperation() { //EA
 	_CPU.PC += 1;
 	
-	document.getElementById("accumulator").innerHTML=_Memory[0].pcb.accumulator;
+	document.getElementById("accumulator").innerHTML=_CPU.Acc;
 	document.getElementById("programCounter").innerHTML=_CPU.PC;
 	document.getElementById("xRegister").innerHTML=_Memory[0].pcb.xRegister;
 	document.getElementById("yRegister").innerHTML=_CPU.Yreg;
@@ -257,7 +257,7 @@ function compareXRegisterToMemoryByteAndSetZToZeroIfEqual() { //EC
 
 	_CPU.PC += 3;
 	
-	document.getElementById("accumulator").innerHTML=_Memory[0].pcb.accumulator;
+	document.getElementById("accumulator").innerHTML=_CPU.Acc;
 	document.getElementById("programCounter").innerHTML=_CPU.PC;
 	document.getElementById("xRegister").innerHTML=_Memory[0].pcb.xRegister;
 	document.getElementById("yRegister").innerHTML=_CPU.Yreg;
@@ -287,7 +287,7 @@ function branchXBytesIfZEqualsZero() { //D0
 		console.log("PC After loop is finished =" + _CPU.PC);
 	}
 	
-	document.getElementById("accumulator").innerHTML=_Memory[0].pcb.accumulator;
+	document.getElementById("accumulator").innerHTML=_CPU.Acc;
 	document.getElementById("programCounter").innerHTML=_CPU.PC;
 	document.getElementById("xRegister").innerHTML=_Memory[0].pcb.xRegister;
 	document.getElementById("yRegister").innerHTML=_CPU.Yreg;
@@ -301,7 +301,7 @@ function incrementByteValue() { //EE
 	//TODO:Add More here ???
 	_CPU.PC += 3;
 	
-	document.getElementById("accumulator").innerHTML=_Memory[0].pcb.accumulator;
+	document.getElementById("accumulator").innerHTML=_CPU.Acc;
 	document.getElementById("programCounter").innerHTML=_CPU.PC;
 	document.getElementById("xRegister").innerHTML=_Memory[0].pcb.xRegister;
 	document.getElementById("yRegister").innerHTML=_CPU.Yreg;
@@ -349,7 +349,7 @@ function systemCall() { //FF
 	_CPU.PC += 1;
 
 
-	document.getElementById("accumulator").innerHTML=_Memory[0].pcb.accumulator;
+	document.getElementById("accumulator").innerHTML=_CPU.Acc;
 	document.getElementById("programCounter").innerHTML=_CPU.PC;
 	document.getElementById("xRegister").innerHTML=_Memory[0].pcb.xRegister;
 	document.getElementById("yRegister").innerHTML=_CPU.Yreg;
