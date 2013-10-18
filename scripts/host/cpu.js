@@ -169,8 +169,8 @@ function addWithCarry() { //6D
 
 function loadXRegisterWithAConstant() { //A2
 	
-	var constantLoaded = _Memory[_CPU.PC + 1];	
-	_CPU.Xreg = parseInt(constantLoaded, 16); //Decimal
+	var locationOfConstantToLoad = _Memory[_CPU.PC + 1];
+	_CPU.Xreg = _Memory[parseInt(locationOfConstantToLoad, 16)]; //Decimal
 	//_CPU.Xreg += 1;
 	_CPU.PC += 2;
 
