@@ -185,7 +185,7 @@ function loadXRegisterWithAConstant() { //A2
 
 function loadXRegisterFromMmeory() { //AE
 	
-	_CPU.Xreg = _Memory[parseInt(_Memory[(_CPU.PC + 1), 16])]; //**************Parse to decimal or is it already decimal?
+	_CPU.Xreg = _Memory[parseInt(_Memory[_CPU.PC + 1], 16)]; //_Memory[_CPU.PC + 1], 16)**************Parse to decimal or is it already decimal?
 	//_CPU.Xreg += 1;
 	_CPU.PC += 3;
 	
@@ -216,7 +216,7 @@ function loadYRegisterWithAConstant() { //A0
 
 function loadYRegisterFromMemory() { //AC	
 	
-	_CPU.Yreg = _Memory[_Memory[parseInt((_CPU.PC + 1), 16)]]; //**************Parse to decimal or is it already decimal?
+	_CPU.Yreg = _Memory[parseInt(_Memory[_CPU.PC + 1], 16)]; //**************Parse to decimal or is it already decimal?
 	//_CPU.Yreg += 1;
 	//console.log("YReg " + _CPU.Yreg);
 	_CPU.PC += 3;
@@ -283,8 +283,8 @@ function branchXBytesIfZEqualsZero() { //D0
 		console.log("zflag was 0");
 		
 		if (_CPU.PC > 255) {
-			_CPU.PC -= 24;
-			//console.log("pc " + _CPU.PC); //PC that is branched back to
+			_CPU.PC -= 254;
+			console.log("pc " + _CPU.PC); //PC that is branched back to
 		}
 	}
 	else {
