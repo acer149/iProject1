@@ -104,7 +104,7 @@ function Cpu() {
 
 function loadAccumulatorWithAConstant() { //A9
 	
-	var parameterOfA9 = _Memory[_CPU.PC + 1]; 
+	var parameterOfA9 = _Memory[_CPU.PC + 1];  
 	var constantLoaded = parseInt(parameterOfA9, 16); //Decimal	
 	_CPU.Acc = constantLoaded;
 	_CPU.PC += 2;
@@ -121,7 +121,7 @@ function loadAccumulatorFromMemory() { //AD
 	
 	var decimalLocationInMemoryFromWhichToLoadAccumulator = parseInt(_Memory[_CPU.PC + 1] , 16);
 	
-	_CPU.Acc = parseInt(_Memory[decimalLocationInMemoryFromWhichToLoadAccumulator], 16); //**************Parse to decimal or is it already decimal?
+	_CPU.Acc = _Memory[decimalLocationInMemoryFromWhichToLoadAccumulator]; //**************Parse to decimal or is it already decimal?
 	
 	_CPU.PC += 3;
 
@@ -157,7 +157,7 @@ function storeAccumulatorInMemory() { //8D
 function addWithCarry() { //6D
 
 	//console.log(" " + _Memory[_CPU.PC + 1]);
-	_CPU.Acc = _CPU.Acc + parseInt(_Memory[_CPU.PC + 1], 16); //Decimal	
+	_CPU.Acc = _CPU.Acc + parseInt(_Memory[_CPU.PC + 1], 16); //Decimal	 //Check this******
 	_CPU.PC += 3;
 	
 	document.getElementById("accumulator").innerHTML=_CPU.Acc;
@@ -169,9 +169,11 @@ function addWithCarry() { //6D
 
 function loadXRegisterWithAConstant() { //A2
 	
-	var locationOfConstantToLoad = _Memory[_CPU.PC + 1];
-	_CPU.Xreg = _Memory[parseInt(locationOfConstantToLoad, 16)]; //Decimal
-	//_CPU.Xreg += 1;
+	var parameterOfA2 = _Memory[_CPU.PC + 1];
+	var constant = parseInt(parameterOfA2, 16); //Decimal
+	
+	_CPU.Xreg = constant;
+
 	_CPU.PC += 2;
 
 	document.getElementById("accumulator").innerHTML=_CPU.Acc;
@@ -183,7 +185,7 @@ function loadXRegisterWithAConstant() { //A2
 
 function loadXRegisterFromMmeory() { //AE
 	
-	_CPU.Xreg = _Memory[parseInt((_CPU.PC + 1), 16)]; //**************Parse to decimal or is it already decimal?
+	_CPU.Xreg = _Memory[parseInt(_Memory[(_CPU.PC + 1), 16])]; //**************Parse to decimal or is it already decimal?
 	//_CPU.Xreg += 1;
 	_CPU.PC += 3;
 	
@@ -197,8 +199,11 @@ function loadXRegisterFromMmeory() { //AE
 
 function loadYRegisterWithAConstant() { //A0
 	
+	var parameterOfA0 = _Memory[_CPU.PC + 1];
+	var constant = parseInt(parameterOfA0, 16); //Decimal
+	
 	//This will be the starting memory location of the string (in decimal)
-	_CPU.Yreg = parseInt(_Memory[_CPU.PC + 1], 16);
+	_CPU.Yreg = constant;
 	
 	_CPU.PC += 2;
 
@@ -211,7 +216,7 @@ function loadYRegisterWithAConstant() { //A0
 
 function loadYRegisterFromMemory() { //AC	
 	
-	_CPU.Yreg = _Memory[parseInt((_CPU.PC + 1), 16)]; //**************Parse to decimal or is it already decimal?
+	_CPU.Yreg = _Memory[_Memory[parseInt((_CPU.PC + 1), 16)]]; //**************Parse to decimal or is it already decimal?
 	//_CPU.Yreg += 1;
 	//console.log("YReg " + _CPU.Yreg);
 	_CPU.PC += 3;
@@ -278,7 +283,7 @@ function branchXBytesIfZEqualsZero() { //D0
 		console.log("zflag was 0");
 		
 		if (_CPU.PC > 255) {
-			_CPU.PC -= 254;
+			_CPU.PC -= 24;
 			//console.log("pc " + _CPU.PC); //PC that is branched back to
 		}
 	}
