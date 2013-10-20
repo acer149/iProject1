@@ -97,8 +97,7 @@ function Cpu() {
     		default:
     			osBreak();
     			break;
-    	}
-    	
+    	}  	
     };
 
 
@@ -200,10 +199,10 @@ function loadXRegisterFromMmeory() { //AE
 function loadYRegisterWithAConstant() { //A0
 	
 	var parameterOfA0 = _Memory[_CPU.PC + 1];
-	var constant = parseInt(parameterOfA0, 16); //Decimal
+	var memLocation = parseInt(parameterOfA0, 16); //Decimal
 	
 	//This will be the starting memory location of the string (in decimal)
-	_CPU.Yreg = constant;
+	_CPU.Yreg = _Memory[memLocation];
 	
 	_CPU.PC += 2;
 
@@ -304,6 +303,14 @@ function incrementByteValue() { //EE
 
 	
 	//TODO:Add More here ???
+	var memLocation = parseInt(_Memory[_CPU.PC + 1], 16); //Decimal
+	var valueAtMemLocation = parseInt(_Memory[memLocation], 16); //Decimal
+	
+	_Memory[memLocation] = valueAtMemLocation + 1; 
+	
+	document.getElementById("bit" + memLocation).innerHTML=valueAtMemLocation + 1;
+	
+	
 	_CPU.PC += 3;
 	
 	document.getElementById("accumulator").innerHTML=_CPU.Acc;
@@ -316,27 +323,28 @@ function incrementByteValue() { //EE
 
 function systemCall() { //FF
 
-	if (_CPU.Xreg <= 2) {
+	if (_CPU.Xreg === 1) {
 		var printToConsole = parseInt(_CPU.Yreg).toString();
 
 		for (var i = 0; i < printToConsole.length; i++) {
 			_StdIn.putText(printToConsole.charAt(i));		
 		}
+		console.log("Reached sysCall");
 
 		_StdIn.advanceLine();
 		_StdIn.putText(_OsShell.promptStr);
 	}
 	
-	else if (_CPU.Xreg == 3) {
+	else if (_CPU.Xreg === 2) {
 	
 		var startingMemoryLocationOfProgramString = _CPU.Yreg; //Decimal
 		
-		//console.log(_Memory[0].process[startingMemoryLocationOfProgramString]);
+		console.log("First char code " + _Memory[startingMemoryLocationOfProgramString]);
 		
 		while(_Memory[startingMemoryLocationOfProgramString] != "00") {
 			
 			var letterCode = _Memory[startingMemoryLocationOfProgramString];
-			var letter = String.fromCharCode(parseInt(letterCode, 16)); //Translate to decimal
+			var letter = String.fromCharCode(letterCode);
 			
 			_StdIn.putText(letter); 
 			startingMemoryLocationOfProgramString++;
