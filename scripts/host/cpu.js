@@ -1,4 +1,4 @@
-/* ------------  
+	/* ------------  
    CPU.js
 
    Requires global.js.
@@ -38,7 +38,6 @@ function Cpu() {
         var opcodeToRun = getOpcode();
         
         run(_OpcodeArray[opcodeToRun]);
-        //console.log("OpCode to run" + _OpcodeArray[opcodeToRun]);
     };
     
 }
@@ -120,7 +119,7 @@ function loadAccumulatorFromMemory() { //AD
 	
 	var decimalLocationInMemoryFromWhichToLoadAccumulator = parseInt(_Memory[_CPU.PC + 1] , 16);
 	
-	_CPU.Acc = _Memory[decimalLocationInMemoryFromWhichToLoadAccumulator]; //**************Parse to decimal or is it already decimal?
+	_CPU.Acc = _Memory[decimalLocationInMemoryFromWhichToLoadAccumulator];
 	
 	_CPU.PC += 3;
 
@@ -156,7 +155,7 @@ function storeAccumulatorInMemory() { //8D
 function addWithCarry() { //6D
 
 	//console.log(" " + _Memory[_CPU.PC + 1]);
-	_CPU.Acc = _CPU.Acc + parseInt(_Memory[_CPU.PC + 1], 16); //Decimal	 //Check this******
+	_CPU.Acc = _CPU.Acc + _Memory[parseInt(_Memory[_CPU.PC + 1], 16)]; //Decimal	 //Check this******
 	_CPU.PC += 3;
 	
 	document.getElementById("accumulator").innerHTML=_CPU.Acc;
@@ -184,8 +183,8 @@ function loadXRegisterWithAConstant() { //A2
 
 function loadXRegisterFromMmeory() { //AE
 	
-	_CPU.Xreg = _Memory[parseInt(_Memory[_CPU.PC + 1], 16)]; //_Memory[_CPU.PC + 1], 16)**************Parse to decimal or is it already decimal?
-	//_CPU.Xreg += 1;
+	_CPU.Xreg = _Memory[parseInt(_Memory[_CPU.PC + 1], 16)];
+
 	_CPU.PC += 3;
 	
 	document.getElementById("accumulator").innerHTML=_CPU.Acc;
@@ -202,7 +201,7 @@ function loadYRegisterWithAConstant() { //A0
 	var memLocation = parseInt(parameterOfA0, 16); //Decimal
 	
 	//This will be the starting memory location of the string (in decimal)
-	_CPU.Yreg = _Memory[memLocation];
+	_CPU.Yreg = memLocation;
 	
 	_CPU.PC += 2;
 
@@ -215,8 +214,8 @@ function loadYRegisterWithAConstant() { //A0
 
 function loadYRegisterFromMemory() { //AC	
 	
-	_CPU.Yreg = _Memory[parseInt(_Memory[_CPU.PC + 1], 16)]; //**************Parse to decimal or is it already decimal?
-	//_CPU.Yreg += 1;
+	_CPU.Yreg = _Memory[parseInt(_Memory[_CPU.PC + 1], 16)];
+
 	//console.log("YReg " + _CPU.Yreg);
 	_CPU.PC += 3;
 	
@@ -250,8 +249,8 @@ function compareXRegisterToMemoryByteAndSetZToZeroIfEqual() { //EC
 	var operand = _Memory[_CPU.PC + 1];
 	
 	var decimalMemLocation = parseInt(operand, 16);
-	console.log("Compare value from mem @ " + decimalMemLocation + " which is " + parseInt(_Memory[decimalMemLocation]));
-	console.log("XREG " + _CPU.Xreg);
+	//console.log("Compare value from mem @ " + decimalMemLocation + " which is " + parseInt(_Memory[decimalMemLocation]));
+	//console.log("XREG " + _CPU.Xreg);
 	
 	
 	if (_CPU.Xreg === parseInt(_Memory[decimalMemLocation], 16)) {
@@ -271,24 +270,20 @@ function compareXRegisterToMemoryByteAndSetZToZeroIfEqual() { //EC
 
 function branchXBytesIfZEqualsZero() { //D0
 	if (_CPU.Zflag === 0) {
-		//_Memory[0].pcb.programCounter +=240; //255 - 15 = 240; PC should be 265 because 240 is added to current PC of 25
 		
-		//******
-		console.log("Branch Value = " + parseInt(_Memory[_CPU.PC + 1], 16));
+		//console.log("Branch Value = " + parseInt(_Memory[_CPU.PC + 1], 16));
 		_CPU.PC += parseInt(_Memory[_CPU.PC + 1], 16); //Decimal
 		
-		//******
-		
-		console.log("zflag was 0");
+		//console.log("zflag was 0");
 		
 		if (_CPU.PC > 255) {
 			_CPU.PC -= 254;
-			console.log("pc " + _CPU.PC); //PC that is branched back to
+			//console.log("pc " + _CPU.PC); //PC that is branched back to
 		}
 	}
 	else {
 		_CPU.PC += 2;
-		console.log("PC After loop is finished =" + _CPU.PC);
+		//console.log("PC After loop is finished =" + _CPU.PC);
 	}
 	
 	document.getElementById("accumulator").innerHTML=_CPU.Acc;
@@ -302,7 +297,7 @@ function branchXBytesIfZEqualsZero() { //D0
 function incrementByteValue() { //EE
 
 	
-	//TODO:Add More here ???
+	//TODO:Add More here ???	
 	var memLocation = parseInt(_Memory[_CPU.PC + 1], 16); //Decimal
 	var valueAtMemLocation = parseInt(_Memory[memLocation], 16); //Decimal
 	
@@ -329,7 +324,7 @@ function systemCall() { //FF
 		for (var i = 0; i < printToConsole.length; i++) {
 			_StdIn.putText(printToConsole.charAt(i));		
 		}
-		console.log("Reached sysCall");
+		//console.log("Reached sysCall");
 
 		_StdIn.advanceLine();
 		_StdIn.putText(_OsShell.promptStr);
@@ -339,7 +334,7 @@ function systemCall() { //FF
 	
 		var startingMemoryLocationOfProgramString = _CPU.Yreg; //Decimal
 		
-		console.log("First char code " + _Memory[startingMemoryLocationOfProgramString]);
+		//console.log("First char code " + _Memory[startingMemoryLocationOfProgramString]);
 		
 		while(_Memory[startingMemoryLocationOfProgramString] != "00") {
 			
@@ -355,7 +350,7 @@ function systemCall() { //FF
 	}
 	else {
 		_CPU.isExecuting = false;
-		console.log("_CPU.Xreg = " + _CPU.Xreg);
+		//console.log("_CPU.Xreg = " + _CPU.Xreg);
 	}
 
 	
