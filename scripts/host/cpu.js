@@ -103,7 +103,7 @@ function Cpu() {
 function loadAccumulatorWithAConstant() { //A9
 	
 	var parameterOfA9 = _Memory[_CPU.PC + 1];  
-	var constantLoaded = parseInt(parameterOfA9, 16); //Decimal	
+	var constantLoaded = parameterOfA9; //Decimal	
 	_CPU.Acc = constantLoaded;
 	_CPU.PC += 2;
 	//console.log(_CPU.PC);
@@ -214,7 +214,7 @@ function loadYRegisterWithAConstant() { //A0
 
 function loadYRegisterFromMemory() { //AC	
 	
-	_CPU.Yreg = _Memory[parseInt(_Memory[_CPU.PC + 1], 16)];
+	_CPU.Yreg = _Memory[_Memory[_CPU.PC + 1]];
 
 	console.log("YReg " + _CPU.Yreg);
 	_CPU.PC += 3;
@@ -275,7 +275,7 @@ function branchXBytesIfZEqualsZero() { //D0
 	if (_CPU.Zflag === 0) {
 		
 		console.log("Branch Value = " + parseInt(_Memory[_CPU.PC + 1], 16));
-		_CPU.PC += (parseInt(_Memory[_CPU.PC + 1], 16) +2); //Decimal
+		_CPU.PC += (parseInt(_Memory[_CPU.PC + 1], 16) + 2); //Decimal
 		
 		console.log("zflag was 0");
 		
@@ -323,6 +323,7 @@ function incrementByteValue() { //EE
 function systemCall() { //FF	
 
 	if (_CPU.Xreg === 1) {
+		console.log("Yreg " + parseInt(_CPU.Yreg) );
 		var printToConsole = parseInt(_CPU.Yreg).toString();
 
 		for (var i = 0; i < printToConsole.length; i++) {
