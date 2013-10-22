@@ -275,12 +275,12 @@ function branchXBytesIfZEqualsZero() { //D0
 	if (_CPU.Zflag === 0) {
 		
 		console.log("Branch Value = " + parseInt(_Memory[_CPU.PC + 1], 16));
-		_CPU.PC += parseInt(_Memory[_CPU.PC + 1], 16); //Decimal
+		_CPU.PC += (parseInt(_Memory[_CPU.PC + 1], 16) +2); //Decimal
 		
 		console.log("zflag was 0");
 		
 		if (_CPU.PC > 255) {
-			_CPU.PC -= 254;
+			_CPU.PC -= 256;
 			console.log("pc " + _CPU.PC); //PC that is branched back to
 		}
 		
@@ -343,7 +343,7 @@ function systemCall() { //FF
 		while(_Memory[startingMemoryLocationOfProgramString] != "00") {
 			
 			var letterCode = _Memory[startingMemoryLocationOfProgramString];
-			var letter = String.fromCharCode(letterCode);
+			var letter = String.fromCharCode(parseInt(letterCode, 16));
 			
 			_StdIn.putText(letter); 
 			startingMemoryLocationOfProgramString++;
