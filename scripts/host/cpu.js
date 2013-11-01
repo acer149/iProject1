@@ -134,7 +134,7 @@ function storeAccumulatorInMemory() { //8D
 	var hexMemLocationForAccToBeStored = _Memory[_CPU.PC + 1]; //Value in hex
 	
 	var decimalMemLocationForAccToBeStored = parseInt(hexMemLocationForAccToBeStored, 16);
-
+	console.log("Accumulator " + parseInt(_CPU.Acc, 16));
 	_Memory[decimalMemLocationForAccToBeStored] = _CPU.Acc;
 	
 	console.log("Storing Location dec" + decimalMemLocationForAccToBeStored);
@@ -155,7 +155,7 @@ function storeAccumulatorInMemory() { //8D
 function addWithCarry() { //6D
 
 	//console.log(" " + _Memory[_CPU.PC + 1]);
-	_CPU.Acc = _CPU.Acc + _Memory[parseInt(_Memory[_CPU.PC + 1], 16)]; //Decimal	 //Check this******
+	_CPU.Acc = parseInt(_CPU.Acc, 16) + parseInt(_Memory[parseInt(_Memory[_CPU.PC + 1], 16)], 16); //Decimal	 //Check this******
 	_CPU.PC += 3;
 	
 	document.getElementById("accumulator").innerHTML=_CPU.Acc;
@@ -214,7 +214,7 @@ function loadYRegisterWithAConstant() { //A0
 
 function loadYRegisterFromMemory() { //AC	
 	
-	_CPU.Yreg = _Memory[_Memory[_CPU.PC + 1]];
+	_CPU.Yreg = _Memory[parseInt(_Memory[_CPU.PC + 1], 16)]; //****************
 
 	console.log("YReg " + _CPU.Yreg);
 	_CPU.PC += 3;
