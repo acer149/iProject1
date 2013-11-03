@@ -37,7 +37,7 @@ function Cpu() {
         
         var opcodeToRun = getOpcode();
         
-        run(_OpcodeArray[opcodeToRun]);
+        run(_CurrentProcess[opcodeToRun]);
     };
     
 }
@@ -137,7 +137,7 @@ function storeAccumulatorInMemory() { //8D
 	//console.log("Accumulator " + parseInt(_CPU.Acc, 16));
 	_Memory[decimalMemLocationForAccToBeStored] = _CPU.Acc;
 	
-	//console.log("Storing Location dec" + decimalMemLocationForAccToBeStored);
+	console.log("Storing Location dec" + decimalMemLocationForAccToBeStored);
 	document.getElementById("bit" + decimalMemLocationForAccToBeStored).innerHTML=_CPU.Acc;
 	
 	

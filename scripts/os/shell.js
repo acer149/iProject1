@@ -673,25 +673,25 @@ function shellLoad() {
 		console.log(_ResidentList);
 		
 		
-		//Splits the user program on spaces and adds it to the _OpcodeArray
-		var i = pcb.base;
-		var j = 0;
-		console.log("Here " + i);
-		var tempString = userProgram.split(" ");
+		// //Splits the user program on spaces and adds it to the _OpcodeArray
+		// var i = pcb.base;
+		// var j = 0;
+		// console.log("Here " + i);
+		// var tempString = userProgram.split(" ");
+// 		
+		// while (i < _OpcodeArray.length) {
+			// if (i < tempString.length) {
+				// _OpcodeArray[i] = tempString[j];
+			// }
+// 			
+			// else {
+				// _OpcodeArray[i] = "00";
+			// }
+			// i++;
+			// j++;
+		// }
 		
-		while (i < _OpcodeArray.length) {
-			if (i < tempString.length) {
-				_OpcodeArray[i] = tempString[j];
-			}
-			
-			else {
-				_OpcodeArray[i] = "00";
-			}
-			i++;
-			j++;
-		}
-		
-		console.log(_OpcodeArray);
+		//console.log(_OpcodeArray);
 		
 		//Stores the pcb, the pid, and the user process in memory $0000
 		//_Memory[0] = {pcb:pcb, pid:pid, process:_OpcodeArray};
@@ -719,9 +719,25 @@ function shellRun(args) {
 		var pidToBeRun = args[0];
 		
 		//Checks if the pid exists
-		if (pidToBeRun === _ResidentList[pidToBeRun].pid) {
+		console.log("pidToBeRun = " + pidToBeRun);
+		console.log("_ResidentList[pidToBeRun].pcb.pid = " + _ResidentList[pidToBeRun].pid);
+		if (parseInt(pidToBeRun) === parseInt(_ResidentList[pidToBeRun].pid)) {
 			//While the i is less than the length of the opcode array, shellRun will pass each opcode to cpu.js's switch statement
 			
+			_CPU.PC = 0;
+			
+			var base = parseInt(_ResidentList[pidToBeRun].base);
+			
+			var limit = parseInt(_ResidentList[pidToBeRun].limit);
+			var i = 0;
+			
+			while (base <= limit) {
+				_CurrentProcess[i] = _OpcodeArray[base];
+
+				i++;
+				base++;
+			}
+			console.log(_CurrentProcess);
 			
 			//for (var i =0; i < 10; i++){//< _OpcodeArray.length; i++) {
 				//console.log("Executed opcode: " + _OpcodeArray[i]);

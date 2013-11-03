@@ -52,6 +52,8 @@ var _ReadyQueue;
 var _OpcodeArray;
 var _ResidentList;
 
+var _CurrentProcess;
+
 
 // Default the OS trace to be on.
 var _Trace = true;
