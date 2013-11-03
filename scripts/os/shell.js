@@ -737,7 +737,6 @@ function shellRun(args) {
 				i++;
 				base++;
 			}
-			console.log(_CurrentProcess);
 			
 			//for (var i =0; i < 10; i++){//< _OpcodeArray.length; i++) {
 				//console.log("Executed opcode: " + _OpcodeArray[i]);

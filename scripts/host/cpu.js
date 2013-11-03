@@ -102,7 +102,7 @@ function Cpu() {
 
 function loadAccumulatorWithAConstant() { //A9
 	
-	var parameterOfA9 = _Memory[_CPU.PC + 1];  
+	var parameterOfA9 = _CurrentProcess[_CPU.PC + 1];  
 	var constantLoaded = parameterOfA9; //Decimal	
 	_CPU.Acc = constantLoaded;
 	_CPU.PC += 2;
@@ -117,9 +117,9 @@ function loadAccumulatorWithAConstant() { //A9
 
 function loadAccumulatorFromMemory() { //AD
 	
-	var decimalLocationInMemoryFromWhichToLoadAccumulator = parseInt(_Memory[_CPU.PC + 1] , 16);
+	var decimalLocationInMemoryFromWhichToLoadAccumulator = parseInt(_CurrentProcess[_CPU.PC + 1] , 16);
 	
-	_CPU.Acc = _Memory[decimalLocationInMemoryFromWhichToLoadAccumulator];
+	_CPU.Acc = _CurrentProcess[decimalLocationInMemoryFromWhichToLoadAccumulator];
 	
 	_CPU.PC += 3;
 
@@ -131,11 +131,11 @@ function loadAccumulatorFromMemory() { //AD
 }
 
 function storeAccumulatorInMemory() { //8D	
-	var hexMemLocationForAccToBeStored = _Memory[_CPU.PC + 1]; //Value in hex
+	var hexMemLocationForAccToBeStored = _CurrentProcess[_CPU.PC + 1]; //Value in hex
 	
 	var decimalMemLocationForAccToBeStored = parseInt(hexMemLocationForAccToBeStored, 16);
 	//console.log("Accumulator " + parseInt(_CPU.Acc, 16));
-	_Memory[decimalMemLocationForAccToBeStored] = _CPU.Acc;
+	_CurrentProcess[decimalMemLocationForAccToBeStored] = _CPU.Acc;
 	
 	console.log("Storing Location dec" + decimalMemLocationForAccToBeStored);
 	document.getElementById("bit" + decimalMemLocationForAccToBeStored).innerHTML=_CPU.Acc;
@@ -155,7 +155,7 @@ function storeAccumulatorInMemory() { //8D
 function addWithCarry() { //6D
 
 	//console.log(" " + _Memory[_CPU.PC + 1]);
-	_CPU.Acc = parseInt(_CPU.Acc, 16) + parseInt(_Memory[parseInt(_Memory[_CPU.PC + 1], 16)], 16); //Decimal	 //Check this******
+	_CPU.Acc = parseInt(_CPU.Acc, 16) + parseInt(_CurrentProcess[parseInt(_CurrentProcess[_CPU.PC + 1], 16)], 16); //Decimal	 //Check this******
 	_CPU.PC += 3;
 	
 	document.getElementById("accumulator").innerHTML=_CPU.Acc;
@@ -167,7 +167,7 @@ function addWithCarry() { //6D
 
 function loadXRegisterWithAConstant() { //A2
 	
-	var parameterOfA2 = _Memory[_CPU.PC + 1];
+	var parameterOfA2 = _CurrentProcess[_CPU.PC + 1];
 	var constant = parseInt(parameterOfA2, 16); //Decimal
 	
 	_CPU.Xreg = constant;
@@ -183,7 +183,7 @@ function loadXRegisterWithAConstant() { //A2
 
 function loadXRegisterFromMmeory() { //AE
 	
-	_CPU.Xreg = _Memory[parseInt(_Memory[_CPU.PC + 1], 16)];
+	_CPU.Xreg = _CurrentProcess[parseInt(_Memory[_CPU.PC + 1], 16)];
 
 	_CPU.PC += 3;
 	
@@ -197,7 +197,7 @@ function loadXRegisterFromMmeory() { //AE
 
 function loadYRegisterWithAConstant() { //A0
 	
-	var parameterOfA0 = _Memory[_CPU.PC + 1];
+	var parameterOfA0 = _CurrentProcess[_CPU.PC + 1];
 	var memLocation = parseInt(parameterOfA0, 16); //Decimal
 	
 	//This will be the starting memory location of the string (in decimal)
@@ -214,7 +214,7 @@ function loadYRegisterWithAConstant() { //A0
 
 function loadYRegisterFromMemory() { //AC	
 	
-	_CPU.Yreg = _Memory[parseInt(_Memory[_CPU.PC + 1], 16)]; //****************
+	_CPU.Yreg = _CurrentProcess[parseInt(_CurrentProcess[_CPU.PC + 1], 16)]; //****************
 
 	//console.log("YReg " + _CPU.Yreg);
 	_CPU.PC += 3;
@@ -246,14 +246,14 @@ function osBreak() { //00
 
 function compareXRegisterToMemoryByteAndSetZToZeroIfEqual() { //EC
 	
-	var operand = _Memory[_CPU.PC + 1];
+	var operand = _CurrentProcess[_CPU.PC + 1];
 	
 	var decimalMemLocation = parseInt(operand, 16);
 	//console.log("Compare value from mem @ " + decimalMemLocation + " which is " + parseInt(_Memory[decimalMemLocation]));
 	//console.log("XREG " + _CPU.Xreg);
 	
 	
-	if (_CPU.Xreg === parseInt(_Memory[decimalMemLocation], 16)) { //****Remove parseInt 16?
+	if (_CPU.Xreg === parseInt(_CurrentProcess[decimalMemLocation], 16)) { //****Remove parseInt 16?
 
 		_CPU.Zflag = 1;
 	}
@@ -275,7 +275,7 @@ function branchXBytesIfZEqualsZero() { //D0
 	if (_CPU.Zflag === 0) {
 		
 		//console.log("Branch Value = " + parseInt(_Memory[_CPU.PC + 1], 16));
-		_CPU.PC += (parseInt(_Memory[_CPU.PC + 1], 16) + 2); //Decimal
+		_CPU.PC += (parseInt(_CurrentProcess[_CPU.PC + 1], 16) + 2); //Decimal
 		
 		//console.log("zflag was 0");
 		
@@ -302,10 +302,10 @@ function incrementByteValue() { //EE
 
 	
 	//TODO:Add More here ???	
-	var memLocation = parseInt(_Memory[_CPU.PC + 1], 16); //Decimal
-	var valueAtMemLocation = parseInt(_Memory[memLocation], 16); //Decimal
+	var memLocation = parseInt(_CurrentProcess[_CPU.PC + 1], 16); //Decimal
+	var valueAtMemLocation = parseInt(_CurrentProcess[memLocation], 16); //Decimal
 	
-	_Memory[memLocation] = valueAtMemLocation + 1; 
+	_CurrentProcess[memLocation] = valueAtMemLocation + 1; 
 	
 	document.getElementById("bit" + memLocation).innerHTML=valueAtMemLocation + 1;
 	
@@ -341,9 +341,9 @@ function systemCall() { //FF
 		
 		//console.log("First char code " + _Memory[startingMemoryLocationOfProgramString]);
 		
-		while(_Memory[startingMemoryLocationOfProgramString] != "00") {
+		while(_CurrentProcess[startingMemoryLocationOfProgramString] != "00") {
 			
-			var letterCode = _Memory[startingMemoryLocationOfProgramString];
+			var letterCode = _CurrentProcess[startingMemoryLocationOfProgramString];
 			var letter = String.fromCharCode(parseInt(letterCode, 16));
 			
 			_StdIn.putText(letter); 
