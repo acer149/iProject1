@@ -134,14 +134,14 @@ function storeAccumulatorInMemory() { //8D
 	var hexMemLocationForAccToBeStored = _Memory[_CPU.PC + 1]; //Value in hex
 	
 	var decimalMemLocationForAccToBeStored = parseInt(hexMemLocationForAccToBeStored, 16);
-	console.log("Accumulator " + parseInt(_CPU.Acc, 16));
+	//console.log("Accumulator " + parseInt(_CPU.Acc, 16));
 	_Memory[decimalMemLocationForAccToBeStored] = _CPU.Acc;
 	
-	console.log("Storing Location dec" + decimalMemLocationForAccToBeStored);
+	//console.log("Storing Location dec" + decimalMemLocationForAccToBeStored);
 	document.getElementById("bit" + decimalMemLocationForAccToBeStored).innerHTML=_CPU.Acc;
 	
 	
-	console.log("Acc to be stored " + _CPU.Acc);
+	//console.log("Acc to be stored " + _CPU.Acc);
 	_CPU.PC += 3;
 	
 	
@@ -216,7 +216,7 @@ function loadYRegisterFromMemory() { //AC
 	
 	_CPU.Yreg = _Memory[parseInt(_Memory[_CPU.PC + 1], 16)]; //****************
 
-	console.log("YReg " + _CPU.Yreg);
+	//console.log("YReg " + _CPU.Yreg);
 	_CPU.PC += 3;
 	
 	document.getElementById("accumulator").innerHTML=_CPU.Acc;
@@ -249,8 +249,8 @@ function compareXRegisterToMemoryByteAndSetZToZeroIfEqual() { //EC
 	var operand = _Memory[_CPU.PC + 1];
 	
 	var decimalMemLocation = parseInt(operand, 16);
-	console.log("Compare value from mem @ " + decimalMemLocation + " which is " + parseInt(_Memory[decimalMemLocation]));
-	console.log("XREG " + _CPU.Xreg);
+	//console.log("Compare value from mem @ " + decimalMemLocation + " which is " + parseInt(_Memory[decimalMemLocation]));
+	//console.log("XREG " + _CPU.Xreg);
 	
 	
 	if (_CPU.Xreg === parseInt(_Memory[decimalMemLocation], 16)) { //****Remove parseInt 16?
@@ -274,20 +274,20 @@ function compareXRegisterToMemoryByteAndSetZToZeroIfEqual() { //EC
 function branchXBytesIfZEqualsZero() { //D0
 	if (_CPU.Zflag === 0) {
 		
-		console.log("Branch Value = " + parseInt(_Memory[_CPU.PC + 1], 16));
+		//console.log("Branch Value = " + parseInt(_Memory[_CPU.PC + 1], 16));
 		_CPU.PC += (parseInt(_Memory[_CPU.PC + 1], 16) + 2); //Decimal
 		
-		console.log("zflag was 0");
+		//console.log("zflag was 0");
 		
 		if (_CPU.PC > 255) {
 			_CPU.PC -= 256;
-			console.log("pc " + _CPU.PC); //PC that is branched back to
+			//console.log("pc " + _CPU.PC); //PC that is branched back to
 		}
 		
 	}
 	else {
 		_CPU.PC += 2;
-		console.log("PC After loop is finished =" + _CPU.PC);
+		//console.log("PC After loop is finished =" + _CPU.PC);
 	}
 	
 	document.getElementById("accumulator").innerHTML=_CPU.Acc;
@@ -323,13 +323,13 @@ function incrementByteValue() { //EE
 function systemCall() { //FF	
 
 	if (_CPU.Xreg === 1) {
-		console.log("Yreg " + parseInt(_CPU.Yreg) );
+		//console.log("Yreg " + parseInt(_CPU.Yreg) );
 		var printToConsole = parseInt(_CPU.Yreg).toString();
 
 		for (var i = 0; i < printToConsole.length; i++) {
 			_StdIn.putText(printToConsole.charAt(i));		
 		}
-		console.log("Reached sysCall");
+		//console.log("Reached sysCall");
 
 		_StdIn.advanceLine();
 		_StdIn.putText(_OsShell.promptStr);
@@ -339,7 +339,7 @@ function systemCall() { //FF
 	
 		var startingMemoryLocationOfProgramString = _CPU.Yreg; //Decimal
 		
-		console.log("First char code " + _Memory[startingMemoryLocationOfProgramString]);
+		//console.log("First char code " + _Memory[startingMemoryLocationOfProgramString]);
 		
 		while(_Memory[startingMemoryLocationOfProgramString] != "00") {
 			

@@ -92,10 +92,9 @@ function hostBtnStartOS_click(btn)
     //Creates Memory
     _Memory = new Memory();
     
-    //Creates a PCB process list
+    //Creates a process array for all the user processes
     _ResidentList = new Array();
-
-
+	_OpcodeArray = new Array(_AllMemory);
     // ... then set the host clock pulse ...
     _hardwareClockID = setInterval(hostClockPulse, CPU_CLOCK_INTERVAL);
     // .. and call the OS Kernel Bootstrap routine.

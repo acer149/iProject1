@@ -37,7 +37,7 @@ var _DefaultFontSize = 13;
 var _FontHeightMargin = 4;        // Additional space added to font size when advancing a line.
 
 //Memory
-var _AllMemory = 768;
+var _AllMemory = 767;
 var _MemoryBlock = 255;
 var _Memory = null;
 
@@ -48,6 +48,7 @@ var _LastMemoryLocation = 5;
 var _LastPid = -1;
 
 //UserProcess
+var _ReadyQueue;
 var _OpcodeArray;
 var _ResidentList;
 

@@ -130,6 +130,13 @@ function shellInit() {
 	sc.function = shellRun;
 	this.commandList[this.commandList.length] = sc;
 	
+	//runall
+	sc = new ShellCommand();
+	sc.command = "runall";
+	sc.description = " - Runs all processes in memory.";
+	sc.function = shellRunAll;
+	this.commandList[this.commandList.length] = sc;
+	
     
         
     // processes - list the running processes and their IDs
@@ -657,19 +664,41 @@ function shellLoad() {
 		//Creates a pcb for the process
 		var pcb = new ProcessControlBlock(pid);
 		
+		//Assigns a memory base and limit to each process
+		pcb = assignMemorySlot(pcb);
+		
 		//Stores the pcb in the _ResidentList. The location in the _ResidentList will the the pid of the program
+		//_ResidentList[pid] = pcb;
 		_ResidentList[pid] = pcb;
+		console.log(_ResidentList);
+		
 		
 		//Splits the user program on spaces and adds it to the _OpcodeArray
-		_OpcodeArray = userProgram.split(" ");
-		//console.log(_OpcodeArray);
+		var i = pcb.base;
+		var j = 0;
+		console.log("Here " + i);
+		var tempString = userProgram.split(" ");
+		
+		while (i < _OpcodeArray.length) {
+			if (i < tempString.length) {
+				_OpcodeArray[i] = tempString[j];
+			}
+			
+			else {
+				_OpcodeArray[i] = "00";
+			}
+			i++;
+			j++;
+		}
+		
+		console.log(_OpcodeArray);
 		
 		//Stores the pcb, the pid, and the user process in memory $0000
 		//_Memory[0] = {pcb:pcb, pid:pid, process:_OpcodeArray};
 		//console.log(_Memory[0]);
 		
 		//Loads the user program into the memory display in index.html
-		for (var i = 0; i < _OpcodeArray.length; i++) {
+		for (var i = 0; i < 127; i++) {
 			_Memory[i] = _OpcodeArray[i];
 			document.getElementById("bit" + i).innerText=_OpcodeArray[i];
 			//console.log(_Memory[i]);
@@ -690,7 +719,7 @@ function shellRun(args) {
 		var pidToBeRun = args[0];
 		
 		//Checks if the pid exists
-		if (pidToBeRun == _ResidentList[pidToBeRun].pid) {
+		if (pidToBeRun === _ResidentList[pidToBeRun].pid) {
 			//While the i is less than the length of the opcode array, shellRun will pass each opcode to cpu.js's switch statement
 			
 			
@@ -709,6 +738,14 @@ function shellRun(args) {
 		_StdIn.putText("Usage: run <pid>  Please supply a pid.");
 	}
 }
+
+function shellRunAll() {
+	
+	//_CPU.isExecuting = true;
+	
+}
+
+
 
 //Allows for continuous update of statusbar clock
 setInterval(function taskBarDate(args){ 
