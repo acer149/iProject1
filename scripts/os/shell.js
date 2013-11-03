@@ -719,15 +719,10 @@ function shellRun(args) {
 		var pidToBeRun = args[0];
 		
 		//Checks if the pid exists
-		console.log("pidToBeRun = " + pidToBeRun);
-		console.log("_ResidentList[pidToBeRun].pcb.pid = " + _ResidentList[pidToBeRun].pid);
 		if (parseInt(pidToBeRun) === parseInt(_ResidentList[pidToBeRun].pid)) {
-			//While the i is less than the length of the opcode array, shellRun will pass each opcode to cpu.js's switch statement
 			
-			_CPU.PC = 0;
-			
+			//Sets the current process based on the base and limit of the process in memory
 			var base = parseInt(_ResidentList[pidToBeRun].base);
-			
 			var limit = parseInt(_ResidentList[pidToBeRun].limit);
 			var i = 0;
 			
@@ -738,12 +733,7 @@ function shellRun(args) {
 				base++;
 			}
 			
-			//for (var i =0; i < 10; i++){//< _OpcodeArray.length; i++) {
-				//console.log("Executed opcode: " + _OpcodeArray[i]);
-				_CPU.isExecuting = true;
-				//_CPU.cycle();
-			//}
-			//_CPU.isExecuting = false;	
+				_CPU.isExecuting = true;	
 		}
 		else {
 			_StdIn.putText("No process exists with the entered pid.");

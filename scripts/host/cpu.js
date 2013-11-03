@@ -137,7 +137,7 @@ function storeAccumulatorInMemory() { //8D
 	//console.log("Accumulator " + parseInt(_CPU.Acc, 16));
 	_CurrentProcess[decimalMemLocationForAccToBeStored] = _CPU.Acc;
 	
-	console.log("Storing Location dec" + decimalMemLocationForAccToBeStored);
+	//console.log("Storing Location dec" + decimalMemLocationForAccToBeStored);
 	document.getElementById("bit" + decimalMemLocationForAccToBeStored).innerHTML=_CPU.Acc;
 	
 	
@@ -242,6 +242,7 @@ function osBreak() { //00
 
 	_CPU.PC += 1;
 	_CPU.isExecuting = false;
+	_CPU.PC = 0; //Reset the PC
 }
 
 function compareXRegisterToMemoryByteAndSetZToZeroIfEqual() { //EC
