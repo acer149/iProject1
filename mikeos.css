@@ -78,6 +78,21 @@ h3 {
 	text-align: center;
 }
 
+.RQHeadTD {
+	font-size: 12px;
+	width: 100px;
+	border: 2px solid red;
+	text-align: center;
+}
+
+.RQTD {
+	font-size: 12px;
+	width: 100px;
+	height: 14px;
+	border: 2px solid black;
+	text-align: center;
+}
+
 .footerText {
    color: black;
    font-family: Arial, Helvetica, sans-serif;
