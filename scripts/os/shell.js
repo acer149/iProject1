@@ -137,6 +137,12 @@ function shellInit() {
 	sc.function = shellRunAll;
 	this.commandList[this.commandList.length] = sc;
 	
+	//processes
+	sc = new ShellCommand();
+	sc.command = "processes";
+	sc.description = " - Displays all active pids.";
+	sc.function = shellProcesses;
+	this.commandList[this.commandList.length] = sc;
     
         
     // processes - list the running processes and their IDs
@@ -773,7 +779,27 @@ function shellRunAll() {
 			base++;
 		}
 		
-		_CPU.isExecuting = true;	
+		_CPU.isExecuting = true;		
+}
+
+//Shows active pids on the console
+function shellProcesses() {
+	if (_ResidentList.length > 1) {
+		
+		_StdIn.putText("Active pid's: ");
+	}
+	
+	for (var i =0; i < _ResidentList.length; i++) {
+		
+		//If displaying the last active pid, do not place a "," after it
+		if (i != _ResidentList.length - 1) {
+			_StdIn.putText(_ResidentList[i].pid.toString() + ", ");	
+		}
+		else{
+			_StdIn.putText(_ResidentList[i].pid.toString());
+		}
+		
+	}
 	
 }
 
