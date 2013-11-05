@@ -757,7 +757,7 @@ function shellRunAll() {
 		_ReadyQueue.enqueue(aProcess);
 	}
 	
-		
+	
 		console.log("Ready Queue b4 pop = " + _ReadyQueue);
 		//Gets a currentProcess from the ready queue (pcb) and sets the base and limit 
 		var currentProcess = _ReadyQueue.dequeue();
@@ -772,17 +772,10 @@ function shellRunAll() {
 			i++;
 			base++;
 		}
-			
+		
 		_CPU.isExecuting = true;	
 	
-
-	//console.log("Ready Queue = " + _ReadyQueue);
-	
-	//_CPU.isExecuting = true;
-	
 }
-
-
 
 //Allows for continuous update of statusbar clock
 setInterval(function taskBarDate(args){ 

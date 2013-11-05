@@ -240,9 +240,21 @@ function noOperation() { //EA
 
 function osBreak() { //00
 
-	_CPU.PC += 1;
-	_CPU.isExecuting = false;
-	_CPU.PC = 0; //Reset the PC
+	//_CPU.PC += 1;
+	//_CPU.isExecuting = false;
+	//_CPU.PC = 0; //Reset the PC
+	
+	if (_ReadyQueue.isEmpty()) {
+		_CPU.isExecuting = false;
+		_CPU.PC = 0; //Reset the PC
+	}
+	else {
+		_CPU.PC = 0; //Reset the PC
+		executeTheReadyQueue();
+		
+	}
+	
+	
 }
 
 function compareXRegisterToMemoryByteAndSetZToZeroIfEqual() { //EC
