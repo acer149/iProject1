@@ -35,3 +35,15 @@ function rot13(str) {   // An easy-to understand implementation of the famous an
     }
     return retVal;
 }
+
+//Utility to update the Ready Queue Display
+function updateReadyQueueTable() {
+	var numOfProcessesInRQ = _ReadyQueue.getSize();
+	console.log("HERE" + _ReadyQueue.getSize());
+	var processToDisplay = null;
+	
+	for (var i = 0; i < numOfProcessesInRQ; i++) {
+		processToDisplay = _ReadyQueue.dequeue(i);
+		console.log(processToDisplay);
+	}
+}
