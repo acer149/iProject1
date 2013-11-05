@@ -54,6 +54,9 @@ var _ResidentList;
 
 var _CurrentProcess;
 
+//Default quantum, set through quantum <int> shell cmd
+var RoundRobinQuantum = 6; 
+
 
 // Default the OS trace to be on.
 var _Trace = true;

@@ -143,9 +143,15 @@ function shellInit() {
 	sc.description = " - Displays all active pids.";
 	sc.function = shellProcesses;
 	this.commandList[this.commandList.length] = sc;
+	
+	//quantum
+	sc = new ShellCommand();
+	sc.command = "quantum";
+	sc.description = "<int> - Sets the Round Robin quantum.";
+	sc.function = shellQuantum;
+	this.commandList[this.commandList.length] = sc;
     
-        
-    // processes - list the running processes and their IDs
+   
     // kill <id> - kills the specified process id.
 
     //
@@ -799,6 +805,19 @@ function shellProcesses() {
 			_StdIn.putText(_ResidentList[i].pid.toString());
 		}
 		
+	}	
+}
+
+//Set the Round Robin quantum
+function shellQuantum(args) {
+	if (arg.length > 0) {
+		var newQuantum = parseInt(args[0]);
+		
+		RoundRobinQuantum = newQuantum;
+		
+	}
+	else {
+		_StdIn.putText("Usage: quantum <int>  Please supply an int.");
 	}
 	
 }
