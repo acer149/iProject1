@@ -746,6 +746,38 @@ function shellRun(args) {
 
 function shellRunAll() {
 	
+	var aProcess = null;
+	
+	for (processIndex in _ResidentList) {
+		
+		aProcess = _ResidentList[processIndex];
+		
+		delete _ResidentList[processIndex];
+		
+		_ReadyQueue.enqueue(aProcess);
+	}
+	
+		
+		console.log("Ready Queue b4 pop = " + _ReadyQueue);
+		//Gets a currentProcess from the ready queue (pcb) and sets the base and limit 
+		var currentProcess = _ReadyQueue.dequeue();
+		console.log("Ready Queue = " + _ReadyQueue);
+		var base = parseInt(currentProcess.base);
+		var limit = parseInt(currentProcess.limit);
+		var i = 0;
+			
+		while (base <= limit) {
+			_CurrentProcess[i] = _OpcodeArray[base];
+
+			i++;
+			base++;
+		}
+			
+		_CPU.isExecuting = true;	
+	
+
+	//console.log("Ready Queue = " + _ReadyQueue);
+	
 	//_CPU.isExecuting = true;
 	
 }
