@@ -42,4 +42,8 @@ function Queue()
         }
         return retVal;
     };
+    
+    this.getQueuedItem = function(i) {
+    	return this.q[i];
+    };
 }

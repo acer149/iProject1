@@ -39,11 +39,45 @@ function rot13(str) {   // An easy-to understand implementation of the famous an
 //Utility to update the Ready Queue Display
 function updateReadyQueueTable() {
 	var numOfProcessesInRQ = _ReadyQueue.getSize();
-	console.log("HERE" + _ReadyQueue.getSize());
+	//console.log("HERE" + _ReadyQueue.getSize());
 	var processToDisplay = null;
 	
+	clearReadyQueueDisplay();
+	
 	for (var i = 0; i < numOfProcessesInRQ; i++) {
-		processToDisplay = _ReadyQueue.dequeue(i);
-		console.log(processToDisplay);
+		processToDisplay = _ReadyQueue.getQueuedItem(i);
+		//console.log(processToDisplay);
+		
+		if (i === 0) {
+			document.getElementById("RQpid" + (i+1)).innerHTML=processToDisplay.pid;
+			document.getElementById("RQpc" + (i+1)).innerHTML=processToDisplay.programCounter;
+			document.getElementById("RQbase" + (i+1)).innerHTML=processToDisplay.base;
+			document.getElementById("RQlimit" + (i+1)).innerHTML=processToDisplay.limit;	
+		}
+		else if (i === 1) {
+			document.getElementById("RQpid" + (i+1)).innerHTML=processToDisplay.pid;
+			document.getElementById("RQpc" + (i+1)).innerHTML=processToDisplay.programCounter;
+			document.getElementById("RQbase" + (i+1)).innerHTML=processToDisplay.base;
+			document.getElementById("RQlimit" + (i+1)).innerHTML=processToDisplay.limit;			
+		}
+
+	}
+}
+
+//Utility to clear the Ready Queue Display
+function clearReadyQueueDisplay() {
+	for (var i = 0; i < 3; i++) {
+		if (i === 0) {
+			document.getElementById("RQpid" + (i+1)).innerHTML="";
+			document.getElementById("RQpc" + (i+1)).innerHTML="";
+			document.getElementById("RQbase" + (i+1)).innerHTML="";
+			document.getElementById("RQlimit" + (i+1)).innerHTML="";	
+		}
+		else if (i === 1) {
+			document.getElementById("RQpid" + (i+1)).innerHTML="";
+			document.getElementById("RQpc" + (i+1)).innerHTML="";
+			document.getElementById("RQbase" + (i+1)).innerHTML="";
+			document.getElementById("RQlimit" + (i+1)).innerHTML="";			
+		}	
 	}
 }
