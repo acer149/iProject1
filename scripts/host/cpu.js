@@ -34,10 +34,11 @@ function Cpu() {
         krnTrace("CPU cycle");
         // TODO: Accumulate CPU usage and profiling statistics here.
         // Do the real work here. Be sure to set this.isExecuting appropriately.
-        
-        if(_CpuCycleCount > RoundRobinQuantum) {
-        	osBreak();
-        	performContextSwitch(); //Scheduler.js
+        if (_RoundRobinActive) {
+        	if(_CpuCycleCount > RoundRobinQuantum) {
+        		storePCBState();
+        		performContextSwitch(); //Scheduler.js
+        	}
         }
         
         var opcodeToRun = getOpcode();
@@ -249,15 +250,13 @@ function osBreak() { //00
 
 	//_CPU.PC += 1;
 	//_CPU.isExecuting = false;
-	//_CPU.PC = 0; //Reset the PC
+	//_CPU.PC = 0; //Reset the PC	
 	
-	_CurrentProcessPCB.programCounter = _CPU.PC;
-	_CurrentProcessPCB.accumulator = _CPU.Acc; 
-	_CurrentProcessPCB.xReister = _CPU.Xreg;
-	_CurrentProcessPCB.yRegister = _CPU.Yreg;
-	_CurrentProcessPCB.zFlag = _CPU.Zflag;
+	if (_RoundRobinActive) {
+		_CurrentProcessPCB.processState = "Ended";
+	}
 	
-	
+	console.log("Reached osBreak");
 	if (_ReadyQueue.isEmpty()) {
 		
 		console.log("Ready Queue is empty");
@@ -328,9 +327,7 @@ function branchXBytesIfZEqualsZero() { //D0
 }
 
 function incrementByteValue() { //EE
-
 	
-	//TODO:Add More here ???	
 	var memLocation = parseInt(_CurrentProcess[_CPU.PC + 1], 16); //Decimal
 	var valueAtMemLocation = parseInt(_CurrentProcess[memLocation], 16); //Decimal
 	
@@ -383,7 +380,7 @@ function systemCall() { //FF
 		_StdIn.putText(_OsShell.promptStr);
 	}
 	else {
-		_CPU.isExecuting = false;
+		//_CPU.isExecuting = false;
 		//console.log("_CPU.Xreg = " + _CPU.Xreg);
 	}
 
@@ -398,6 +395,17 @@ function systemCall() { //FF
 	document.getElementById("zFlag").innerHTML=_CPU.Zflag;
 }
 
+
+function storePCBState() {
+	_CurrentProcessPCB.programCounter = _CPU.PC;
+	_CurrentProcessPCB.accumulator = _CPU.Acc; 
+	_CurrentProcessPCB.xReister = _CPU.Xreg;
+	_CurrentProcessPCB.yRegister = _CPU.Yreg;
+	_CurrentProcessPCB.zFlag = _CPU.Zflag;
+	
+	//performContextSwitch();
+	
+}
 
 
 

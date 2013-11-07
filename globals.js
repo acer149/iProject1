@@ -57,6 +57,7 @@ var _CurrentProcess;
 
 //Default quantum, set through quantum <int> shell cmd
 var RoundRobinQuantum = 6; 
+var _RoundRobinActive = false;
 var _CpuCycleCount = 1;
 
 

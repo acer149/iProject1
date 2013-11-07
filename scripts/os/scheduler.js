@@ -6,7 +6,7 @@
   
 
 function executeTheReadyQueue() {
-		var currentProcess = _CurrentProcessPCB;//_ReadyQueue.dequeue();
+		var currentProcess = _ReadyQueue.dequeue();
 		//console.log("Ready Queue = " + _ReadyQueue);
 		var base = parseInt(currentProcess.base + currentProcess.programCounter); //var base = parseInt(currentProcess.base);
 		var limit = parseInt(currentProcess.limit);
@@ -36,6 +36,7 @@ function performContextSwitch() {
 	
 	_CurrentProcessPCB = _ReadyQueue.dequeue();
 	
+	//Update the _CPU with the current PCB values
 	_CPU.PC = _CurrentProcessPCB.programCounter;
 	_CPU.Acc = _CurrentProcessPCB.accumulator; 
 	_CPU.Xreg = _CurrentProcessPCB.xReister;

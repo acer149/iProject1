@@ -758,6 +758,8 @@ function shellRun(args) {
 
 function shellRunAll() {
 	
+	_RoundRobinActive = true;
+	
 	var aProcess = null;
 	
 	for (processIndex in _ResidentList) {
