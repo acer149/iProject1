@@ -151,6 +151,12 @@ function shellInit() {
 	sc.function = shellQuantum;
 	this.commandList[this.commandList.length] = sc;
     
+    //kill
+    sc = new ShellCommand();
+    sc.command = "kill";
+    sc.description = "<id> - Kills the active process specified.";
+    sc.function = shellKill;
+    this.commandList[this.commandList.length] = sc;
    
     // kill <id> - kills the specified process id.
 
@@ -820,8 +826,18 @@ function shellQuantum(args) {
 	}
 	else {
 		_StdIn.putText("Usage: quantum <int>  Please supply an int.");
+	}	
+}
+
+//Kills an active process
+function shellKill(args) {
+	if (arg.length > 0) {
+		var pidOfProcessToKill = parseInt(args[0]);
+		
 	}
-	
+	else {
+		_StdIn.putText("Usage: kill <pid>  Please supply a pid.");
+	}
 }
 
 //Allows for continuous update of statusbar clock
