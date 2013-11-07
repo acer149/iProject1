@@ -6,9 +6,9 @@
   
 
 function executeTheReadyQueue() {
-		var currentProcess = _ReadyQueue.dequeue();
+		var currentProcess = _CurrentProcessPCB;//_ReadyQueue.dequeue();
 		//console.log("Ready Queue = " + _ReadyQueue);
-		var base = parseInt(currentProcess.base + currentProcess.programCounter); //var base = parseInt(currentProcess.base);
+		var base = parseInt(currentProcess.base);
 		var limit = parseInt(currentProcess.limit);
 		var i = 0;
 			
@@ -29,7 +29,11 @@ function performContextSwitch() {
 		
 		console.log("CONTEXT SWITCH");
 		
-		_ReadyQueue.enqueue(_CurrentProcessPCB);
+		//If the process has ended "00" do not add its PCB back onto the ready queue
+		if(!(_CurrentProcessPCB.processState === "Ended")) {
+			_ReadyQueue.enqueue(_CurrentProcessPCB);	
+		}
+		
 		
 	}
 	
@@ -45,4 +49,5 @@ function performContextSwitch() {
 	
 	updateReadyQueueTable();
 	_CpuCycleCount = 1;
+	executeTheReadyQueue();
 }

@@ -34,10 +34,16 @@ function Cpu() {
         krnTrace("CPU cycle");
         // TODO: Accumulate CPU usage and profiling statistics here.
         // Do the real work here. Be sure to set this.isExecuting appropriately.
+        
         if (_RoundRobinActive) {
-        	if(_CpuCycleCount > RoundRobinQuantum) {
-        		storePCBState();
-        		performContextSwitch(); //Scheduler.js
+        	
+        	//if the ready queue is not empty perform a context switch
+        	if (!(_ReadyQueue.isEmpty)) {
+        		if(_CpuCycleCount > RoundRobinQuantum) {
+        			storePCBState();
+        		
+        			performContextSwitch(); //Scheduler.js
+        		}
         	}
         }
         
@@ -51,6 +57,7 @@ function Cpu() {
 }
 
 	this.getOpcode = function() {
+	console.log("Pog Count = " + _CPU.PC);
 	return _CPU.PC;
 	
 	};
@@ -264,9 +271,14 @@ function osBreak() { //00
 		_CPU.PC = 0; //Reset the PC
 	}
 	else {
-		_CPU.PC = 0; //Reset the PC
-		executeTheReadyQueue();
 		
+		if(_RoundRobinActive) {
+			performContextSwitch();
+		}
+		else {
+			_CPU.PC = 0; //Reset the PC
+			executeTheReadyQueue();
+		}
 	}
 	
 	
