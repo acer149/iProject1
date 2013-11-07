@@ -764,6 +764,7 @@ function shellRunAll() {
 		
 		aProcess = _ResidentList[processIndex];
 		
+		//Removes the process from the _ResidentList
 		delete _ResidentList[processIndex];
 		
 		_ReadyQueue.enqueue(aProcess);
@@ -772,10 +773,10 @@ function shellRunAll() {
 	
 		console.log("Ready Queue b4 pop = " + _ReadyQueue);
 		//Gets a currentProcess from the ready queue (pcb) and sets the base and limit 
-		var currentProcess = _ReadyQueue.dequeue();
+		_CurrentProcessPCB = _ReadyQueue.dequeue();
 		console.log("Ready Queue = " + _ReadyQueue);
-		var base = parseInt(currentProcess.base);
-		var limit = parseInt(currentProcess.limit);
+		var base = parseInt(_CurrentProcessPCB.base);
+		var limit = parseInt(_CurrentProcessPCB.limit);
 		var i = 0;
 			
 		while (base <= limit) {

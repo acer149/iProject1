@@ -52,10 +52,12 @@ var _ReadyQueue;
 var _OpcodeArray;
 var _ResidentList;
 
+var _CurrentProcessPCB;
 var _CurrentProcess;
 
 //Default quantum, set through quantum <int> shell cmd
 var RoundRobinQuantum = 6; 
+var _CpuCycleCount = 1;
 
 
 // Default the OS trace to be on.

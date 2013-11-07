@@ -46,7 +46,7 @@ function updateReadyQueueTable() {
 	
 	for (var i = 0; i < numOfProcessesInRQ; i++) {
 		processToDisplay = _ReadyQueue.getQueuedItem(i);
-		//console.log(processToDisplay);
+		console.log("Ready Queue " + _ReadyQueue);
 		
 		if (i === 0) {
 			document.getElementById("RQpid" + (i+1)).innerHTML=processToDisplay.pid;

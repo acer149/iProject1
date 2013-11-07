@@ -6,9 +6,9 @@
   
 
 function executeTheReadyQueue() {
-		var currentProcess = _ReadyQueue.dequeue();
-		console.log("Ready Queue = " + _ReadyQueue);
-		var base = parseInt(currentProcess.base);
+		var currentProcess = _CurrentProcessPCB;//_ReadyQueue.dequeue();
+		//console.log("Ready Queue = " + _ReadyQueue);
+		var base = parseInt(currentProcess.base + currentProcess.programCounter); //var base = parseInt(currentProcess.base);
 		var limit = parseInt(currentProcess.limit);
 		var i = 0;
 			
@@ -21,4 +21,27 @@ function executeTheReadyQueue() {
 		
 		_CPU.isExecuting = true;
 	
+}
+
+function performContextSwitch() {
+	//Checks if there are processes in the ready queue
+	if (!(_ReadyQueue.isEmpty())) {
+		
+		console.log("CONTEXT SWITCH");
+		
+		_ReadyQueue.enqueue(_CurrentProcessPCB);
+		
+	}
+	
+	
+	_CurrentProcessPCB = _ReadyQueue.dequeue();
+	
+	_CPU.PC = _CurrentProcessPCB.programCounter;
+	_CPU.Acc = _CurrentProcessPCB.accumulator; 
+	_CPU.Xreg = _CurrentProcessPCB.xReister;
+	_CPU.Yreg = _CurrentProcessPCB.yRegister;
+	_CPU.Zflag = _CurrentProcessPCB.zFlag;
+	
+	updateReadyQueueTable();
+	_CpuCycleCount = 1;
 }

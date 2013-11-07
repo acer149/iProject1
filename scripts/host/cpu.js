@@ -29,15 +29,22 @@ function Cpu() {
         this.Zflag = 0;      
         this.isExecuting = false;  
     };
-    
+        
     this.cycle = function() {
         krnTrace("CPU cycle");
         // TODO: Accumulate CPU usage and profiling statistics here.
         // Do the real work here. Be sure to set this.isExecuting appropriately.
         
+        if(_CpuCycleCount > RoundRobinQuantum) {
+        	osBreak();
+        	performContextSwitch(); //Scheduler.js
+        }
+        
         var opcodeToRun = getOpcode();
         
         run(_CurrentProcess[opcodeToRun]);
+        
+        _CpuCycleCount++;
     };
     
 }
@@ -244,7 +251,16 @@ function osBreak() { //00
 	//_CPU.isExecuting = false;
 	//_CPU.PC = 0; //Reset the PC
 	
+	_CurrentProcessPCB.programCounter = _CPU.PC;
+	_CurrentProcessPCB.accumulator = _CPU.Acc; 
+	_CurrentProcessPCB.xReister = _CPU.Xreg;
+	_CurrentProcessPCB.yRegister = _CPU.Yreg;
+	_CurrentProcessPCB.zFlag = _CPU.Zflag;
+	
+	
 	if (_ReadyQueue.isEmpty()) {
+		
+		console.log("Ready Queue is empty");
 		_CPU.isExecuting = false;
 		_CPU.PC = 0; //Reset the PC
 	}
