@@ -30,7 +30,7 @@ function performContextSwitch() {
 		console.log("CONTEXT SWITCH");
 		
 		//If the process has ended "00" do not add its PCB back onto the ready queue
-		if(!(_CurrentProcessPCB.processState === "Ended")) {
+		if(_CurrentProcessPCB.processState != "Ended") {
 			_ReadyQueue.enqueue(_CurrentProcessPCB);	
 		}
 		

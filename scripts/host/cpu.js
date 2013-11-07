@@ -38,8 +38,10 @@ function Cpu() {
         if (_RoundRobinActive) {
         	
         	//if the ready queue is not empty perform a context switch
-        	if (!(_ReadyQueue.isEmpty)) {
+        	if (!(_ReadyQueue.isEmpty())) {
         		if(_CpuCycleCount > RoundRobinQuantum) {
+        			
+        			console.log("Quantum Switch");
         			storePCBState();
         		
         			performContextSwitch(); //Scheduler.js
@@ -57,7 +59,7 @@ function Cpu() {
 }
 
 	this.getOpcode = function() {
-	console.log("Pog Count = " + _CPU.PC);
+	console.log("Prog Count = " + _CPU.PC);
 	return _CPU.PC;
 	
 	};

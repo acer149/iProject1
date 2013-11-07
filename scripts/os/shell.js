@@ -758,8 +758,6 @@ function shellRun(args) {
 
 function shellRunAll() {
 	
-	_RoundRobinActive = true;
-	
 	var aProcess = null;
 	
 	for (processIndex in _ResidentList) {
@@ -788,6 +786,7 @@ function shellRunAll() {
 			base++;
 		}
 		
+		_RoundRobinActive = true;
 		_CPU.isExecuting = true;		
 }
 

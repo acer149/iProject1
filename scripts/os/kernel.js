@@ -90,7 +90,7 @@ function krnOnCPUClockPulse()
     {
     //TODO:Add other display updates here??
 	//Update RQ Display
-	//updateReadyQueueTable();
+	updateReadyQueueTable();
 	
         _CPU.cycle();
     }    
