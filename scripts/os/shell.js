@@ -838,6 +838,7 @@ function shellKill(args) {
 	else {
 		_StdIn.putText("Usage: kill <pid>  Please supply a pid.");
 	}
+	
 }
 
 //Allows for continuous update of statusbar clock
