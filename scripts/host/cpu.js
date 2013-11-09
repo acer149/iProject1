@@ -36,12 +36,11 @@ function Cpu() {
         // Do the real work here. Be sure to set this.isExecuting appropriately.
         
         if (_RoundRobinActive) {
-        	
         	//if the ready queue is not empty perform a context switch
         	if (!(_ReadyQueue.isEmpty())) {
         		if(_CpuCycleCount > RoundRobinQuantum) {
         			
-        			console.log("Quantum Switch");
+        			//console.log("Quantum Switch");
         			storePCBState();
         		
         			performContextSwitch(); //Scheduler.js
@@ -59,7 +58,7 @@ function Cpu() {
 }
 
 	this.getOpcode = function() {
-	console.log("Prog Count = " + _CPU.PC);
+	//console.log("Prog Count = " + _CPU.PC);
 	return _CPU.PC;
 	
 	};
@@ -411,9 +410,35 @@ function systemCall() { //FF
 
 
 function storePCBState() {
+	
+	console.log("Storing process with pid: " + _CurrentProcessPCB.pid
+										+ " Program Counter: " + _CPU.PC
+										+ " Accumulator: " + _CPU.Acc
+										+ " Xregister: " + _CPU.Xreg
+										+ " Yregister: " + _CPU.Yreg
+										+ " Zflag: " + _CPU.Zflag + "\n");
+							
+	
+		//**
+		var currentProcess = _CurrentProcessPCB;
+		var base = parseInt(currentProcess.base);
+		var limit = parseInt(currentProcess.limit);
+		var i = 0;
+			
+		while (base <= limit) {
+			_OpcodeArray[base] = _CurrentProcess[i];
+
+			i++;
+			base++;
+		}
+	
+		//**
+	
+	
+	
 	_CurrentProcessPCB.programCounter = _CPU.PC;
 	_CurrentProcessPCB.accumulator = _CPU.Acc; 
-	_CurrentProcessPCB.xReister = _CPU.Xreg;
+	_CurrentProcessPCB.xRegister = _CPU.Xreg;
 	_CurrentProcessPCB.yRegister = _CPU.Yreg;
 	_CurrentProcessPCB.zFlag = _CPU.Zflag;
 	

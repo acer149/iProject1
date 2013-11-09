@@ -33,17 +33,25 @@ function performContextSwitch() {
 		if(_CurrentProcessPCB.processState != "Ended") {
 			_ReadyQueue.enqueue(_CurrentProcessPCB);	
 		}
-		
-		
+	
 	}
 	
-	
 	_CurrentProcessPCB = _ReadyQueue.dequeue();
+	
+	
+			console.log("Loading process with pid: " + _CurrentProcessPCB.pid
+										+ " Program Counter: " + _CurrentProcessPCB.programCounter
+										+ " Accumulator: " + _CurrentProcessPCB.accumulator
+										+ " Xregister: " + _CurrentProcessPCB.xRegister
+										+ " Yregister: " + _CurrentProcessPCB.yRegister
+										+ " Zflag: " + _CurrentProcessPCB.zFlag + "\n");
+	
+	
 	
 	//Update the _CPU with the current PCB values
 	_CPU.PC = _CurrentProcessPCB.programCounter;
 	_CPU.Acc = _CurrentProcessPCB.accumulator; 
-	_CPU.Xreg = _CurrentProcessPCB.xReister;
+	_CPU.Xreg = _CurrentProcessPCB.xRegister;
 	_CPU.Yreg = _CurrentProcessPCB.yRegister;
 	_CPU.Zflag = _CurrentProcessPCB.zFlag;
 	

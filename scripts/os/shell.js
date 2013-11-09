@@ -818,7 +818,7 @@ function shellProcesses() {
 
 //Set the Round Robin quantum
 function shellQuantum(args) {
-	if (arg.length > 0) {
+	if (args.length > 0) {
 		var newQuantum = parseInt(args[0]);
 		
 		RoundRobinQuantum = newQuantum;
