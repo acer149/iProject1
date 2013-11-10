@@ -434,8 +434,6 @@ function storePCBState() {
 	
 		//**
 	
-	
-	
 	_CurrentProcessPCB.programCounter = _CPU.PC;
 	_CurrentProcessPCB.accumulator = _CPU.Acc; 
 	_CurrentProcessPCB.xRegister = _CPU.Xreg;

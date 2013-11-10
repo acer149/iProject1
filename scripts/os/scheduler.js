@@ -27,6 +27,8 @@ function performContextSwitch() {
 	//Checks if there are processes in the ready queue
 	if (!(_ReadyQueue.isEmpty())) {
 		
+		hostLog("Context Switch", "OS");
+		
 		console.log("CONTEXT SWITCH");
 		
 		//If the process has ended "00" do not add its PCB back onto the ready queue

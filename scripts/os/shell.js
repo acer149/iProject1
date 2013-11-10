@@ -831,8 +831,30 @@ function shellQuantum(args) {
 
 //Kills an active process
 function shellKill(args) {
-	if (arg.length > 0) {
+	
+	var indexOfProcessInQueue = 0;
+	
+	if (args.length > 0) {
 		var pidOfProcessToKill = parseInt(args[0]);
+		
+		var queue  = new Array();
+		for (var i = 0; i < _ReadyQueue.getSize(); i++) {
+			 queue.push = _ReadyQueue.getQueuedItem(i);
+		}
+		
+		
+		for (process in queue) {
+			console.log("Process " + process);
+			if (_ReadyQueue.getQueuedItem(process).pid === pidOfProcessToKill) {
+				indexOfProcessInQueue = parseInt(process);
+				
+				_ReadyQueue.removeQueuedItem(indexOfProcessInQueue);
+				
+			}
+			else {
+				_StdIn.putText("No process with entered pid exists.");
+			}
+		}
 		
 	}
 	else {

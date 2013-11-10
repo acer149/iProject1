@@ -46,4 +46,8 @@ function Queue()
     this.getQueuedItem = function(i) {
     	return this.q[i];
     };
+    
+    this.removeQueuedItem = function(i) {
+    	delete this.q[i];
+    };
 }
