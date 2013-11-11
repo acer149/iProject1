@@ -690,31 +690,6 @@ function shellLoad() {
 		_ResidentList[pid] = pcb;
 		console.log(_ResidentList);
 		
-		
-		// //Splits the user program on spaces and adds it to the _OpcodeArray
-		// var i = pcb.base;
-		// var j = 0;
-		// console.log("Here " + i);
-		// var tempString = userProgram.split(" ");
-// 		
-		// while (i < _OpcodeArray.length) {
-			// if (i < tempString.length) {
-				// _OpcodeArray[i] = tempString[j];
-			// }
-// 			
-			// else {
-				// _OpcodeArray[i] = "00";
-			// }
-			// i++;
-			// j++;
-		// }
-		
-		//console.log(_OpcodeArray);
-		
-		//Stores the pcb, the pid, and the user process in memory $0000
-		//_Memory[0] = {pcb:pcb, pid:pid, process:_OpcodeArray};
-		//console.log(_Memory[0]);
-		
 		//Loads the user program into the memory display in index.html
 		for (var i = 0; i < 95; i++) {
 			_Memory[i] = _OpcodeArray[i];
@@ -822,6 +797,7 @@ function shellQuantum(args) {
 		var newQuantum = parseInt(args[0]);
 		
 		RoundRobinQuantum = newQuantum;
+		_StdIn.putText("Round Robin quantum now set to: " + newQuantum);
 		
 	}
 	else {
@@ -830,32 +806,48 @@ function shellQuantum(args) {
 }
 
 //Kills an active process
-function shellKill(args) {
+function shellKill(args) {	
 	
-	var indexOfProcessInQueue = 0;
+	var processToKill = null;
 	
+	//Check to see if a pid is specified
 	if (args.length > 0) {
 		var pidOfProcessToKill = parseInt(args[0]);
 		
-		var queue  = new Array();
-		for (var i = 0; i < _ReadyQueue.getSize(); i++) {
-			 queue.push = _ReadyQueue.getQueuedItem(i);
+		//If the current running process has been identified as the victim of the kill cmd, mark that process as ended and 
+		//perform a context switch (it will not be added back to the ready queue because it has been flagged as ended, see scheduler.js)
+		if (_CurrentProcessPCB.pid === pidOfProcessToKill) {
+			processToKill = _CurrentProcessPCB
+			processToKill.processState = "Ended";
+			
+			_StdIn.putText("Killed process with pid: " + pidOfProcessToKill);
+			_StdIn.advanceLine();
+			_StdIn.putText(">");
+			krnTrace("Killed the current running process with pid: " + pidOfProcessToKill);
+			
+			performContextSwitch();
 		}
-		
-		
-		for (process in queue) {
-			console.log("Process " + process);
-			if (_ReadyQueue.getQueuedItem(process).pid === pidOfProcessToKill) {
-				indexOfProcessInQueue = parseInt(process);
-				
-				_ReadyQueue.removeQueuedItem(indexOfProcessInQueue);
-				
-			}
-			else {
-				_StdIn.putText("No process with entered pid exists.");
+		//Checks ready queue for the victim, if found mark as ended and remove from ready queue
+		else {
+			for (var i = 0; i < _ReadyQueue.getSize(); i++) {
+				 if (_ReadyQueue.getQueuedItem(i).pid === pidOfProcessToKill) {
+				 	processToKill = _ReadyQueue.getQueuedItem(i)
+				 	processToKill.processState = "Ended";
+				 	
+				 	_StdIn.putText("Killed process on the ready queue with pid: " + pidOfProcessToKill);
+				 	_StdIn.advanceLine();
+				 	_StdIn.putText(">");
+				 	krnTrace("Killed the process on the ready queue with pid: " + pidOfProcessToKill);
+				 	
+				 	_ReadyQueue.splice(i, 1);
+				 
+				 }
 			}
 		}
-		
+		if (processToKill === null) {
+				 _StdIn.putText("No process with entered pid exists.");
+		}
+			
 	}
 	else {
 		_StdIn.putText("Usage: kill <pid>  Please supply a pid.");
