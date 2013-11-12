@@ -44,6 +44,9 @@ function hostInit()
    
    //Calls date and time
    //taskBarDate();
+   
+   //In memoryManager.js
+   createMemoryDisplay();
 
 }
 
@@ -74,9 +77,7 @@ function hostLog(msg, source)
 // Control Events
 //
 function hostBtnStartOS_click(btn)
-{
-	createMemory();
-	
+{	
     // Disable the start button...
     btn.disabled = true;
     
