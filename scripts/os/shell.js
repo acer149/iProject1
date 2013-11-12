@@ -716,7 +716,7 @@ function shellLoad() {
 		//console.log(_Memory[0]);
 		
 		//Loads the user program into the memory display in index.html
-		for (var i = 0; i < 95; i++) {
+		for (var i = 0; i < _AllMemory; i++) {
 			_Memory[i] = _OpcodeArray[i];
 			document.getElementById("bit" + i).innerText=_OpcodeArray[i];
 			//console.log(_Memory[i]);

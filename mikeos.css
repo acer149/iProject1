@@ -53,6 +53,7 @@ h3 {
 
 .memTDHead {
 	font-size: 12px;
+	width: 50px;
 	border: 2px solid red;
 }
 

@@ -75,6 +75,8 @@ function hostLog(msg, source)
 //
 function hostBtnStartOS_click(btn)
 {
+	createMemory();
+	
     // Disable the start button...
     btn.disabled = true;
     
