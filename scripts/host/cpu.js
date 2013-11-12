@@ -426,8 +426,8 @@ function storePCBState() {
 		var i = 0;
 			
 		while (base <= limit) {
-			_OpcodeArray[base] = _CurrentProcess[i];
-
+			_Memory[base] = _CurrentProcess[i];
+			
 			i++;
 			base++;
 		}

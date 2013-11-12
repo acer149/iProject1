@@ -97,7 +97,7 @@ function hostBtnStartOS_click(btn)
     
     //Creates a process array for all the user processes
     _ResidentList = new Array();
-	_OpcodeArray = new Array(_AllMemory);
+	//_OpcodeArray = new Array(_AllMemory);
 	
 	_CurrentProcess = new Array();
 	

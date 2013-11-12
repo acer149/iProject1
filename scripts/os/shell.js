@@ -691,34 +691,34 @@ function shellLoad() {
 		console.log(_ResidentList);
 		
 		
-		// //Splits the user program on spaces and adds it to the _OpcodeArray
+		// //Splits the user program on spaces and adds it to the _Memory
 		// var i = pcb.base;
 		// var j = 0;
 		// console.log("Here " + i);
 		// var tempString = userProgram.split(" ");
 // 		
-		// while (i < _OpcodeArray.length) {
+		// while (i < _Memory.length) {
 			// if (i < tempString.length) {
-				// _OpcodeArray[i] = tempString[j];
+				// _Memory[i] = tempString[j];
 			// }
 // 			
 			// else {
-				// _OpcodeArray[i] = "00";
+				// _Memory[i] = "00";
 			// }
 			// i++;
 			// j++;
 		// }
 		
-		//console.log(_OpcodeArray);
+		//console.log(_Memory);
 		
 		//Stores the pcb, the pid, and the user process in memory $0000
-		//_Memory[0] = {pcb:pcb, pid:pid, process:_OpcodeArray};
+		//_Memory[0] = {pcb:pcb, pid:pid, process:_Memory};
 		//console.log(_Memory[0]);
 		
 		//Loads the user program into the memory display in index.html
 		for (var i = 0; i < _AllMemory; i++) {
-			_Memory[i] = _OpcodeArray[i];
-			document.getElementById("bit" + i).innerText=_OpcodeArray[i];
+			_Memory[i] = _Memory[i];
+			document.getElementById("bit" + i).innerText=_Memory[i];
 			//console.log(_Memory[i]);
 		}
 		
@@ -744,7 +744,7 @@ function shellRun(args) {
 			var i = 0;
 			
 			while (base <= limit) {
-				_CurrentProcess[i] = _OpcodeArray[base];
+				_CurrentProcess[i] = _Memory[base];
 
 				i++;
 				base++;
@@ -785,7 +785,7 @@ function shellRunAll() {
 		var i = 0;
 			
 		while (base <= limit) {
-			_CurrentProcess[i] = _OpcodeArray[base];
+			_CurrentProcess[i] = _Memory[base];
 
 			i++;
 			base++;

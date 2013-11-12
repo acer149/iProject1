@@ -49,7 +49,7 @@ var _LastPid = -1;
 
 //UserProcess
 var _ReadyQueue;
-var _OpcodeArray;
+//var _OpcodeArray;
 var _ResidentList;
 
 var _CurrentProcessPCB;

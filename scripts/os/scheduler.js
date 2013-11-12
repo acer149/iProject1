@@ -15,7 +15,7 @@ function executeTheReadyQueue() {
 		//Pulls the process out if memory and loads it into an array
 		//TODO:Access memory directly?
 		while (base <= limit) {
-			_CurrentProcess[i] = _OpcodeArray[base];
+			_CurrentProcess[i] = _Memory[base];
 
 			i++;
 			base++;
