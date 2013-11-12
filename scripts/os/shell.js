@@ -729,7 +729,6 @@ function shellLoad() {
 	else {
 		_StdIn.putText("Your user code is NOT valid");
 	}
-	
 }
 
 function shellRun(args) {
