@@ -12,6 +12,8 @@ function executeTheReadyQueue() {
 		var limit = parseInt(currentProcess.limit);
 		var i = 0;
 			
+		//Pulls the process out if memory and loads it into an array
+		//TODO:Access memory directly?
 		while (base <= limit) {
 			_CurrentProcess[i] = _OpcodeArray[base];
 

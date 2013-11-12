@@ -690,6 +690,31 @@ function shellLoad() {
 		_ResidentList[pid] = pcb;
 		console.log(_ResidentList);
 		
+		
+		// //Splits the user program on spaces and adds it to the _OpcodeArray
+		// var i = pcb.base;
+		// var j = 0;
+		// console.log("Here " + i);
+		// var tempString = userProgram.split(" ");
+// 		
+		// while (i < _OpcodeArray.length) {
+			// if (i < tempString.length) {
+				// _OpcodeArray[i] = tempString[j];
+			// }
+// 			
+			// else {
+				// _OpcodeArray[i] = "00";
+			// }
+			// i++;
+			// j++;
+		// }
+		
+		//console.log(_OpcodeArray);
+		
+		//Stores the pcb, the pid, and the user process in memory $0000
+		//_Memory[0] = {pcb:pcb, pid:pid, process:_OpcodeArray};
+		//console.log(_Memory[0]);
+		
 		//Loads the user program into the memory display in index.html
 		for (var i = 0; i < 95; i++) {
 			_Memory[i] = _OpcodeArray[i];
