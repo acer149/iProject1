@@ -38,10 +38,25 @@ for (var i = 0; i < (_AllMemory+2)/8; i++) {
 		if (x === 0) {
 			td = document.createElement('td');
 			td.setAttribute('class', 'memTDHead');
-			text = document.createTextNode("$" + y);
+	
+			switch(true) {
+				case (y < 9):
+					text = document.createTextNode("$000" + y);
+					break;
+				case (y < 99):
+					text = document.createTextNode("$00" + y);
+					break;
+				case (y < 999):
+					text = document.createTextNode("$0" + y);
+					break;
+				default:
+					text = document.createTextNode("$0" + y);
+					break;
+			}
+			//text = document.createTextNode("$" + y);
 			td.appendChild(text);
 			tr.appendChild(td);
-			y+=8;
+			y+=8; //8 memory elements per row
 		}
 	
 		td = document.createElement('td');
