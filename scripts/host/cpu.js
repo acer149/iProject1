@@ -269,6 +269,7 @@ function osBreak() { //00
 		
 		console.log("Ready Queue is empty");
 		_CPU.isExecuting = false;
+		_LastPid = -1;
 		_CPU.PC = 0; //Reset the PC
 	}
 	else {

@@ -37,6 +37,9 @@ function performContextSwitch() {
 		if(_CurrentProcessPCB.processState != "Ended") {
 			_ReadyQueue.enqueue(_CurrentProcessPCB);	
 		}
+		else if (_CurrentProcessPCB.processState === "Ended") {
+			clearMemoryDisplay(_CurrentProcessPCB);
+		}
 	
 	}
 	
