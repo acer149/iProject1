@@ -849,7 +849,19 @@ function shellKill(args) {
 			_StdIn.putText(">");
 			krnTrace("Killed the current running process with pid: " + pidOfProcessToKill);
 			
+			
+			//Clear memory table partition
+			// var base = _CurrentProcessPCB.base;
+			// var limit = _CurrentProcessPCB.limit;
+			// while (base <= limit) {
+				// _Memory[base] = "00";
+				// base++;
+			// }
+			//clearMemoryDisplay(_CurrentProcessPCB);
+			
+			
 			performContextSwitch();
+			
 		}
 		//Checks ready queue for the victim, if found mark as ended and remove from ready queue
 		else {
@@ -864,7 +876,18 @@ function shellKill(args) {
 				 	krnTrace("Killed the process on the ready queue with pid: " + pidOfProcessToKill);
 				 	
 				 	_ReadyQueue.splice(i, 1);
-				 
+				 	
+				 	
+					//Clear memory table partition
+					// var base = processToKill.base;
+					// var limit = processToKill.limit;
+					// while (base <= limit) {
+						// _Memory[base] = "00";
+						// base++;
+					// }
+					
+					//clearMemoryDisplay(processToKill); 	
+				 	
 				 }
 			}
 		}

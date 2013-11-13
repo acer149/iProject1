@@ -83,6 +83,21 @@ function assignMemorySlot(pcb) {
 	
 }
 
+//****
+function clearMemoryDisplay(pcb) {
+				
+		var base = pcb.base;
+		var limit = pcb.limit;
+
+
+		while (base < limit) {
+			_Memory[base] = "00";
+			document.getElementById("bit" + base).innerHTML="00";
+			base++;
+		}
+		
+}
+
 
 //********
 //Creates the memory display on the screen
@@ -148,22 +163,3 @@ for (var i = 0; i < (_AllMemory+2)/8; i++) {
 	parent.innerHTML="";
 	parent.appendChild(table);
 }
-
-		//Splits the user program on spaces and adds it to the _Memory
-		//var i = pcb.base;
-		// var j = 0;
-		// console.log("Here " + i);
-		// var tempString = userProgram.split(" ");
-// 		
-		// while (i < _Memory.length) {
-			// if (i < tempString.length) {
-				// _Memory[i] = tempString[j];
-			// }
-// 			
-			// else {
-				// _Memory[i] = "00";
-			// }
-			// i++;
-			// j++;
-		// }
-
