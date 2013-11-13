@@ -675,56 +675,42 @@ function shellLoad() {
 	if (userProgram.match("^[0-9A-F \n]+$")) {
 		_StdIn.putText("Your user code is valid");
 		
-		//Create a PCB for the process
-		var pid = _LastPid + 1; //Increments for multiple processes
-		_LastPid = pid;
+		var tempString = userProgram.split(" ");
 		
-		//Creates a pcb for the process
-		var pcb = new ProcessControlBlock(pid);
+		//Checks if process is longer than memory block size
+		if(tempString.length > (_MemoryBlock + 1)){
 		
-		//Assigns a memory base and limit to each process
-		pcb = assignMemorySlot(pcb);
-		
-		//Stores the pcb in the _ResidentList. The location in the _ResidentList will the the pid of the program
-		//_ResidentList[pid] = pcb;
-		_ResidentList[pid] = pcb;
-		console.log(_ResidentList);
-		
-		
-		// //Splits the user program on spaces and adds it to the _Memory
-		// var i = pcb.base;
-		// var j = 0;
-		// console.log("Here " + i);
-		// var tempString = userProgram.split(" ");
-// 		
-		// while (i < _Memory.length) {
-			// if (i < tempString.length) {
-				// _Memory[i] = tempString[j];
-			// }
-// 			
-			// else {
-				// _Memory[i] = "00";
-			// }
-			// i++;
-			// j++;
-		// }
-		
-		//console.log(_Memory);
-		
-		//Stores the pcb, the pid, and the user process in memory $0000
-		//_Memory[0] = {pcb:pcb, pid:pid, process:_Memory};
-		//console.log(_Memory[0]);
-		
-		//Loads the user program into the memory display in index.html
-		for (var i = 0; i < _AllMemory; i++) {
-			_Memory[i] = _Memory[i];
-			document.getElementById("bit" + i).innerText=_Memory[i];
-			//console.log(_Memory[i]);
+			_StdIn.advanceLine();
+			_StdIn.putText("However...");
+			_StdIn.advanceLine();
+			_StdIn.putText("Your process, exceeds the memory partition size and will");
+			_StdIn.advanceLine();
+			_StdIn.putText("not be executed.");
 		}
-		
-		_StdIn.advanceLine();
-		_StdIn.putText("Process loaded with Process ID " + pid);
-			
+		else {
+
+			var pid = _LastPid + 1;
+			//Increments for multiple processes
+			_LastPid = pid;
+
+			//Creates a pcb for the process
+			var pcb = new ProcessControlBlock(pid);
+
+			//Assigns a memory base and limit to each process
+			pcb = assignMemorySlot(pcb);
+
+			//Stores the pcb in the _ResidentList. The location in the _ResidentList will the the pid of the program
+			_ResidentList[pid] = pcb;
+			console.log(_ResidentList); 
+
+
+			//Loads the user program into the memory display in index.html
+			for (var i = 0; i < _AllMemory; i++) {
+				document.getElementById("bit" + i).innerText = _Memory[i];
+			}
+
+		}
+				
 	}
 	else {
 		_StdIn.putText("Your user code is NOT valid");
@@ -738,9 +724,11 @@ function shellRun(args) {
 		//Checks if the pid exists
 		if (parseInt(pidToBeRun) === parseInt(_ResidentList[pidToBeRun].pid)) {
 			
+			_CurrentProcessPCB = _ResidentList[pidToBeRun];
+			
 			//Sets the current process based on the base and limit of the process in memory
-			var base = parseInt(_ResidentList[pidToBeRun].base);
-			var limit = parseInt(_ResidentList[pidToBeRun].limit);
+			var base = parseInt(_CurrentProcessPCB.base);
+			var limit = parseInt(_CurrentProcessPCB.limit);
 			var i = 0;
 			
 			while (base <= limit) {
@@ -779,11 +767,12 @@ function shellRunAll() {
 		console.log("Ready Queue b4 pop = " + _ReadyQueue);
 		//Gets a currentProcess from the ready queue (pcb) and sets the base and limit 
 		_CurrentProcessPCB = _ReadyQueue.dequeue();
-		console.log("Ready Queue = " + _ReadyQueue);
+		console.log("Ready Queue after pop = " + _ReadyQueue);
 		var base = parseInt(_CurrentProcessPCB.base);
 		var limit = parseInt(_CurrentProcessPCB.limit);
 		var i = 0;
 			
+		//Puts the process to execute in a current process array
 		while (base <= limit) {
 			_CurrentProcess[i] = _Memory[base];
 

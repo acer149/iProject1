@@ -11,76 +11,75 @@ function assignMemorySlot(pcb) {
 	var base = 0;
 	var limit = 0;
 	var tempString = userProgram.split(" ");
-	
-	if (pcb.pid === 0) {
-		pcb.base = 0;
-		pcb.limit = _MemoryBlock;
-		
-		//Places userProgram in physical memory location
-		var i = pcb.base;
-		var j = 0;
-		var q = 0;
-		while (i < _Memory.length) {
-			if (q < tempString.length) {
-				_Memory[i] = tempString[j];
-			}
-			
-			else {
-				_Memory[i] = "00";
-			}
-			i++;
-			j++;
-			q++;
-		}
-		
-	}
-	else if (pcb.pid === 1) {
-		pcb.base = _MemoryBlock + 1;
-		pcb.limit = (pcb.base + _MemoryBlock);
-		
-		//Places userProgram in physical memory location
-		var i = pcb.base;
-		var j = 0;
-		var q = 0;
-		while (i < _Memory.length) {
-			if (q < tempString.length) {
-				_Memory[i] = tempString[j];
-			}
-			
-			else {
-				_Memory[i] = "00";
-			}
-			i++;
-			j++;
-			q++;
-		}
-		
-	}
-	else if(pcb.pid === 2) {
-		pcb.base = (2 * _MemoryBlock) + 1;
-		pcb.limit = (pcb.base + _MemoryBlock);
-		
-		//Places userProgram in physical memory location
-		var i = pcb.base;
-		var j = 0;
-		var q = 0;
-		while (i < _Memory.length) {
-			if (q < tempString.length) {
-				_Memory[i] = tempString[j];
-			}
-			
-			else {
-				_Memory[i] = "00";
-			}
-			i++;
-			j++;
-			q++;
-		}
-		
-	}
 
-	return pcb; 
-	
+		if (pcb.pid === 0) {
+			pcb.base = 0;
+			pcb.limit = _MemoryBlock;
+
+			//Places userProgram in physical memory location
+			var i = pcb.base;
+			var j = 0;
+			var q = 0;
+			while (i < _Memory.length) {
+				if (q < tempString.length) {
+					_Memory[i] = tempString[j];
+				} else {
+					_Memory[i] = "00";
+				}
+				i++;
+				j++;
+				q++;
+			}
+			
+		_StdIn.advanceLine();
+		_StdIn.putText("Process loaded with Process ID " + pcb.pid);
+
+		} else if (pcb.pid === 1) {
+			pcb.base = _MemoryBlock + 1;
+			pcb.limit = (pcb.base + _MemoryBlock);
+
+			//Places userProgram in physical memory location
+			var i = pcb.base;
+			var j = 0;
+			var q = 0;
+			while (i < _Memory.length) {
+				if (q < tempString.length) {
+					_Memory[i] = tempString[j];
+				} else {
+					_Memory[i] = "00";
+				}
+				i++;
+				j++;
+				q++;
+			}
+		_StdIn.advanceLine();
+		_StdIn.putText("Process loaded with Process ID " + pcb.pid);
+
+		} else if (pcb.pid === 2) {
+			pcb.base = (2 * _MemoryBlock) + 2;
+			pcb.limit = (pcb.base + _MemoryBlock);
+
+			//Places userProgram in physical memory location
+			var i = pcb.base;
+			var j = 0;
+			var q = 0;
+			while (i < _Memory.length) {
+				if (q < tempString.length) {
+					_Memory[i] = tempString[j];
+				} else {
+					_Memory[i] = "00";
+				}
+				i++;
+				j++;
+				q++;
+			}
+		_StdIn.advanceLine();
+		_StdIn.putText("Process loaded with Process ID " + pcb.pid);
+
+		}
+
+		return pcb;
+ 	
 }
 
 //****
@@ -156,7 +155,7 @@ for (var i = 0; i < (_AllMemory+2)/8; i++) {
 	table.appendChild(tr);
 		  
 }
-	console.log(table);
+	//console.log(table);
 	
 	var parent = document.getElementById("memoryTable");
 	parent.innerHTML="";

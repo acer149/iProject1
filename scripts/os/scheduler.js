@@ -42,6 +42,9 @@ function performContextSwitch() {
 		}
 	
 	}
+	else if (_ReadyQueue.isEmpty()) {
+		_CPU.isExecuting = false;
+	}
 	
 	_CurrentProcessPCB = _ReadyQueue.dequeue();
 	
