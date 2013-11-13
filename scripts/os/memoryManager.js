@@ -91,7 +91,6 @@ function clearMemoryDisplay(pcb) {
 
 
 		while (base <= limit) {
-			//_Memory[base] = "00";
 			document.getElementById("bit" + base).innerHTML="00";
 			base++;
 		}

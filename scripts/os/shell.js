@@ -841,33 +841,22 @@ function shellKill(args) {
 		//If the current running process has been identified as the victim of the kill cmd, mark that process as ended and 
 		//perform a context switch (it will not be added back to the ready queue because it has been flagged as ended, see scheduler.js)
 		if (_CurrentProcessPCB.pid === pidOfProcessToKill) {
-			processToKill = _CurrentProcessPCB
+			processToKill = _CurrentProcessPCB;
 			processToKill.processState = "Ended";
 			
 			_StdIn.putText("Killed process with pid: " + pidOfProcessToKill);
 			_StdIn.advanceLine();
 			_StdIn.putText(">");
 			krnTrace("Killed the current running process with pid: " + pidOfProcessToKill);
+						
 			
-			
-			//Clear memory table partition
-			// var base = _CurrentProcessPCB.base;
-			// var limit = _CurrentProcessPCB.limit;
-			// while (base <= limit) {
-				// _Memory[base] = "00";
-				// base++;
-			// }
-			//clearMemoryDisplay(_CurrentProcessPCB);
-			
-			
-			performContextSwitch();
-			
+			performContextSwitch();	
 		}
 		//Checks ready queue for the victim, if found mark as ended and remove from ready queue
 		else {
 			for (var i = 0; i < _ReadyQueue.getSize(); i++) {
 				 if (_ReadyQueue.getQueuedItem(i).pid === pidOfProcessToKill) {
-				 	processToKill = _ReadyQueue.getQueuedItem(i)
+				 	processToKill = _ReadyQueue.getQueuedItem(i);
 				 	processToKill.processState = "Ended";
 				 	
 				 	_StdIn.putText("Killed process on the ready queue with pid: " + pidOfProcessToKill);
@@ -875,18 +864,7 @@ function shellKill(args) {
 				 	_StdIn.putText(">");
 				 	krnTrace("Killed the process on the ready queue with pid: " + pidOfProcessToKill);
 				 	
-				 	_ReadyQueue.splice(i, 1);
-				 	
-				 	
-					//Clear memory table partition
-					// var base = processToKill.base;
-					// var limit = processToKill.limit;
-					// while (base <= limit) {
-						// _Memory[base] = "00";
-						// base++;
-					// }
-					
-					//clearMemoryDisplay(processToKill); 	
+				 	_ReadyQueue.splice(i, 1);	
 				 	
 				 }
 			}

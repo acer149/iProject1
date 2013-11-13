@@ -154,7 +154,7 @@ function storeAccumulatorInMemory() { //8D
 	_CurrentProcess[decimalMemLocationForAccToBeStored] = _CPU.Acc;
 	
 	//console.log("Storing Location dec" + decimalMemLocationForAccToBeStored);
-	document.getElementById("bit" + decimalMemLocationForAccToBeStored).innerHTML=_CPU.Acc;
+	document.getElementById("bit" + (decimalMemLocationForAccToBeStored + _CurrentProcessPCB.base)).innerHTML=_CPU.Acc;
 	
 	
 	//console.log("Acc to be stored " + _CPU.Acc);
@@ -271,6 +271,7 @@ function osBreak() { //00
 		_CPU.isExecuting = false;
 		_LastPid = -1;
 		_CPU.PC = 0; //Reset the PC
+		clearMemoryDisplay(_CurrentProcessPCB);
 	}
 	else {
 		
@@ -347,7 +348,7 @@ function incrementByteValue() { //EE
 	
 	_CurrentProcess[memLocation] = valueAtMemLocation + 1; 
 	
-	document.getElementById("bit" + memLocation).innerHTML=valueAtMemLocation + 1;
+	document.getElementById("bit" + (memLocation + _CurrentProcessPCB.base)).innerHTML=valueAtMemLocation + 1;
 	
 	
 	_CPU.PC += 3;
