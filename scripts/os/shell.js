@@ -701,7 +701,7 @@ function shellLoad() {
 
 			//Stores the pcb in the _ResidentList. The location in the _ResidentList will the the pid of the program
 			_ResidentList[pid] = pcb;
-			console.log(_ResidentList); 
+			//console.log(_ResidentList); 
 
 
 			//Loads the user program into the memory display in index.html
@@ -794,7 +794,7 @@ function shellProcesses() {
 	for (var i =0; i < _ResidentList.length; i++) {
 		
 		//If displaying the last active pid, do not place a "," after it
-		if (i != _ResidentList.length - 1) {
+		if (i != (_ResidentList.length - 1)) {
 			_StdIn.putText(_ResidentList[i].pid.toString() + ", ");	
 		}
 		else{

@@ -44,28 +44,36 @@ function performContextSwitch() {
 	}
 	else if (_ReadyQueue.isEmpty()) {
 		_CPU.isExecuting = false;
+		LastPid = -1;
+		_CPU.PC = 0; //Reset the PC
+		_RoundRobinActive = false;
+		clearMemoryDisplay(_CurrentProcessPCB);
 	}
 	
+	if (_RoundRobinActive) {
 	_CurrentProcessPCB = _ReadyQueue.dequeue();
 	
 	
-			console.log("Loading process with pid: " + _CurrentProcessPCB.pid
-										+ " Program Counter: " + _CurrentProcessPCB.programCounter
-										+ " Accumulator: " + _CurrentProcessPCB.accumulator
-										+ " Xregister: " + _CurrentProcessPCB.xRegister
-										+ " Yregister: " + _CurrentProcessPCB.yRegister
-										+ " Zflag: " + _CurrentProcessPCB.zFlag + "\n");
+		console.log("Loading process with pid: " + _CurrentProcessPCB.pid
+										 + " Program Counter: " + _CurrentProcessPCB.programCounter
+										 + " Accumulator: " + _CurrentProcessPCB.accumulator
+										 + " Xregister: " + _CurrentProcessPCB.xRegister
+										 + " Yregister: " + _CurrentProcessPCB.yRegister
+										 + " Zflag: " + _CurrentProcessPCB.zFlag + "\n");
 	
 	
 	
-	//Update the _CPU with the current PCB values
-	_CPU.PC = _CurrentProcessPCB.programCounter;
-	_CPU.Acc = _CurrentProcessPCB.accumulator; 
-	_CPU.Xreg = _CurrentProcessPCB.xRegister;
-	_CPU.Yreg = _CurrentProcessPCB.yRegister;
-	_CPU.Zflag = _CurrentProcessPCB.zFlag;
-	
-	updateReadyQueueTable();
-	_CpuCycleCount = 1;
-	executeTheReadyQueue();
+
+		//Update the _CPU with the current PCB values
+		_CPU.PC = _CurrentProcessPCB.programCounter;
+		_CPU.Acc = _CurrentProcessPCB.accumulator;
+		_CPU.Xreg = _CurrentProcessPCB.xRegister;
+		_CPU.Yreg = _CurrentProcessPCB.yRegister;
+		_CPU.Zflag = _CurrentProcessPCB.zFlag;
+
+		updateReadyQueueTable();
+		_CpuCycleCount = 1;
+		executeTheReadyQueue(); 
+
+	}
 }
