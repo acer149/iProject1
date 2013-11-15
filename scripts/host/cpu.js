@@ -124,6 +124,7 @@ function loadAccumulatorWithAConstant() { //A9
 	_CPU.PC += 2;
 	//console.log(_CPU.PC);
 	
+	document.getElementById("pid").innerHTML=_CurrentProcessPCB.pid;
 	document.getElementById("accumulator").innerHTML=constantLoaded;
 	document.getElementById("programCounter").innerHTML=_CPU.PC;
 	document.getElementById("xRegister").innerHTML=_CPU.Xreg;
@@ -139,6 +140,7 @@ function loadAccumulatorFromMemory() { //AD
 	
 	_CPU.PC += 3;
 
+	document.getElementById("pid").innerHTML=_CurrentProcessPCB.pid;
 	document.getElementById("accumulator").innerHTML=_CPU.Acc;
 	document.getElementById("programCounter").innerHTML=_CPU.PC;
 	document.getElementById("xRegister").innerHTML=_CPU.Xreg;
@@ -160,7 +162,7 @@ function storeAccumulatorInMemory() { //8D
 	//console.log("Acc to be stored " + _CPU.Acc);
 	_CPU.PC += 3;
 	
-	
+	document.getElementById("pid").innerHTML=_CurrentProcessPCB.pid;
 	document.getElementById("accumulator").innerHTML=_CPU.Acc;
 	document.getElementById("programCounter").innerHTML=_CPU.PC;
 	document.getElementById("xRegister").innerHTML=_CPU.Xreg;
@@ -174,6 +176,7 @@ function addWithCarry() { //6D
 	_CPU.Acc = parseInt(_CPU.Acc, 16) + parseInt(_CurrentProcess[parseInt(_CurrentProcess[_CPU.PC + 1], 16)], 16); //Decimal	 //Check this******
 	_CPU.PC += 3;
 	
+	document.getElementById("pid").innerHTML=_CurrentProcessPCB.pid;
 	document.getElementById("accumulator").innerHTML=_CPU.Acc;
 	document.getElementById("programCounter").innerHTML=_CPU.PC;
 	document.getElementById("xRegister").innerHTML=_CPU.Xreg;
@@ -190,6 +193,7 @@ function loadXRegisterWithAConstant() { //A2
 
 	_CPU.PC += 2;
 
+	document.getElementById("pid").innerHTML=_CurrentProcessPCB.pid;
 	document.getElementById("accumulator").innerHTML=_CPU.Acc;
 	document.getElementById("programCounter").innerHTML=_CPU.PC;
 	document.getElementById("xRegister").innerHTML=_CPU.Xreg;
@@ -203,6 +207,7 @@ function loadXRegisterFromMmeory() { //AE
 
 	_CPU.PC += 3;
 	
+	document.getElementById("pid").innerHTML=_CurrentProcessPCB.pid;
 	document.getElementById("accumulator").innerHTML=_CPU.Acc;
 	document.getElementById("programCounter").innerHTML=_CPU.PC;
 	document.getElementById("xRegister").innerHTML=_CPU.Xreg;
@@ -221,6 +226,7 @@ function loadYRegisterWithAConstant() { //A0
 	
 	_CPU.PC += 2;
 
+	document.getElementById("pid").innerHTML=_CurrentProcessPCB.pid;
 	document.getElementById("accumulator").innerHTML=_CPU.Acc;
 	document.getElementById("programCounter").innerHTML=_CPU.PC;
 	document.getElementById("xRegister").innerHTML=_CPU.Xreg;
@@ -235,6 +241,7 @@ function loadYRegisterFromMemory() { //AC
 	//console.log("YReg " + _CPU.Yreg);
 	_CPU.PC += 3;
 	
+	document.getElementById("pid").innerHTML=_CurrentProcessPCB.pid;
 	document.getElementById("accumulator").innerHTML=_CPU.Acc;
 	document.getElementById("programCounter").innerHTML=_CPU.PC;
 	document.getElementById("xRegister").innerHTML=_CPU.Xreg;
@@ -246,6 +253,7 @@ function loadYRegisterFromMemory() { //AC
 function noOperation() { //EA
 	_CPU.PC += 1;
 	
+	document.getElementById("pid").innerHTML=_CurrentProcessPCB.pid;
 	document.getElementById("accumulator").innerHTML=_CPU.Acc;
 	document.getElementById("programCounter").innerHTML=_CPU.PC;
 	document.getElementById("xRegister").innerHTML=_CPU.Xreg;
@@ -262,6 +270,7 @@ function osBreak() { //00
 	
 	if (_RoundRobinActive) {
 		_CurrentProcessPCB.processState = "Ended";
+		document.getElementById("status").innerHTML=_CurrentProcessPCB.processState;
 	}
 	
 	console.log("Reached osBreak");
@@ -307,6 +316,7 @@ function compareXRegisterToMemoryByteAndSetZToZeroIfEqual() { //EC
 
 	_CPU.PC += 3;
 	
+	document.getElementById("pid").innerHTML=_CurrentProcessPCB.pid;
 	document.getElementById("accumulator").innerHTML=_CPU.Acc;
 	document.getElementById("programCounter").innerHTML=_CPU.PC;
 	document.getElementById("xRegister").innerHTML=_CPU.Xreg;
@@ -334,6 +344,7 @@ function branchXBytesIfZEqualsZero() { //D0
 		//console.log("PC After loop is finished =" + _CPU.PC);
 	}
 	
+	document.getElementById("pid").innerHTML=_CurrentProcessPCB.pid;
 	document.getElementById("accumulator").innerHTML=_CPU.Acc;
 	document.getElementById("programCounter").innerHTML=_CPU.PC;
 	document.getElementById("xRegister").innerHTML=_CPU.Xreg;
@@ -354,6 +365,7 @@ function incrementByteValue() { //EE
 	
 	_CPU.PC += 3;
 	
+	document.getElementById("pid").innerHTML=_CurrentProcessPCB.pid;
 	document.getElementById("accumulator").innerHTML=_CPU.Acc;
 	document.getElementById("programCounter").innerHTML=_CPU.PC;
 	document.getElementById("xRegister").innerHTML=_CPU.Xreg;
@@ -403,7 +415,7 @@ function systemCall() { //FF
 	
 	_CPU.PC += 1;
 
-
+	document.getElementById("pid").innerHTML=_CurrentProcessPCB.pid;
 	document.getElementById("accumulator").innerHTML=_CPU.Acc;
 	document.getElementById("programCounter").innerHTML=_CPU.PC;
 	document.getElementById("xRegister").innerHTML=_CPU.Xreg;

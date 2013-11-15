@@ -35,6 +35,7 @@ function performContextSwitch() {
 		
 		//If the process has ended "00" do not add its PCB back onto the ready queue
 		if(_CurrentProcessPCB.processState != "Ended") {
+			_CurrentProcessPCB.processState = "Ready";
 			_ReadyQueue.enqueue(_CurrentProcessPCB);	
 		}
 		else if (_CurrentProcessPCB.processState === "Ended") {
@@ -52,6 +53,10 @@ function performContextSwitch() {
 	
 	if (_RoundRobinActive) {
 	_CurrentProcessPCB = _ReadyQueue.dequeue();
+	
+	//Set current process state to 'running'
+	_CurrentProcessPCB.processState = "Running";
+	document.getElementById("status").innerHTML=_CurrentProcessPCB.processState;
 	
 	
 		console.log("Loading process with pid: " + _CurrentProcessPCB.pid

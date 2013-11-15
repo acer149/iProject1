@@ -149,16 +149,20 @@
     
     <!-- CPU Status Table --> 
     <div>
-    	<table id="cpuStatusTable" style="float: right; margin-right: 215px; margin-top: 10px; border: 3px solid black;">
-    		<th>CPU Status</th>
+    	<table id="cpuStatusTable" style="float: right; width: 700px; margin:10px 50px 0px 355px; border: 3px solid black;">
+    		<th style="width: 140px;">CPU Status</th>
     		<tr>
-    			<td class="statusHeadTD">PC</td>
+    			<td class="statusHeadTD">PID</td>
+    			<td class="statusHeadTD">Status</td>
+    			<td class="statusHeadTD">PC</td> 
     			<td class="statusHeadTD">Accumulator</td>
     			<td class="statusHeadTD">X Register</td>
     			<td class="statusHeadTD">Y Register</td>
     			<td class="statusHeadTD">Z Flag</td>
     		</tr>
     		<tr>
+    			<td class="statusTD" id="pid"></td>
+    			<td class="statusTD" id="status"></td>
     			<td class="statusTD" id="programCounter"></td>
     			<td class="statusTD" id="accumulator"></td>
     			<td class="statusTD" id="xRegister"></td>
@@ -172,29 +176,33 @@
 
     <!-- Ready Queue --> 
     <div>
-    	<table id="cpuStatusTable" style="float: right; width:548px; margin:10px 215px 0px 355px; border: 3px solid black;">
-    		<!--top right bottom left-->
+    	<table id="cpuStatusTable" style="float: right; width:700px; margin:10px 50px 0px 355px; border: 3px solid black;"> <!--top right bottom left-->
+    		
     		<th>Ready Queue</th>
     		<tr>
     			<td class="RQHeadTD">PID</td>
+    			<td class="RQHeadTD">Status</td>
     			<td class="RQHeadTD">PC</td>
     			<td class="RQHeadTD">Base</td>
     			<td class="RQHeadTD">Limit</td>
     		</tr>
     		<tr>
     			<td class="RQTD" id="RQpid1"></td>
+    			<td class="RQTD" id="RQstatus1"></td>
     			<td class="RQTD" id="RQpc1"></td>
     			<td class="RQTD" id="RQbase1"></td>
     			<td class="RQTD" id="RQlimit1"></td>
     		</tr>
     		<tr>
     			<td class="RQTD" id="RQpid2"></td>
+    			<td class="RQTD" id="RQstatus2"></td>
     			<td class="RQTD" id="RQpc2"></td>
     			<td class="RQTD" id="RQbase2"></td>
     			<td class="RQTD" id="RQlimit2"></td>
     		</tr>
     		<tr>
     			<td class="RQTD" id="RQpid3"></td>
+    			<td class="RQTD" id="RQstatus3"></td>
     			<td class="RQTD" id="RQpc3"></td>
     			<td class="RQTD" id="RQbase3"></td>
     			<td class="RQTD" id="RQlimit3"></td>

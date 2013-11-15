@@ -767,7 +767,7 @@ function shellRunAll() {
 			//Removes the process from the _ResidentList
 			delete _ResidentList[processIndex];
 			
-
+			aProcess.processState = "Ready";
 			_ReadyQueue.enqueue(aProcess);
 		}
 

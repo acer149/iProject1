@@ -49,12 +49,14 @@ function updateReadyQueueTable() {
 		
 		if (i === 0) {
 			document.getElementById("RQpid" + (i+1)).innerHTML=processToDisplay.pid;
+			document.getElementById("RQstatus" + (i+1)).innerHTML=processToDisplay.processState;
 			document.getElementById("RQpc" + (i+1)).innerHTML=processToDisplay.programCounter;
 			document.getElementById("RQbase" + (i+1)).innerHTML=processToDisplay.base;
 			document.getElementById("RQlimit" + (i+1)).innerHTML=processToDisplay.limit;	
 		}
 		else if (i === 1) {
 			document.getElementById("RQpid" + (i+1)).innerHTML=processToDisplay.pid;
+			document.getElementById("RQstatus" + (i+1)).innerHTML=processToDisplay.processState;
 			document.getElementById("RQpc" + (i+1)).innerHTML=processToDisplay.programCounter;
 			document.getElementById("RQbase" + (i+1)).innerHTML=processToDisplay.base;
 			document.getElementById("RQlimit" + (i+1)).innerHTML=processToDisplay.limit;			
@@ -68,12 +70,14 @@ function clearReadyQueueDisplay() {
 	for (var i = 0; i < 3; i++) {
 		if (i === 0) {
 			document.getElementById("RQpid" + (i+1)).innerHTML="";
+			document.getElementById("RQstatus" + (i+1)).innerHTML="";
 			document.getElementById("RQpc" + (i+1)).innerHTML="";
 			document.getElementById("RQbase" + (i+1)).innerHTML="";
 			document.getElementById("RQlimit" + (i+1)).innerHTML="";	
 		}
 		else if (i === 1) {
 			document.getElementById("RQpid" + (i+1)).innerHTML="";
+			document.getElementById("RQstatus" + (i+1)).innerHTML="";
 			document.getElementById("RQpc" + (i+1)).innerHTML="";
 			document.getElementById("RQbase" + (i+1)).innerHTML="";
 			document.getElementById("RQlimit" + (i+1)).innerHTML="";			
