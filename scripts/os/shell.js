@@ -797,21 +797,24 @@ function shellRunAll() {
 
 //Shows active pids on the console
 function shellProcesses() {
-	if (_ResidentList.length > 1) {
+	if (_ResidentList != ",," && _ResidentList.length != 0) {
 		
 		_StdIn.putText("Active pid's: ");
-	}
 	
-	for (var i =0; i < _ResidentList.length; i++) {
-		
-		//If displaying the last active pid, do not place a "," after it
-		if (i != (_ResidentList.length - 1)) {
-			_StdIn.putText(_ResidentList[i].pid.toString() + ", ");	
+
+		for (var i = 0; i < _ResidentList.length; i++) {
+
+			//If displaying the last active pid, do not place a "," after it
+			if (i != (_ResidentList.length - 1)) {
+				_StdIn.putText(_ResidentList[i].pid.toString() + ", ");
+			} else {
+				_StdIn.putText(_ResidentList[i].pid.toString());
+			}
+
 		}
-		else{
-			_StdIn.putText(_ResidentList[i].pid.toString());
-		}
-		
+	}
+	else {
+		_StdIn.putText("No active processes, try loading a program first.");
 	}	
 }
 
