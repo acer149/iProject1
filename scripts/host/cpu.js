@@ -296,7 +296,7 @@ function compareXRegisterToMemoryByteAndSetZToZeroIfEqual() { //EC
 	//console.log("XREG " + _CPU.Xreg);
 	
 	
-	if (_CPU.Xreg === parseInt(_CurrentProcess[decimalMemLocation], 16)) { //****Remove parseInt 16?
+	if (parseInt(_CPU.Xreg, 16) === parseInt(_CurrentProcess[decimalMemLocation], 16)) { //****Remove parseInt 16?
 
 		_CPU.Zflag = 1;
 	}
