@@ -702,7 +702,7 @@ function shellLoad() {
 			//Stores the pcb in the _ResidentList. The location in the _ResidentList will the the pid of the program
 			_ResidentList[pid] = pcb;
 			//console.log(_ResidentList); 
-
+			
 
 			//Loads the user program into the memory display in index.html
 			for (var i = 0; i < _AllMemory; i++) {
@@ -721,27 +721,32 @@ function shellRun(args) {
 	if (args.length > 0) {
 		var pidToBeRun = args[0];
 		
-		//Checks if the pid exists
-		if (parseInt(pidToBeRun) === parseInt(_ResidentList[pidToBeRun].pid)) {
-			
-			_CurrentProcessPCB = _ResidentList[pidToBeRun];
-			
-			//Sets the current process based on the base and limit of the process in memory
-			var base = parseInt(_CurrentProcessPCB.base);
-			var limit = parseInt(_CurrentProcessPCB.limit);
-			var i = 0;
-			
-			while (base <= limit) {
-				_CurrentProcess[i] = _Memory[base];
+		if (_ResidentList.length != 0) { 
+		
+			//Checks if the pid exists
+			if (parseInt(pidToBeRun) === parseInt(_ResidentList[pidToBeRun].pid)) {
 
-				i++;
-				base++;
-			}
-			
-				_CPU.isExecuting = true;	
+				_CurrentProcessPCB = _ResidentList[pidToBeRun];
+
+				//Sets the current process based on the base and limit of the process in memory
+				var base = parseInt(_CurrentProcessPCB.base);
+				var limit = parseInt(_CurrentProcessPCB.limit);
+				var i = 0;
+
+				while (base <= limit) {
+					_CurrentProcess[i] = _Memory[base];
+
+					i++;
+					base++;
+				}
+
+				_CPU.isExecuting = true;
+			} else {
+				_StdIn.putText("No process exists with the entered pid.");
+			}		
 		}
 		else {
-			_StdIn.putText("No process exists with the entered pid.");
+			_StdIn.putText("No processes in memory, load a process first.");
 		}
 	}
 	else {
@@ -750,28 +755,30 @@ function shellRun(args) {
 }
 
 function shellRunAll() {
-	
+	console.log("RESIDENTLIST " + _ResidentList.length);
 	var aProcess = null;
 	
-	for (processIndex in _ResidentList) {
-		
-		aProcess = _ResidentList[processIndex];
-		
-		//Removes the process from the _ResidentList
-		delete _ResidentList[processIndex];
-		
-		_ReadyQueue.enqueue(aProcess);
-	}
-	
-	
+	if (_ResidentList != ",," && _ResidentList.length != 0) {
+
+		for (processIndex in _ResidentList) {
+
+			aProcess = _ResidentList[processIndex];
+			
+			//Removes the process from the _ResidentList
+			delete _ResidentList[processIndex];
+			
+
+			_ReadyQueue.enqueue(aProcess);
+		}
+
 		console.log("Ready Queue b4 pop = " + _ReadyQueue);
-		//Gets a currentProcess from the ready queue (pcb) and sets the base and limit 
+		//Gets a currentProcess from the ready queue (pcb) and sets the base and limit
 		_CurrentProcessPCB = _ReadyQueue.dequeue();
 		console.log("Ready Queue after pop = " + _ReadyQueue);
 		var base = parseInt(_CurrentProcessPCB.base);
 		var limit = parseInt(_CurrentProcessPCB.limit);
 		var i = 0;
-			
+
 		//Puts the process to execute in a current process array
 		while (base <= limit) {
 			_CurrentProcess[i] = _Memory[base];
@@ -779,9 +786,13 @@ function shellRunAll() {
 			i++;
 			base++;
 		}
-		
+
 		_RoundRobinActive = true;
-		_CPU.isExecuting = true;		
+		_CPU.isExecuting = true; 
+	}
+	else {
+		_StdIn.putText("No processes in memory to run.");
+	}		
 }
 
 //Shows active pids on the console

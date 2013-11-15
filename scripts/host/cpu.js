@@ -38,7 +38,7 @@ function Cpu() {
         if (_RoundRobinActive) {
         	//if the ready queue is not empty perform a context switch
         	if (!(_ReadyQueue.isEmpty())) {
-        		if(_CpuCycleCount > RoundRobinQuantum) {
+        		if(_CpuCycleCount >= RoundRobinQuantum) {
         			
         			//console.log("Quantum Switch");
         			storePCBState();
@@ -271,6 +271,7 @@ function osBreak() { //00
 		_CPU.isExecuting = false;
 		_LastPid = -1;
 		_CPU.PC = 0; //Reset the PC
+		console.log("RESIDENTLIST " + _ResidentList);
 		clearMemoryDisplay(_CurrentProcessPCB);
 	}
 	else {
