@@ -715,7 +715,13 @@ function shellLoad() {
 				_StdIn.advanceLine();
 				_StdIn.putText("Memory cannot hold anymore processes.");
 				_StdIn.advanceLine();
-				_StdIn.putText("Writing process to disk.");
+				_StdIn.putText("Writing process to disk...");
+				
+				//Creates a pcb for the process
+				var pcb = new ProcessControlBlock(pid);
+
+				//Assigns a memory base and limit to each process
+				pcb = assignMemorySlot(pcb);
 				
 				//TODO: Call device driver to write process to disk
 				

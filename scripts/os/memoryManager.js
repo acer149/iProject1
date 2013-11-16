@@ -77,6 +77,11 @@ function assignMemorySlot(pcb) {
 		_StdIn.putText("Process loaded with Process ID " + pcb.pid);
 
 		}
+		//TODO:More for writing to disk???
+		else if (pcb.pid > 2) {
+		_StdIn.advanceLine();
+		_StdIn.putText("Process loaded to disk with Process ID " + pcb.pid);			
+		}
 
 		return pcb;
  	
