@@ -688,27 +688,39 @@ function shellLoad() {
 			_StdIn.putText("not be executed.");
 		}
 		else {
-
+			
 			var pid = _LastPid + 1;
 			//Increments for multiple processes
 			_LastPid = pid;
-
-			//Creates a pcb for the process
-			var pcb = new ProcessControlBlock(pid);
-
-			//Assigns a memory base and limit to each process
-			pcb = assignMemorySlot(pcb);
-
-			//Stores the pcb in the _ResidentList. The location in the _ResidentList will the the pid of the program
-			_ResidentList[pid] = pcb;
-			//console.log(_ResidentList); 
 			
+			//Checks if memory is full
+			if (pid <= 2) {
 
-			//Loads the user program into the memory display in index.html
-			for (var i = 0; i < _AllMemory; i++) {
-				document.getElementById("bit" + i).innerText = _Memory[i];
+				//Creates a pcb for the process
+				var pcb = new ProcessControlBlock(pid);
+
+				//Assigns a memory base and limit to each process
+				pcb = assignMemorySlot(pcb);
+
+				//Stores the pcb in the _ResidentList. The location in the _ResidentList will the the pid of the program
+				_ResidentList[pid] = pcb;
+				//console.log(_ResidentList);
+
+				//Loads the user program into the memory display in index.html
+				for (var i = 0; i < _AllMemory; i++) {
+					document.getElementById("bit" + i).innerText = _Memory[i];
+				}
 			}
-
+			else {
+				_StdIn.advanceLine();
+				_StdIn.putText("Memory cannot hold anymore processes.");
+				_StdIn.advanceLine();
+				_StdIn.putText("Writing process to disk.");
+				
+				//TODO: Call device driver to write process to disk
+				
+				
+			}
 		}
 				
 	}
