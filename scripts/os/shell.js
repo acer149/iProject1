@@ -717,6 +717,9 @@ function shellLoad() {
 				_StdIn.advanceLine();
 				_StdIn.putText("Writing process to disk...");
 				
+				//Log Event
+				krnTrace("Writing process to disk with PID " + pid);
+				
 				//Creates a pcb for the process
 				var pcb = new ProcessControlBlock(pid);
 
