@@ -56,7 +56,7 @@ function performContextSwitch() {
 	
 	//Set current process state to 'running'
 	_CurrentProcessPCB.processState = "Running";
-	document.getElementById("status").innerHTML=_CurrentProcessPCB.processState;
+	document.getElementById("state").innerHTML=_CurrentProcessPCB.processState;
 	
 	
 		console.log("Loading process with pid: " + _CurrentProcessPCB.pid

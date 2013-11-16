@@ -270,7 +270,7 @@ function osBreak() { //00
 	
 	if (_RoundRobinActive) {
 		_CurrentProcessPCB.processState = "Ended";
-		document.getElementById("status").innerHTML=_CurrentProcessPCB.processState;
+		document.getElementById("state").innerHTML=_CurrentProcessPCB.processState;
 	}
 	
 	console.log("Reached osBreak");
@@ -350,7 +350,6 @@ function branchXBytesIfZEqualsZero() { //D0
 	document.getElementById("xRegister").innerHTML=_CPU.Xreg;
 	document.getElementById("yRegister").innerHTML=_CPU.Yreg;
 	document.getElementById("zFlag").innerHTML=_CPU.Zflag;
-
 }
 
 function incrementByteValue() { //EE
