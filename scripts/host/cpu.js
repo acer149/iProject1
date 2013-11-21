@@ -41,7 +41,7 @@ function Cpu() {
         		if(_CpuCycleCount >= RoundRobinQuantum) {
         			
         			//console.log("Quantum Switch");
-        			storePCBState();
+        			//storePCBState();
         			
         			_KernelInterruptQueue.enqueue( new Interrupt(CONTEXT_SWITCH_IRQ) );
         			//performContextSwitch(); //Scheduler.js

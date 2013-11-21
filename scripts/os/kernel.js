@@ -137,6 +137,7 @@ function krnInterruptHandler(irq, params)    // This is the Interrupt Handler Ro
             _StdIn.handleInput();
             break;
         case CONTEXT_SWITCH_IRQ:
+        	storePCBState();
         	performContextSwitch(); //Scheduler.js
         	break;
         default: 
