@@ -136,6 +136,9 @@ function krnInterruptHandler(irq, params)    // This is the Interrupt Handler Ro
             krnKeyboardDriver.isr(params);   // Kernel mode device driver
             _StdIn.handleInput();
             break;
+        case CONTEXT_SWITCH_IRQ:
+        	performContextSwitch(); //Scheduler.js
+        	break;
         default: 
             krnTrapError("Invalid Interrupt Request. irq=" + irq + " params=[" + params + "]");
     }

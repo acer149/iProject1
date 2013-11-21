@@ -42,8 +42,9 @@ function Cpu() {
         			
         			//console.log("Quantum Switch");
         			storePCBState();
-        		
-        			performContextSwitch(); //Scheduler.js
+        			
+        			_KernelInterruptQueue.enqueue( new Interrupt(CONTEXT_SWITCH_IRQ) );
+        			//performContextSwitch(); //Scheduler.js
         		}
         	}
         }
