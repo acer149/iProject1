@@ -112,6 +112,7 @@ var y = 0;
 
 th = document.createElement("th");
 th.setAttribute('class', 'memTableHead');
+th.setAttribute('colspan', '9');
 text = document.createTextNode("Memory Table");
 th.appendChild(text);
 
