@@ -60,6 +60,11 @@ var RoundRobinQuantum = 6;
 var _RoundRobinActive = false;
 var _CpuCycleCount = 1;
 
+//First Come First Serve
+var _FCFS = false;
+
+//Non-Premptive Priority
+var _Priority = false;
 
 // Default the OS trace to be on.
 var _Trace = true;

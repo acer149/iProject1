@@ -158,7 +158,19 @@ function shellInit() {
     sc.function = shellKill;
     this.commandList[this.commandList.length] = sc;
    
-    // kill <id> - kills the specified process id.
+   //setSchedule
+   sc=new ShellCommand();
+   sc.command = "setschedule";
+   sc.description = "<string> - Sets the scheduling algorithm.";
+   sc.function = shellSchedule;
+   this.commandList[this.commandList.length] = sc;
+   
+   //getschedule
+   sc=new ShellCommand();
+   sc.command = "getschedule";
+   sc.description = - "Displays the currently set scheduling alogoritm.";
+   sc.function = shellGetSchedule;
+   this.commandList[this.commandList.length] = sc;
 
     //
     // Display the initial prompt.
@@ -842,11 +854,17 @@ function shellProcesses() {
 //Set the Round Robin quantum
 function shellQuantum(args) {
 	if (args.length > 0) {
-		var newQuantum = parseInt(args[0]);
 		
-		RoundRobinQuantum = newQuantum;
-		_StdIn.putText("Round Robin quantum now set to: " + newQuantum);
-		
+		//Doesn't allow quantum change if schedule is set to FCFS
+		if (!_FCFS) {
+			var newQuantum = parseInt(args[0]);
+			
+			RoundRobinQuantum = newQuantum;
+			_StdIn.putText("Round Robin quantum now set to: " + newQuantum);
+		}
+		else {
+			_StdIn.putText("Current scheduling FCFS, cannot set quantum.");
+		}
 	}
 	else {
 		_StdIn.putText("Usage: quantum <int>  Please supply an int.");
@@ -902,6 +920,39 @@ function shellKill(args) {
 		_StdIn.putText("Usage: kill <pid>  Please supply a pid.");
 	}
 	
+}//End kill
+
+//Set the scheduling algorithm
+function shellSchedule(args) {
+	var schedule = args[0];
+	
+	if (schedule === "fcfs" || schedule === "FCFS") {
+		RoundRobinQuantum = 2000000;
+		_FCFS = true;
+		_StdIn.putText("Schedule set to FCFS.");
+		krnTrace("Set the scheduling algorithm to FCFS");
+	}
+	else if (schedule === "rr" || schedule === "RR") {
+		RoundRobinQuantum = 6;
+		_FCFS = false;
+		_Priority = false;
+		_StdIn.putText("Schedule set to Round Robin.");	
+		krnTrace("Set the scheduling algorithm to Round Robin");
+	}
+	
+}
+
+//Display the current scheduling algorithm
+function shellGetSchedule() {
+	if (_FCFS) {
+		_StdIn.putText("Current schedule is FCFS.");
+	}
+	else if (_Priority) {
+		_StdIn.putText("Current schedule is Non-Preemptive Priority.");
+	}
+	else {
+		_StdIn.putText("Current schedule is Round Robin.");
+	}
 }
 
 //Allows for continuous update of statusbar clock
