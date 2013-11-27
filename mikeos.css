@@ -1,7 +1,7 @@
 /* mikeos.css */
 
 body {
-   background:#909193 url(images/linen.png) repeat;
+   background-color:white;/*#909193 url(images/linen.png) repeat;*/
    font-family: Helvetica, Verdana, Arial, sans-serif;
 	font-size: 12pt;
 	font-weight: normal;
@@ -68,7 +68,7 @@ h3 {
 	font-size: 12px;
 	width: 50px;
 	border: 2px solid;
-	border-color:#989898;
+	border-color:#B0B0B0;
 }
 
 .memTD {
@@ -82,7 +82,7 @@ h3 {
 	font-size: 12px;
 	width: 100px;
 	border: 2px solid;
-	border-color:#989898;
+	border-color:#B0B0B0;/*#989898;*/
 	text-align: center;
 }
 
@@ -98,7 +98,7 @@ h3 {
 	font-size: 12px;
 	width: 100px;
 	border: 2px solid;
-	border-color:#989898;
+	border-color:#B0B0B0;/*#989898;*/
 	text-align: center;
 }
 
