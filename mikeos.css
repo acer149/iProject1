@@ -37,7 +37,7 @@ h3 {
 }
 
 #display {
-	background-color:#DFDBC3;
+	background-color:white;/*#DFDBC3;*/
 	border: 2px solid black; 
 	cursor: default;
 }
