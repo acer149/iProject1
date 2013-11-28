@@ -47,6 +47,9 @@ function hostInit()
    
    //In memoryManager.js
    createMemoryDisplay();
+   
+   //In utils.js
+   createFileSystemDisplay();
 
 }
 

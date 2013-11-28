@@ -59,7 +59,7 @@ h3 {
 	width: 325px; 
 	border: 3px solid black; 
 	margin-top:-550px; 
-	margin-left:1000px; 
+	margin-left:913px; 
 	overflow-x: hidden; 
 	overflow-y: scroll";
 }
@@ -74,6 +74,30 @@ h3 {
 .memTD {
 	font-size: 12px;
 	width: 25px;
+	border: 2px solid black;
+	text-align: center;
+}
+
+#fileSystemTable {
+	height: 290px; 
+	width: 325px; 
+	border: 3px solid black; 
+	margin-top:-297px; 
+	margin-left:1275px; 
+	overflow-x: hidden; 
+	overflow-y: scroll";
+}
+
+.fsTDHead {
+	font-size: 12px;
+	width: 50px;
+	border: 2px solid;
+	border-color:#B0B0B0;
+}
+
+.fsTD {
+	font-size: 12px;
+	width: 260px;
 	border: 2px solid black;
 	text-align: center;
 }

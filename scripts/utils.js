@@ -84,3 +84,60 @@ function clearReadyQueueDisplay() {
 		}	
 	}
 }
+
+
+//Creates the file system display on the screen
+function createFileSystemDisplay() {
+
+var table = document.createElement("table"), th, tr, td, text;
+
+th = document.createElement("th");
+th.setAttribute('colspan', '9');
+text = document.createTextNode("File System");
+th.appendChild(text);
+
+table.appendChild(th);
+
+for (var i = 0; i < (_AllMemory+2)/8; i++) {
+
+	tr = document.createElement('tr');
+	for (var x = 0; x < 1; x++) {
+		
+		//First td will be a "header" for the row
+		if (x === 0) {
+			td = document.createElement('td');
+			td.setAttribute('class', 'fsTDHead');
+	
+				for(var track = 0; track <= 3; track++) {
+					for(var sector = 0; sector <= 7; sector++) {
+						for(var block = 0; block <= 7; block++) {
+				
+							text = document.createTextNode("["+ track +"," + sector + "," + block + "]");
+				
+						}			
+					}
+				}
+
+			td.appendChild(text);
+			tr.appendChild(td);
+		}
+	
+		td = document.createElement('td');
+		td.setAttribute('id','tsb' + text);
+		td.setAttribute('class', 'fsTD');
+		text = document.createTextNode("00");
+		
+		td.appendChild(text);
+		tr.appendChild(td);
+		
+	}
+	
+	table.appendChild(tr);
+		  
+}
+	//console.log(table);
+	
+	var parent = document.getElementById("fileSystemTable");
+	parent.innerHTML="";
+	parent.appendChild(table);
+}
