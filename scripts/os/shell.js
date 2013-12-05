@@ -168,7 +168,7 @@ function shellInit() {
    //getschedule
    sc=new ShellCommand();
    sc.command = "getschedule";
-   sc.description = - "Displays the currently set scheduling alogoritm.";
+   sc.description = " - Displays the currently set scheduling alogoritm.";
    sc.function = shellGetSchedule;
    this.commandList[this.commandList.length] = sc;
 
