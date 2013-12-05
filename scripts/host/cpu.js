@@ -38,7 +38,7 @@ function Cpu() {
         if (_RoundRobinActive) {
         	//if the ready queue is not empty perform a context switch
         	if (!(_ReadyQueue.isEmpty())) {
-        		if(_CpuCycleCount >= RoundRobinQuantum) {
+        		if(_CpuCycleCount > RoundRobinQuantum) {
         			
         			//console.log("Quantum Switch");
         			//storePCBState();
