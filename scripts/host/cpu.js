@@ -296,8 +296,6 @@ function osBreak() { //00
 			executeTheReadyQueue();
 		}
 	}
-	
-	
 }
 
 function compareXRegisterToMemoryByteAndSetZToZeroIfEqual() { //EC
