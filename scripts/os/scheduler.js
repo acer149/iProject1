@@ -67,15 +67,13 @@ function performContextSwitch() {
 										 + " Zflag: " + _CurrentProcessPCB.zFlag + "\n");
 	
 	
-	
-
 		//Update the _CPU with the current PCB values
 		_CPU.PC = _CurrentProcessPCB.programCounter;
 		_CPU.Acc = _CurrentProcessPCB.accumulator;
 		_CPU.Xreg = _CurrentProcessPCB.xRegister;
 		_CPU.Yreg = _CurrentProcessPCB.yRegister;
-		_CPU.Zflag = _CurrentProcessPCB.zFlag;
-
+		_CPU.Zflag = _CurrentProcessPCB.zFlag;	
+		
 		updateReadyQueueTable();
 		_CpuCycleCount = 1;
 		executeTheReadyQueue(); 

@@ -448,13 +448,12 @@ function storePCBState() {
 		}
 	
 		//**
-	
-	_CurrentProcessPCB.programCounter = _CPU.PC;
-	_CurrentProcessPCB.accumulator = _CPU.Acc; 
-	_CurrentProcessPCB.xRegister = _CPU.Xreg;
-	_CurrentProcessPCB.yRegister = _CPU.Yreg;
-	_CurrentProcessPCB.zFlag = _CPU.Zflag;
-	
+		_CurrentProcessPCB.programCounter = _CPU.PC;
+		_CurrentProcessPCB.accumulator = _CPU.Acc; 
+		_CurrentProcessPCB.xRegister = _CPU.Xreg;
+		_CurrentProcessPCB.yRegister = _CPU.Yreg;
+		_CurrentProcessPCB.zFlag = _CPU.Zflag;	
+			
 	//performContextSwitch();
 	
 }

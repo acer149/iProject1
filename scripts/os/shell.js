@@ -171,6 +171,15 @@ function shellInit() {
    sc.description = " - Displays the currently set scheduling alogoritm.";
    sc.function = shellGetSchedule;
    this.commandList[this.commandList.length] = sc;
+   
+   //File System Utilities
+   
+   //WriteToFileSystem
+   sc = new ShellCommand();
+   sc.command = "write";
+   sc.description = " - <filename><data> - Writes data to a file.";
+   sc.function = shellWriteToFileSystem;
+   this.commandList[this.commandList.length] = sc;
 
     //
     // Display the initial prompt.
@@ -760,7 +769,7 @@ function shellRun(args) {
 			if (parseInt(pidToBeRun) === parseInt(_ResidentList[pidToBeRun].pid)) {
 
 				_CurrentProcessPCB = _ResidentList[pidToBeRun];
-
+									
 				//Sets the current process based on the base and limit of the process in memory
 				var base = parseInt(_CurrentProcessPCB.base);
 				var limit = parseInt(_CurrentProcessPCB.limit);
@@ -900,6 +909,7 @@ function shellKill(args) {
 				 if (_ReadyQueue.getQueuedItem(i).pid === pidOfProcessToKill) {
 				 	processToKill = _ReadyQueue.getQueuedItem(i);
 				 	processToKill.processState = "Ended";
+				 	updateReadyQueueTable();
 				 	
 				 	_StdIn.putText("Killed process on the ready queue with pid: " + pidOfProcessToKill);
 				 	_StdIn.advanceLine();
@@ -953,6 +963,12 @@ function shellGetSchedule() {
 	else {
 		_StdIn.putText("Current schedule is Round Robin.");
 	}
+}
+
+//WriteToFileSystem
+function shellWriteToFileSystem(args) {
+	
+	writeToFile(); //deviceDriverFileSystem.js
 }
 
 //Allows for continuous update of statusbar clock
@@ -1058,4 +1074,7 @@ setInterval(function taskBarDate(args){
 	document.getElementById("divStatusBar").innerHTML=theDateAndTime;
 	    
 }, 500);
+
+
+
 

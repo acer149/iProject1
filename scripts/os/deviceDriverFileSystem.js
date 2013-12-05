@@ -52,3 +52,7 @@ function createFS() {
 	var mbr = ["1", "M", "B", "R", fileData];
 	localStorage["0,0,0"] = mbr;
 }
+
+function writeToFile(filename, data) {
+	console.log("Key " + localStorage[0]);
+}
