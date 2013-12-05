@@ -113,7 +113,6 @@ for (var i = 0; i < (_AllMemory+2)/8; i++) {
 						for(var block = 0; block <= 7; block++) {
 				
 							text = document.createTextNode("["+ track +"," + sector + "," + block + "]");
-				
 						}			
 					}
 				}
@@ -121,7 +120,7 @@ for (var i = 0; i < (_AllMemory+2)/8; i++) {
 			td.appendChild(text);
 			tr.appendChild(td);
 		}
-	
+						
 		td = document.createElement('td');
 		td.setAttribute('id','tsb' + text);
 		td.setAttribute('class', 'fsTD');
