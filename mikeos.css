@@ -84,8 +84,9 @@ h3 {
 	border: 3px solid black; 
 	margin-top:-297px; 
 	margin-left:1275px; 
-	overflow-x: hidden; 
+	overflow-x: scroll; 
 	overflow-y: scroll";
+	text-align:left;
 }
 
 .fsTDHead {
@@ -96,7 +97,7 @@ h3 {
 }
 
 .fsTD {
-	font-size: 12px;
+	font-size: 10px;
 	width: 260px;
 	border: 2px solid black;
 	text-align: center;

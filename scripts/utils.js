@@ -124,7 +124,7 @@ for (var i = 0; i < (_AllMemory+2)/8; i++) {
 		td = document.createElement('td');
 		td.setAttribute('id','tsb' + text);
 		td.setAttribute('class', 'fsTD');
-		text = document.createTextNode("00");
+		text = document.createTextNode("0,~,~,~,\"~,~,~,~,~,~,~,~,~,~,~,~,~,~,~,~,~,~,~,~,~,~,~,~,~,~,~,~,~,~,~,~,~,~,~,~,~,~,~,~,~,~,~,~,~,~,~,~,~,~,~,~,~,~,~,~,~,~,~,~\"");
 		
 		td.appendChild(text);
 		tr.appendChild(td);
