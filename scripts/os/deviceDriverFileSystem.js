@@ -55,7 +55,8 @@ function createFS() {
 
 function createFile(filename) {
 	var dirKey = findOpenDirSlot();
-	var value = ["1", "h", "h","h", filename];
+	var fileKey = findOpenFileSlot();
+	var value = ["1", fileKey, filename];
 	
 	localStorage[dirKey] = value;
 }
@@ -69,16 +70,40 @@ function writeToFile(filename, data) {
 
 function findOpenDirSlot() {
 	for (key in localStorage) {
-		if (key >= 0 && key <= 77) {
+		console.log("DirKey return " + key);
+		
+		var keyStripedOfCommas = key.replace(/,/g,"");
+		//console.log("DirKey return " + keyStripedOfCommas);
+		var keyInt = parseInt(keyStripedOfCommas);
+		
+		if (keyInt >= 0 && keyInt <= 77) {
 			var value = localStorage[key];
-			console.log("DirKey return " + key);
+			console.log("DirKeyInt return " + keyInt);
 			if (value[0] === "0") {
-				console.log("DirKey return " + key);
+
 				return key;
 			}			
-		}
-		else {
-			return null;
 		}	
 	}
+	return null;
+}
+
+function findOpenFileSlot() {
+	for (key in localStorage) {
+		console.log("FileKey return " + key);
+		
+		var keyStripedOfCommas = key.replace(/,/g,"");
+		//console.log("FileKey return " + keyStripedOfCommas);
+		var keyInt = parseInt(keyStripedOfCommas);
+		
+		if (keyInt >= 100 && keyInt <= 377) {
+			var value = localStorage[key];
+			console.log("FileKeyInt return " + keyInt);
+			if (value[0] === "0") {
+
+				return key;
+			}			
+		}	
+	}
+	return null;	
 }
