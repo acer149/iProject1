@@ -174,6 +174,13 @@ function shellInit() {
    
    //File System Utilities
    
+   //CreateFile
+   sc = new ShellCommand();
+   sc.command = "create";
+   sc.description = " - <filename> Creates a file on disk.";
+   sc.function = shellCreateFile;
+   this.commandList[this.commandList.length] = sc;
+   
    //WriteToFileSystem
    sc = new ShellCommand();
    sc.command = "write";
@@ -963,6 +970,11 @@ function shellGetSchedule() {
 	else {
 		_StdIn.putText("Current schedule is Round Robin.");
 	}
+}
+
+//Create File
+function shellCreateFile(args) {
+	createFile(args[0]); //deviceDriverFileSystem.js
 }
 
 //WriteToFileSystem

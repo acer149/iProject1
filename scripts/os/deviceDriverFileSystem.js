@@ -42,7 +42,7 @@ function createFS() {
 				
 				key = [track, sector, block];
 				value = ["0", "~", "~", "~", fileData];
-				
+				//console.log("Key From createFS " + key);
 				localStorage[key] = value;
 				
 			}
@@ -53,6 +53,32 @@ function createFS() {
 	localStorage["0,0,0"] = mbr;
 }
 
+function createFile(filename) {
+	var dirKey = findOpenDirSlot();
+	var value = ["1", "h", "h","h", filename];
+	
+	localStorage[dirKey] = value;
+}
+
 function writeToFile(filename, data) {
-	console.log("Key " + localStorage[0]);
+	for (key in localStorage) {
+		//console.log("Key from write " + key);	
+	}
+	
+}
+
+function findOpenDirSlot() {
+	for (key in localStorage) {
+		if (key >= 0 && key <= 77) {
+			var value = localStorage[key];
+			console.log("DirKey return " + key);
+			if (value[0] === "0") {
+				console.log("DirKey return " + key);
+				return key;
+			}			
+		}
+		else {
+			return null;
+		}	
+	}
 }
