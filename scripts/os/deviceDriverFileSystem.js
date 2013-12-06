@@ -56,9 +56,22 @@ function createFS() {
 function createFile(filename) {
 	var dirKey = findOpenDirSlot();
 	var fileKey = findOpenFileSlot();
-	var value = ["1", fileKey, filename];
 	
+	var fileData = [];
+	
+	//Fills the data area with '~' initially
+	for(var fileDataSize = 1; fileDataSize < 59; fileDataSize++) {
+		fileData[0]= "\"~";
+		fileData[fileDataSize] = "~";
+		fileData[59]= "~\"";		
+	}
+	
+	//Marks slot as used "1" places the file key as meta data. Followed by the file name and initial blank filedata
+	var value = ["1", fileKey, filename, fileData];
 	localStorage[dirKey] = value;
+	
+	//marks the file area as in use
+	localStorage[fileKey] = ["1", "~", "~", "~",fileData]; 
 }
 
 function writeToFile(filename, data) {

@@ -975,6 +975,7 @@ function shellGetSchedule() {
 //Create File
 function shellCreateFile(args) {
 	createFile(args[0]); //deviceDriverFileSystem.js
+	_StdIn.putText("Created the file: " + args[0]);
 }
 
 //WriteToFileSystem
