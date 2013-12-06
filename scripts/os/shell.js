@@ -174,6 +174,13 @@ function shellInit() {
    
    //File System Utilities
    
+   //Format
+   sc = new ShellCommand();
+   sc.command = "format";
+   sc.description = " - Reformat the disk.";
+   sc.function = shellFormat;
+   this.commandList[this.commandList.length] = sc;
+   
    //CreateFile
    sc = new ShellCommand();
    sc.command = "create";
@@ -184,7 +191,7 @@ function shellInit() {
    //WriteToFileSystem
    sc = new ShellCommand();
    sc.command = "write";
-   sc.description = " - <filename><data> - Writes data to a file.";
+   sc.description = " - <filename><data> Writes data to a file.";
    sc.function = shellWriteToFileSystem;
    this.commandList[this.commandList.length] = sc;
 
@@ -972,6 +979,12 @@ function shellGetSchedule() {
 	}
 }
 
+//Format Disk
+function shellFormat() {
+	createFS();
+	_StdIn.putText("Reformatted the disk.");
+}
+
 //Create File
 function shellCreateFile(args) {
 	createFile(args[0]); //deviceDriverFileSystem.js
@@ -981,7 +994,7 @@ function shellCreateFile(args) {
 //WriteToFileSystem
 function shellWriteToFileSystem(args) {
 	
-	writeToFile(); //deviceDriverFileSystem.js
+	writeToFile(args[0]); //deviceDriverFileSystem.js
 }
 
 //Allows for continuous update of statusbar clock

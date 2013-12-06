@@ -75,9 +75,7 @@ function createFile(filename) {
 }
 
 function writeToFile(filename, data) {
-	for (key in localStorage) {
-		//console.log("Key from write " + key);	
-	}
+	var x = findFilledDirSlotWithFilename(filename);
 	
 }
 
@@ -120,3 +118,24 @@ function findOpenFileSlot() {
 	}
 	return null;	
 }
+
+function findFilledDirSlotWithFilename(filename) {
+	for (key in localStorage) {
+		console.log("DirKey return " + key);
+		
+		var keyStripedOfCommas = key.replace(/,/g,"");
+		//console.log("DirKey return " + keyStripedOfCommas);
+		var keyInt = parseInt(keyStripedOfCommas);
+		
+		if (keyInt >= 0 && keyInt <= 77) {
+			var value = localStorage[key];
+			console.log("DirKeyInt return " + keyInt);
+			if (value[0] === "1") {
+				
+				return key;
+			}			
+		}	
+	}
+	return null;	
+}
+
