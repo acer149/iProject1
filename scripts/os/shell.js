@@ -139,7 +139,7 @@ function shellInit() {
 	
 	//processes
 	sc = new ShellCommand();
-	sc.command = "processes";
+	sc.command = "ps";
 	sc.description = " - Displays all active pids.";
 	sc.function = shellProcesses;
 	this.commandList[this.commandList.length] = sc;
