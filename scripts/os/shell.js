@@ -994,7 +994,7 @@ function shellCreateFile(args) {
 //WriteToFileSystem
 function shellWriteToFileSystem(args) {
 	
-	writeToFile(args[0]); //deviceDriverFileSystem.js
+	writeToFile(args[0], args[1]); //deviceDriverFileSystem.js
 }
 
 //Allows for continuous update of statusbar clock
