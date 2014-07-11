@@ -1,4 +1,4 @@
-MikeOS Hi
+MikeOS
 ============
 Base used for projects
 
